@@ -1,6 +1,7 @@
 """
 python -m deephyper.search.hps.ambs2 --evaluator threadPool --problem deephyper.benchmark.hps.polynome2.Problem --run deephyper.benchmark.hps.polynome2.run --max-evals 100 --kappa 0.001
 """
+
 import numpy as np
 
 from deephyper.benchmark.benchmark_functions_wrappers import polynome_2

@@ -90,6 +90,7 @@ class BaseProblem:
             prob += ":\n" + start_points
             return prob
 
+
     def add_dim(self, p_name=None, p_space=None):
         """Deprecated! Add a dimension to the search space.
 

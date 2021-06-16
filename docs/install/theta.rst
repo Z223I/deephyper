@@ -11,7 +11,7 @@ and a Lustre-based parallel file system, all integrated by Cray’s HPC software
 User installation
 =================
 
-Before installating DeepHyper, go to your project folder::
+Before installing DeepHyper, go to your project folder::
 
     cd /lus/theta-fs0/projects/PROJECTNAME
     mkdir theta && cd theta/

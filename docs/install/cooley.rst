@@ -7,7 +7,7 @@ Cooley (ALCF)
 User installation
 =================
 
-Before installating DeepHyper, go to your project folder::
+Before installing DeepHyper, go to your project folder::
 
     cd /lus/theta-fs0/projects/PROJECTNAME
     mkdir cooley && cd cooley/
