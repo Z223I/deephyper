@@ -130,7 +130,7 @@ def run(param_dict=None, verbose=2):
         raise
 
     challenge = 'tasks_1-20_v1-2/en-10k/qa2_two-supporting-facts_{}.txt'
-    
+
     with tarfile.open(path) as tar:
         train = get_stories(tar.extractfile(challenge.format('train')))
         test = get_stories(tar.extractfile(challenge.format('test')))
@@ -201,7 +201,7 @@ def run(param_dict=None, verbose=2):
     model = Model([sentence, question], preds)
     model.compile(optimizer=OPTIMIZER,
                 loss='categorical_crossentropy',
-                metrics=['accuracy'])  
+                metrics=['accuracy'])
 
     timer.end()
 
@@ -214,7 +214,7 @@ def run(param_dict=None, verbose=2):
             validation_split=0.05)
     acc = model.evaluate([tx, txq], ty,
                             batch_size=BATCH_SIZE)
-    
+
     timer.end()
     return -acc[1]
 

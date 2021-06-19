@@ -2,11 +2,17 @@ from tensorflow import keras
 print()
 print(f'Keras Version: {keras.__version__}')
 
+from deephyper.benchmarks_hps import util
+timer = util.Timer()
+timer.start("module loading")
+
 import sys
 import os
 
+from keras import backend as K
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization
+from keras.callbacks import EarlyStopping
 from tensorflow.keras.utils import to_categorical
 
 from datetime import datetime
@@ -14,12 +20,22 @@ import time
 
 import numpy as np
 
+from pprint import pprint
+import tarfile
+import math
+
+from deephyper.benchmarks_hps.cliparser import build_base_parser
+
+timer.end()
+
 def getClassCount():
+    """Return the number of classes."""
     return 2
 
 from keras.activations import softmax
 
 def softMaxAxis1(x):
+    """Return softmax for axis 1."""
     return softmax(x, axis=1)
 
 
@@ -61,7 +77,7 @@ timer.end()
 
 
 def createModel(input_shape, samples, batchSamples, classCount, runNumber):
-    """Function creating the DeepPlot model's graph.
+    """Create the Deep Learning model's graph.
 
     Arguments:
     input_shape -- shape of the input, usually (max_len,)
@@ -106,37 +122,31 @@ def createModel(input_shape, samples, batchSamples, classCount, runNumber):
     X = Dropout(0.05)(X)
     X = Dense(units = 90, activation='relu')(X)
 
-    if runNumber >= 0:
-       X = Dropout(0.05)(X)
+    #X = Dropout(0.05)(X)
 
     X = Dense(units = 90, activation='relu')(X)
 
-    if runNumber >= 0:
-       X = Dropout(0.05)(X)
+    #X = Dropout(0.05)(X)
 
     #X = Dense(units = 48, activation='relu')(X)
     #X = Dropout(0.05)(X)
     X = Dense(units = 48, activation='relu')(X)
 
-    if runNumber >= 1:
-       X = Dropout(0.05)(X)
+    #X = Dropout(0.05)(X)
 
     X = Dense(units = 24, activation='relu')(X)
 
-    if runNumber >= 1:
-       X = Dropout(0.05)(X)
+    #X = Dropout(0.05)(X)
 
     #X = Dense(units = 24, activation='relu')(X)
     #X = Dropout(0.05)(X)
     X = Dense(units = 12, activation='relu')(X)
 
-    if runNumber >= 2:
-       X = Dropout(0.10)(X)
+    #X = Dropout(0.10)(X)
 
     X = Dense(units = 12, activation='relu')(X)
 
-    if runNumber >= 2:
-       X = Dropout(0.10)(X)
+    #X = Dropout(0.10)(X)
 
     X = Dense(units = 12, activation='relu')(X)
     #X = Dropout(0.05)(X)
@@ -153,14 +163,50 @@ def createModel(input_shape, samples, batchSamples, classCount, runNumber):
     X = Dense(units = 5, activation='relu')(X)
     X = Dense(units = classCount, activation='softmax')(X)
 
-    # Create Model
+    # Create Model instance which converts sentence_indices into X.
     model = Model(inputs=inputLayer, outputs=X)
 
     return model
 
+def recall_m(y_true, y_pred):
+    # sourcery skip: inline-immediately-returned-variable
+    """Calculate recall."""
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())
+    return recall
+
+def precision_m(y_true, y_pred):
+    # sourcery skip: inline-immediately-returned-variable
+    """Calculate precision."""
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
+
+def f1_m(y_true, y_pred):
+    # sourcery skip: inline-immediately-returned-variable
+    """Calculate F1."""
+    precision = precision_m(y_true, y_pred)
+    recall = recall_m(y_true, y_pred)
+    f1 = 2*((precision*recall)/(precision+recall+K.epsilon()))
+    return f1
 
 
 
+
+
+
+def get_data(f, only_supporting=False, max_length=None):
+    '''Given a file name, read the file, retrieve the stories,
+    and then convert the sentences into a single story.
+    If max_length is supplied,
+    any stories longer than max_length tokens will be discarded.
+    '''
+    data = parse_stories(f.readlines(), only_supporting=only_supporting)
+    flatten = lambda data: reduce(lambda x, y: x + y, data)
+    data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+    return data
 
 
 def run(param_dict=None, verbose=2):
@@ -179,32 +225,12 @@ def run(param_dict=None, verbose=2):
         data_source = os.path.dirname(os.path.abspath(__file__))
         data_source = os.path.join(data_source, 'data')
 
-    try:
-        path = get_file('babi-tasks-v1-2.tar.gz', origin='https://s3.amazonaws.com/text-datasets/babi_tasks_1-20_v1-2.tar.gz')
-    except:
-        print('Error downloading dataset, please download it manually:\n'
-            '$ wget http://www.thespermwhale.com/jaseweston/babi/tasks_1-20_v1-2.tar.gz\n'
-            '$ mv tasks_1-20_v1-2.tar.gz ~/.keras/datasets/babi-tasks-v1-2.tar.gz')
-        raise
+    path = os.path.join(data_source, "data.tar.gz")
 
-    challenge = 'tasks_1-20_v1-2/en-10k/qa2_two-supporting-facts_{}.txt'
-
+    timer.start("data loading")
     with tarfile.open(path) as tar:
-        train = get_stories(tar.extractfile(challenge.format('train')))
-        test = get_stories(tar.extractfile(challenge.format('test')))
-
-    vocab = set()
-    for story, q, answer in train + test:
-        vocab |= set(story + q + [answer])
-    vocab = sorted(vocab)
-
-    vocab_size = len(vocab) + 1
-    word_idx = dict((c, i + 1) for i, c in enumerate(vocab))
-    story_maxlen = max(map(len, (x for x, _, _ in train + test)))
-    query_maxlen = max(map(len, (x for _, x, _ in train + test)))
-
-    x, xq, y = vectorize_stories(train, word_idx, story_maxlen, query_maxlen)
-    tx, txq, ty = vectorize_stories(test, word_idx, story_maxlen, query_maxlen)
+        train = get_data(tar.extractfile('train.txt'))
+        test  = get_data(tar.extractfile('test.txt'))
 
     # print('vocab = {}'.format(vocab))
     # print('x.shape = {}'.format(x.shape))
@@ -223,9 +249,11 @@ def run(param_dict=None, verbose=2):
     #constants
     EMBED_HIDDEN_SIZE = 50
     patience = math.ceil(EPOCHS/2)
-    callbacks = [
-    EarlyStopping(monitor="val_acc", min_delta=0.0001, patience=patience, verbose=verbose, mode="auto"),
-    TerminateOnNaN()]
+
+    # patient early stopping
+    es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience = 12)
+
+    callbacks = [ es, ]
 
     timer.start('preprocessing')
 
@@ -241,37 +269,31 @@ def run(param_dict=None, verbose=2):
     #     model = savedModel.model
     #     initial_epoch = savedModel.initial_epoch
 
-    # if model is None:
-    sentence = layers.Input(shape=(story_maxlen,), dtype='int32')
-    encoded_sentence = layers.Embedding(vocab_size,  EMBED_HIDDEN_SIZE)(sentence)
-    encoded_sentence = layers.Dropout(DROPOUT)(encoded_sentence)
-    question = layers.Input(shape=(query_maxlen,), dtype='int32')
-    encoded_question = layers.Embedding(vocab_size,  EMBED_HIDDEN_SIZE)(question)
-    encoded_question = layers.Dropout(DROPOUT)(encoded_question)
-    encoded_question = RNN( EMBED_HIDDEN_SIZE)(encoded_question)
-    encoded_question = layers.RepeatVector(story_maxlen)(encoded_question)
+    samples = 65
+    batchSamples = 32
 
-    merged = layers.add([encoded_sentence, encoded_question])
-    merged = RNN( EMBED_HIDDEN_SIZE)(merged)
-    merged = layers.Dropout(DROPOUT)(merged)
-    preds = layers.Dense(vocab_size, activation=ACTIVATION)(merged)
+    numInputs = samples * batchSamples
+    classCount = getClassCount()
 
-    model = Model([sentence, question], preds)
-    model.compile(optimizer=OPTIMIZER,
-                loss='categorical_crossentropy',
-                metrics=['accuracy'])
+    model = createModel((numInputs,), samples, batchSamples, classCount)
+    model.compile(optimizer='AdamW', loss='binary_crossentropy', metrics=['acc', f1_m, precision_m, recall_m])
 
     timer.end()
 
     timer.start('model training')
 
-    model.fit([x, xq], y,
-            batch_size=BATCH_SIZE,
-            epochs=EPOCHS,
-            callbacks=callbacks,
-            validation_split=0.05)
-    acc = model.evaluate([tx, txq], ty,
-                            batch_size=BATCH_SIZE)
+    model.fit(Xtrain, Ytrain,
+        batch_size = BATCH_SIZE,
+        epochs=EPOCHS,
+        shuffle=True,
+        validation_data=(Xdev, Ydev),
+        callbacks=callbacks,
+        )
+
+    # evaluate the model
+    # TODO:  Why is loss used here.
+    #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
+    acc = model.evaluate(Xtest, Ytest, verbose=0)
 
     timer.end()
     return -acc[1]
