@@ -216,12 +216,21 @@ def run(param_dict=None, verbose=2):
     with tarfile.open(path) as tar:
         Xtrain  = get_data(tar.extractfile('Xtrain.txt'))
         yTrain  = get_data(tar.extractfile('yTrain.txt'))
+        yTrain  = to_categorical(yTrain)
+        print(f'Xtrain shape: {Xtrain.shape}')
+        print(f'yTrain shape: {yTrain.shape}')
 
         Xval    = get_data(tar.extractfile('Xdev.txt'))
         yVal    = get_data(tar.extractfile('yDev.txt'))
+        yVal    = to_categorical(yVal)
+        print(f'Xval shape: {Xval.shape}')
+        print(f'yVal shape: {yVal.shape}')
 
         Xtest   = get_data(tar.extractfile('Xtest.txt'))
         yTest   = get_data(tar.extractfile('yTest.txt'))
+        yTest   = to_categorical(yTest)
+        print(f'Xtest shape: {Xtest.shape}')
+        print(f'yTest shape: {yTest.shape}')
 
     # print('vocab = {}'.format(vocab))
     # print('x.shape = {}'.format(x.shape))
