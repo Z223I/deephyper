@@ -1,3 +1,4 @@
+"""Perform basic testing with the HyperParameter package."""
 from tensorflow import keras
 print()
 print(f'Keras Version: {keras.__version__}')
@@ -76,7 +77,8 @@ timer.end()
 """
 
 
-def createModel(input_shape, samples, batchSamples, classCount, runNumber):
+def createModel(input_shape, samples, batchSamples, classCount):
+    # sourcery skip: inline-immediately-returned-variable
     """Create the Deep Learning model's graph.
 
     Arguments:
@@ -91,30 +93,24 @@ def createModel(input_shape, samples, batchSamples, classCount, runNumber):
     X = inputLayer
     X = BatchNormalization(trainable=True)(X)
 
-    # Propagate X through Dense layers
-
-    if 20 <= batchSamples and False:
-        X = Dense(units = samples * 20, activation='relu')(X)
-        X = Dropout(0.20)(X)
-
-    if 16 <= batchSamples:
+    if batchSamples >= 16:
         X = Dense(units = samples * 16, activation='relu')(X)
         X = Dropout(0.20)(X)
 
-    if 12 <= batchSamples:
+    if batchSamples >= 12:
         X = Dense(units = samples * 12, activation='relu')(X)  # 12
         X = Dropout(0.10)(X)
         #X = Dense(units = samples * 11, activation='relu')(X)  # 11
         #X = Dropout(0.10)(X)
 
-    if 10 <= batchSamples:
+    if batchSamples >= 10:
         X = Dense(units = samples * 10, activation='relu')(X)  # 10
         X = Dropout(0.05)(X)
         #X = Dense(units = samples * 9, activation='relu')(X)  # 9
         #X = Dense(units = samples * 8, activation='relu')(X)  # 8
         X = Dense(units = samples * 7, activation='relu')(X)  # 7
 
-    if 5 <= batchSamples:
+    if batchSamples >= 5:
         X = Dense(units = samples * 5, activation='relu')(X)  # 5
         X = Dropout(0.05)(X)
 
@@ -162,8 +158,6 @@ def createModel(input_shape, samples, batchSamples, classCount, runNumber):
     #X = Dropout(0.05)(X)
     X = Dense(units = 5, activation='relu')(X)
     X = Dense(units = classCount, activation='softmax')(X)
-
-    # Create Model instance which converts sentence_indices into X.
     model = Model(inputs=inputLayer, outputs=X)
 
     return model
@@ -193,19 +187,10 @@ def f1_m(y_true, y_pred):
     return f1
 
 
-
-
-
-
-def get_data(f, only_supporting=False, max_length=None):
-    '''Given a file name, read the file, retrieve the stories,
-    and then convert the sentences into a single story.
-    If max_length is supplied,
-    any stories longer than max_length tokens will be discarded.
-    '''
-    data = parse_stories(f.readlines(), only_supporting=only_supporting)
-    flatten = lambda data: reduce(lambda x, y: x + y, data)
-    data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+def get_data(f):
+    # sourcery skip: inline-immediately-returned-variable
+    """Given a file-like object, read the file."""
+    data = np.load(f)
     return data
 
 
@@ -229,8 +214,14 @@ def run(param_dict=None, verbose=2):
 
     timer.start("data loading")
     with tarfile.open(path) as tar:
-        train = get_data(tar.extractfile('train.txt'))
-        test  = get_data(tar.extractfile('test.txt'))
+        Xtrain  = get_data(tar.extractfile('Xtrain.txt'))
+        yTrain  = get_data(tar.extractfile('yTrain.txt'))
+
+        Xval    = get_data(tar.extractfile('Xdev.txt'))
+        yVal    = get_data(tar.extractfile('yDev.txt'))
+
+        Xtest   = get_data(tar.extractfile('Xtest.txt'))
+        yTest   = get_data(tar.extractfile('yTest.txt'))
 
     # print('vocab = {}'.format(vocab))
     # print('x.shape = {}'.format(x.shape))
@@ -282,18 +273,28 @@ def run(param_dict=None, verbose=2):
 
     timer.start('model training')
 
-    model.fit(Xtrain, Ytrain,
+    model.fit(Xtrain, yTrain,
         batch_size = BATCH_SIZE,
         epochs=EPOCHS,
         shuffle=True,
-        validation_data=(Xdev, Ydev),
+        validation_data=(Xval, yVal),
         callbacks=callbacks,
         )
+
+    """
+    # Try this sometime.
+    model.fit(Xtrain, yTrain,
+        batch_size=BATCH_SIZE,
+        epochs=EPOCHS,
+        shuffle=True,
+        callbacks=callbacks,
+        validation_split=0.05)
+    """
 
     # evaluate the model
     # TODO:  Why is loss used here.
     #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
-    acc = model.evaluate(Xtest, Ytest, verbose=0)
+    acc = model.evaluate(Xtest, yTest, verbose=0)
 
     timer.end()
     return -acc[1]
