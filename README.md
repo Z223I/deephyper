@@ -53,7 +53,7 @@ Usage (with Balsam)
 Run once
 ----------
 ```
-    source activate dl-hps   # balsam is installed here too (commands like “balsam ls” must work)
+    conda activate dl-hps   # balsam is installed here too (commands like “balsam ls” must work)
 
     cd directory_containing_dl-hps
     mv dl-hps dl_hps         # important: change to underscore (import system relies on this)
