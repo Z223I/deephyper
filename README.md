@@ -80,6 +80,12 @@ An example command line for HPS:
 deephyper hps ambs --evaluator ray --problem deephyper.benchmark.hps.polynome2.Problem --run deephyper.benchmark.hps.polynome2.run --n-jobs 1
 ```
 
+### Note
+
+```bash
+The above command will require a long time to execute completely. If you want to generate a smaller dataset, append `–max-evals 100’ to the end of the command to expedite the process.
+```
+
 ## Neural Architecture Search (NAS)
 
 An example command line for NAS:

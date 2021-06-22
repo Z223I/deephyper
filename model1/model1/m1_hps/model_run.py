@@ -1,31 +1,29 @@
 """Perform basic testing with the HyperParameter package."""
+
+"""
+Example from deephyper.benchmark.hps.polynome2
+python -m deephyper.search.hps.ambs2 --evaluator threadPool --problem deephyper.benchmark.hps.polynome2.Problem --run deephyper.benchmark.hps.polynome2.run --max-evals 100 --kappa 0.001
+
+I have seen:
+    --evaluator threadPool
+    and
+    --evaluator ray
+"""
+
 from tensorflow import keras
 print()
 print(f'Keras Version: {keras.__version__}')
 
-from deephyper.benchmarks_hps import util
-timer = util.Timer()
+from deephyper.search.util import Timer
+timer = Timer()
 timer.start("module loading")
-
-import sys
-import os
 
 from keras import backend as K
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization
 from keras.callbacks import EarlyStopping
-from tensorflow.keras.utils import to_categorical
 
-from datetime import datetime
-import time
-
-import numpy as np
-
-from pprint import pprint
-import tarfile
-import math
-
-from deephyper.benchmarks_hps.cliparser import build_base_parser
+#from pprint import pprint
 
 timer.end()
 
