@@ -252,7 +252,7 @@ if __name__ == '__main__':
     config = {
         'units': 10,
         'activation': 'relu',  # can be gelu
-        'optimizer':  'AdamW',  # can be Adam
+        'optimizer':  'Adam',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
         'batch_size': 4096,
         'epochs':     200,
