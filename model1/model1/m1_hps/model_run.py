@@ -269,6 +269,6 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
-    plt.ylabel('Objective: $R^2$')
+    plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
