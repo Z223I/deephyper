@@ -3,8 +3,8 @@ from deephyper.problem import HpProblem
 Problem = HpProblem()
 
 Problem.add_hyperparameter('(10) , units')
-#Problem.add_hyperparameter(['relu', 'sigmoid', 'tanh'], 'activation')
-Problem.add_hyperparameter(['relu'], 'activation')
+Problem.add_hyperparameter(['relu', 'sigmoid', 'tanh'], 'activation')
+#Problem.add_hyperparameter(['relu'], 'activation')
 Problem.add_hyperparameter(['Adam'], 'optimizer')
 Problem.add_hyperparameter(['binary_crossentropy'], 'loss')
 Problem.add_hyperparameter((4096) , 'batch_size')

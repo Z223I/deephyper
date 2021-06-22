@@ -15,7 +15,8 @@ python model_run.py
 An example command line for HPS:
 
 ```bash
-deephyper hps ambs --evaluator ray --problem deephyper.model1.model1.m1_hps.Problem --run deephyper.model1.model1.m1_hps.run --n-jobs 1
+#deephyper hps ambs --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 1
+deephyper hps ambs --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 1
 ```
 
 ### Note
