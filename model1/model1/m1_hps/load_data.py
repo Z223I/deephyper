@@ -4,11 +4,6 @@ import numpy as np
 from tensorflow.keras.utils import to_categorical
 import tarfile
 
-def get_data(f):
-    # sourcery skip: inline-immediately-returned-variable
-    """Given a file-like object, read the file."""
-    data = np.load(f)
-    return data
 
 def load_data(config):
     """
@@ -28,26 +23,41 @@ def load_data(config):
 
     path = os.path.join(data_source, "data.tar.gz")
 
+
+
+    """
+Xtrain = np.loadtxt(f"{baseDirectory}aws/XTrain.at", delimiter=",")
+Ytrain = np.loadtxt(f"{baseDirectory}aws/YTrain.at", delimiter=",", dtype=np.int32)
+Ytrain = to_categorical(Ytrain)
+
+print(f'Xtrain shape: {Xtrain.shape}')
+print(f'Ytrain shape: {Ytrain.shape}')
+
+countClasses = Ytrain.shape[1]
+print(f'Classes: {countClasses}')
+print()
+print('tensorboard --logdir logs/scalars')
+print('http://localhost:6006/')
+
+Xdev = np.loadtxt(f"{baseDirectory}aws/XDev.at", delimiter=",")
+Ydev = np.loadtxt(f"{baseDirectory}aws/YDev.at", delimiter=",")
+Ydev = to_categorical(Ydev)
+    """
+
     with tarfile.open(path) as tar:
-        x  = get_data(tar.extractfile('Xtrain.txt'))
-        y  = get_data(tar.extractfile('yTrain.txt'))
+        x  = np.loadtxt(tar.extractfile('dh_data/Xtrain.txt'), delimiter=",")
+        y  = np.loadtxt(tar.extractfile('dh_data/yTrain.txt'), delimiter=",", dtype=np.int32)
         y  = to_categorical(y)
         print(f'x shape: {x.shape}')
         print(f'y shape: {y.shape}')
 
-        assert x.shape == y.shape
+        assert x.shape[0] == y.shape[0]
 
-        Xval    = get_data(tar.extractfile('Xdev.txt'))
-        yVal    = get_data(tar.extractfile('yDev.txt'))
+        Xval    = np.loadtxt(tar.extractfile('dh_data/Xdev.txt'), delimiter=",")
+        yVal    = np.loadtxt(tar.extractfile('dh_data/yDev.txt'), delimiter=",", dtype=np.int32)
         yVal    = to_categorical(yVal)
         print(f'Xval shape: {Xval.shape}')
         print(f'yVal shape: {yVal.shape}')
-
-        Xtest   = get_data(tar.extractfile('Xtest.txt'))
-        yTest   = get_data(tar.extractfile('yTest.txt'))
-        yTest   = to_categorical(yTest)
-        print(f'Xtest shape: {Xtest.shape}')
-        print(f'yTest shape: {yTest.shape}')
 
     # print('vocab = {}'.format(vocab))
     # print('x.shape = {}'.format(x.shape))
@@ -72,4 +82,10 @@ def load_data(config):
     return (train_X, train_y), (valid_X, valid_y)
 
 if __name__ == '__main__':
-    load_data()
+    config = {
+        'proportion': .80           # A value between [0., 1.] indicating how to split data between
+                                    # training set and validation set. `prop` corresponds to the
+                                    # ratio of data in training set. `1.-prop` corresponds to the
+                                    # amount of data in validation set.
+    }
+    load_data(config)
