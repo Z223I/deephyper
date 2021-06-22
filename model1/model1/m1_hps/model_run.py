@@ -1,6 +1,15 @@
 """Perform basic testing with the HyperParameter package."""
 
 """
+Usage
+deephyper hps ambs --evaluator ray --problem deephyper.benchmark.hps.polynome2.Problem --run deephyper.m1_hps.run --n-jobs 1
+
+python -m deephyper.search.hps.ambs --evaluator threadPool --problem deephyper.model1.model1.m1_hps.Problem --run deephyper.model1.model1.m1_hps.run --max-evals 100 --kappa 0.001
+
+python -m model_run.py 
+"""
+
+"""
 Example from deephyper.benchmark.hps.polynome2
 python -m deephyper.search.hps.ambs2 --evaluator threadPool --problem deephyper.benchmark.hps.polynome2.Problem --run deephyper.benchmark.hps.polynome2.run --max-evals 100 --kappa 0.001
 
