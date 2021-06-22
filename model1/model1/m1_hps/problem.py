@@ -2,17 +2,17 @@ from deephyper.problem import HpProblem
 
 Problem = HpProblem()
 
-Problem.add_hyperparameter((10, 10), 'units')
+Problem.add_hyperparameter((10, 11), 'units')
 #Problem.add_hyperparameter(['relu', 'sigmoid', 'tanh'], 'activation')
 Problem.add_hyperparameter(['relu'], 'activation')
 Problem.add_hyperparameter(['Adam'], 'optimizer')
 Problem.add_hyperparameter(['binary_crossentropy'], 'loss')
-Problem.add_hyperparameter((4096, 4096) , 'batch_size')
-Problem.add_hyperparameter((200, 200) , 'epochs')
-Problem.add_hyperparameter((0.05, 0.05) , 'dropout')
-Problem.add_hyperparameter((12, 12), 'patience')
-Problem.add_hyperparameter((21, 21), 'embed_hidden_size')
-Problem.add_hyperparameter((0.80, 0.80), 'proportion')
+Problem.add_hyperparameter((4096, 4097) , 'batch_size')
+Problem.add_hyperparameter((200, 201) , 'epochs')
+Problem.add_hyperparameter((0.05, 0.055) , 'dropout')
+Problem.add_hyperparameter((12, 13), 'patience')
+Problem.add_hyperparameter((21, 22), 'embed_hidden_size')
+Problem.add_hyperparameter((0.80, 0.90), 'proportion')
 
 """
 Problem.add_starting_point(
