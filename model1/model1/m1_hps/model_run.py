@@ -264,8 +264,8 @@ if __name__ == '__main__':
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.
     }
-    objective = run(config)
-    print('objective: ', objective)
+    accuracy = run(config)
+    print('accuracy: ', accuracy)
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
