@@ -6,7 +6,7 @@ deephyper hps ambs --evaluator ray --problem deephyper.benchmark.hps.polynome2.P
 
 python -m deephyper.search.hps.ambs --evaluator threadPool --problem deephyper.model1.model1.m1_hps.Problem --run deephyper.model1.model1.m1_hps.run --max-evals 100 --kappa 0.001
 
-python -m model_run.py 
+python -m model_run.py
 """
 
 """
@@ -34,7 +34,7 @@ from keras.callbacks import EarlyStopping
 
 #from pprint import pprint
 
-timer.end()
+timer.end("module loading")
 
 def getClassCount():
     """Return the number of classes."""
@@ -172,7 +172,7 @@ def run(config):
 
     timer.start('loading data')
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
-    timer.end()
+    timer.end('loading data')
 
 
 
@@ -217,7 +217,7 @@ def run(config):
     model = createModel((numInputs,), samples, batchSamples, classCount)
     model.compile(optimizer='AdamW', loss='binary_crossentropy', metrics=['acc', f1_m, precision_m, recall_m])
 
-    timer.end()
+    timer.end('preprocessing')
 
     timer.start('model training')
 
@@ -244,7 +244,7 @@ def run(config):
     #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
     #acc = model.evaluate(Xtest, yTest, verbose=0)
 
-    timer.end()
+    timer.end('model training')
 
     HISTORY = history.history
 
