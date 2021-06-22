@@ -167,38 +167,13 @@ def run(config):
     global HISTORY
 
 
-
-
-    """
-Xtrain = np.loadtxt(f"{baseDirectory}aws/XTrain.at", delimiter=",")
-Ytrain = np.loadtxt(f"{baseDirectory}aws/YTrain.at", delimiter=",", dtype=np.int32)
-Ytrain = to_categorical(Ytrain)
-
-print(f'Xtrain shape: {Xtrain.shape}')
-print(f'Ytrain shape: {Ytrain.shape}')
-
-countClasses = Ytrain.shape[1]
-print(f'Classes: {countClasses}')
-print()
-print('tensorboard --logdir logs/scalars')
-print('http://localhost:6006/')
-
-Xdev = np.loadtxt(f"{baseDirectory}aws/XDev.at", delimiter=",")
-Ydev = np.loadtxt(f"{baseDirectory}aws/YDev.at", delimiter=",")
-Ydev = to_categorical(Ydev)
-    """
-
-
-
     timer.start('loading data')
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
     timer.end('loading data')
 
-
-
-
-
-
+    #
+    # Retrieve config information.
+    #
     BATCH_SIZE = config['batch_size']
     ACTIVATION = config['activation']
     EPOCHS = config['epochs']
