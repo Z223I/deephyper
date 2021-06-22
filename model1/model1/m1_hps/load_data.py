@@ -23,11 +23,8 @@ def load_data(config):
     Returns:
         tuple(tuple(ndarray, ndarray), tuple(ndarray, ndarray)): of Numpy arrays: `(train_X, train_y), (valid_X, valid_y)`.
     """
-    if config['data_source']:
-        data_source = config['data_source']
-    else:
-        data_source = os.path.dirname(os.path.abspath(__file__))
-        data_source = os.path.join(data_source, 'data')
+    data_source = os.path.dirname(os.path.abspath(__file__))
+    data_source = os.path.join(data_source, 'data')
 
     path = os.path.join(data_source, "data.tar.gz")
 
