@@ -204,7 +204,7 @@ def run(config):
     #     initial_epoch = savedModel.initial_epoch
 
     samples = 65
-    batchSamples = 32
+    batchSamples = 26
 
     numInputs = samples * batchSamples
     classCount = getClassCount()
