@@ -11,17 +11,18 @@ def get_data(f):
     return data
 
 def load_data(config):
-    """Generate a random distribution of data for polynome_2 function: -SUM(X**2) where "**" is an element wise operator in the continuous range [a, b].
+    """
+    Generate a random distribution of data for polynome_2 function.
+
+    Generate a random distribution of data for polynome_2 function: -SUM(X**2) where
+    "**" is an element wise operator in the continuous range [a, b].
 
     Args:
         config (dict): Configuration dictionary.
-        prop (float): a value between [0., 1.] indicating how to split data between training set and validation set. `prop` corresponds to the ratio of data in training set. `1.-prop` corresponds to the amount of data in validation set.
-        size (int): amount of data to generate. It is equal to `len(training_data)+len(validation_data).
 
     Returns:
         tuple(tuple(ndarray, ndarray), tuple(ndarray, ndarray)): of Numpy arrays: `(train_X, train_y), (valid_X, valid_y)`.
     """
-
     if config['data_source']:
         data_source = config['data_source']
     else:
