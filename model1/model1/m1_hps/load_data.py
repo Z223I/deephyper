@@ -65,7 +65,7 @@ Ydev = to_categorical(Ydev)
     # print('y.shape = {}'.format(y.shape))
     # print('story_maxlen, query_maxlen = {}, {}'.format(story_maxlen, query_maxlen))
 
-    PROPORTION = config['proportion']
+    PROPORTION = 0.80
     size = x.shape[0]
 
     sep_index = int(PROPORTION * size)
