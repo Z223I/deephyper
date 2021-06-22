@@ -48,16 +48,16 @@ Ydev = to_categorical(Ydev)
         x  = np.loadtxt(tar.extractfile('dh_data/Xtrain.txt'), delimiter=",")
         y  = np.loadtxt(tar.extractfile('dh_data/yTrain.txt'), delimiter=",", dtype=np.int32)
         y  = to_categorical(y)
-        print(f'x shape: {x.shape}')
-        print(f'y shape: {y.shape}')
+        #print(f'x shape: {x.shape}')
+        #print(f'y shape: {y.shape}')
 
         assert x.shape[0] == y.shape[0]
 
-        Xval    = np.loadtxt(tar.extractfile('dh_data/Xdev.txt'), delimiter=",")
-        yVal    = np.loadtxt(tar.extractfile('dh_data/yDev.txt'), delimiter=",", dtype=np.int32)
-        yVal    = to_categorical(yVal)
-        print(f'Xval shape: {Xval.shape}')
-        print(f'yVal shape: {yVal.shape}')
+        #Xval    = np.loadtxt(tar.extractfile('dh_data/Xdev.txt'), delimiter=",")
+        #yVal    = np.loadtxt(tar.extractfile('dh_data/yDev.txt'), delimiter=",", dtype=np.int32)
+        #yVal    = to_categorical(yVal)
+        #print(f'Xval shape: {Xval.shape}')
+        #print(f'yVal shape: {yVal.shape}')
 
     # print('vocab = {}'.format(vocab))
     # print('x.shape = {}'.format(x.shape))
