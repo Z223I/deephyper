@@ -11,7 +11,7 @@ Problem.add_hyperparameter((4096, 4097) , 'batch_size')
 Problem.add_hyperparameter((200, 201) , 'epochs')
 Problem.add_hyperparameter((0.05, 0.055) , 'dropout')
 Problem.add_hyperparameter([12], 'patience')
-#Problem.add_hyperparameter((21, 22), 'embed_hidden_size')
+#Problem.add_hyperparameter([21], 'embed_hidden_size')
 Problem.add_hyperparameter([0.80], 'proportion')
 
 """
