@@ -31,7 +31,6 @@ skopt.optimizer.optimizer.ExhaustedSearchSpace: The search space is exhausted an
 """
 
 Problem.add_hyperparameter([10, 20], 'units')
-"""
 #Problem.add_hyperparameter(['relu', 'sigmoid', 'tanh'], 'activation')
 #Problem.add_hyperparameter(['relu'], 'activation')
 #Problem.add_hyperparameter(['Adam'], 'optimizer')
@@ -44,13 +43,15 @@ Problem.add_hyperparameter([12], 'patience')
 #Problem.add_hyperparameter([21], 'embed_hidden_size')
 #Problem.add_hyperparameter([0.80, 0.85, 0.90, 0.95], 'proportion')
 """
-
 """
+
 Problem.add_starting_point(
     units=10,
-    activation='identity',
-    lr=0.01)
-"""
+    loss='binary_crossentropy',
+    batch_size=512,
+    epochs=200,
+    patience=12,
+    )
 
 if __name__ == '__main__':
     print(Problem)
