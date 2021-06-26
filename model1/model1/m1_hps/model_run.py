@@ -27,6 +27,128 @@ from deephyper.search.util import Timer
 timer = Timer()
 timer.start("module loading")
 
+"""
+      Successfully uninstalled Keras-2.4.3
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+tensorflow 2.5.0 requires h5py~=3.1.0, but you have h5py 3.3.0 which is incompatible.
+tensorflow 2.5.0 requires numpy~=1.19.2, but you have numpy 1.21.0 which is incompatible.
+
+
+
+(dhvenv) wilsonb@sm-01:~/deephyper/model1/model1/m1_hps$ pip install --force-reinstall Keras
+Collecting Keras
+  Using cached Keras-2.4.3-py2.py3-none-any.whl (36 kB)
+Collecting pyyaml
+  Using cached PyYAML-5.4.1-cp37-cp37m-manylinux1_x86_64.whl (636 kB)
+Collecting scipy>=0.14
+  Using cached scipy-1.7.0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl (28.5 MB)
+Collecting h5py
+  Using cached h5py-3.3.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (4.1 MB)
+Collecting numpy>=1.9.1
+  Using cached numpy-1.21.0-cp37-cp37m-manylinux_2_12_x86_64.manylinux2010_x86_64.whl (15.7 MB)
+Collecting cached-property
+  Using cached cached_property-1.5.2-py2.py3-none-any.whl (7.6 kB)
+Installing collected packages: numpy, cached-property, scipy, pyyaml, h5py, Keras
+  Attempting uninstall: cached-property
+    Found existing installation: cached-property 1.5.2
+    Uninstalling cached-property-1.5.2:
+      Successfully uninstalled cached-property-1.5.2
+  Attempting uninstall: scipy
+    Found existing installation: scipy 1.7.0
+    Uninstalling scipy-1.7.0:
+      Successfully uninstalled scipy-1.7.0
+  Attempting uninstall: pyyaml
+    Found existing installation: PyYAML 5.4.1
+    Uninstalling PyYAML-5.4.1:
+      Successfully uninstalled PyYAML-5.4.1
+  Attempting uninstall: Keras
+    Found existing installation: Keras 2.4.3
+    Uninstalling Keras-2.4.3:
+      Successfully uninstalled Keras-2.4.3
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+tensorflow 2.5.0 requires h5py~=3.1.0, but you have h5py 3.3.0 which is incompatible.
+tensorflow 2.5.0 requires numpy~=1.19.2, but you have numpy 1.21.0 which is incompatible.
+Successfully installed Keras-2.4.3 cached-property-1.5.2 h5py-3.3.0 numpy-1.21.0 pyyaml-5.4.1 scipy-1.7.0
+
+
+
+
+  Successfully uninstalled Keras-2.4.3
+(dhvenv) wilsonb@sm-01:~/deephyper/model1/model1/m1_hps$ pip install tensorflow
+Requirement already satisfied: tensorflow in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (2.5.0)
+Requirement already satisfied: astunparse~=1.6.3 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.6.3)
+Requirement already satisfied: gast==0.4.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (0.4.0)
+Requirement already satisfied: tensorboard~=2.5 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (2.5.0)
+Requirement already satisfied: google-pasta~=0.2 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (0.2.0)
+Requirement already satisfied: tensorflow-estimator<2.6.0,>=2.5.0rc0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (2.5.0)
+Requirement already satisfied: keras-nightly~=2.5.0.dev in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (2.5.0.dev2021032900)
+Requirement already satisfied: keras-preprocessing~=1.1.2 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.1.2)
+Collecting h5py~=3.1.0
+  Using cached h5py-3.1.0-cp37-cp37m-manylinux1_x86_64.whl (4.0 MB)
+Requirement already satisfied: wheel~=0.35 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (0.36.2)
+Requirement already satisfied: typing-extensions~=3.7.4 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (3.7.4.3)
+Requirement already satisfied: wrapt~=1.12.1 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.12.1)
+Requirement already satisfied: opt-einsum~=3.3.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (3.3.0)
+Requirement already satisfied: protobuf>=3.9.2 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (3.17.3)
+Requirement already satisfied: six~=1.15.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.15.0)
+Requirement already satisfied: termcolor~=1.1.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.1.0)
+Requirement already satisfied: grpcio~=1.34.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.34.1)
+Requirement already satisfied: absl-py~=0.10 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (0.13.0)
+Collecting numpy~=1.19.2
+  Using cached numpy-1.19.5-cp37-cp37m-manylinux2010_x86_64.whl (14.8 MB)
+Requirement already satisfied: flatbuffers~=1.12.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorflow) (1.12)
+Requirement already satisfied: cached-property in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from h5py~=3.1.0->tensorflow) (1.5.2)
+Requirement already satisfied: requests<3,>=2.21.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (2.25.1)
+Requirement already satisfied: tensorboard-data-server<0.7.0,>=0.6.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (0.6.1)
+Requirement already satisfied: tensorboard-plugin-wit>=1.6.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (1.8.0)
+Requirement already satisfied: werkzeug>=0.11.15 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (2.0.1)
+Requirement already satisfied: setuptools>=41.0.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (41.2.0)
+Requirement already satisfied: google-auth<2,>=1.6.3 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (1.32.0)
+Requirement already satisfied: markdown>=2.6.8 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (3.3.4)
+Requirement already satisfied: google-auth-oauthlib<0.5,>=0.4.1 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from tensorboard~=2.5->tensorflow) (0.4.4)
+Requirement already satisfied: cachetools<5.0,>=2.0.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from google-auth<2,>=1.6.3->tensorboard~=2.5->tensorflow) (4.2.2)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from google-auth<2,>=1.6.3->tensorboard~=2.5->tensorflow) (0.2.8)
+Requirement already satisfied: rsa<5,>=3.1.4 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from google-auth<2,>=1.6.3->tensorboard~=2.5->tensorflow) (4.7.2)
+Requirement already satisfied: requests-oauthlib>=0.7.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from google-auth-oauthlib<0.5,>=0.4.1->tensorboard~=2.5->tensorflow) (1.3.0)
+Requirement already satisfied: importlib-metadata in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from markdown>=2.6.8->tensorboard~=2.5->tensorflow) (4.5.0)
+Requirement already satisfied: pyasn1<0.5.0,>=0.4.6 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from pyasn1-modules>=0.2.1->google-auth<2,>=1.6.3->tensorboard~=2.5->tensorflow) (0.4.8)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from requests<3,>=2.21.0->tensorboard~=2.5->tensorflow) (1.26.6)
+Requirement already satisfied: chardet<5,>=3.0.2 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from requests<3,>=2.21.0->tensorboard~=2.5->tensorflow) (4.0.0)
+Requirement already satisfied: certifi>=2017.4.17 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from requests<3,>=2.21.0->tensorboard~=2.5->tensorflow) (2021.5.30)
+Requirement already satisfied: idna<3,>=2.5 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from requests<3,>=2.21.0->tensorboard~=2.5->tensorflow) (2.10)
+Requirement already satisfied: oauthlib>=3.0.0 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from requests-oauthlib>=0.7.0->google-auth-oauthlib<0.5,>=0.4.1->tensorboard~=2.5->tensorflow) (3.1.1)
+Requirement already satisfied: zipp>=0.5 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from importlib-metadata->markdown>=2.6.8->tensorboard~=2.5->tensorflow) (3.4.1)
+Installing collected packages: numpy, h5py
+  Attempting uninstall: numpy
+    Found existing installation: numpy 1.21.0
+    Uninstalling numpy-1.21.0:
+      Successfully uninstalled numpy-1.21.0
+  Attempting uninstall: h5py
+    Found existing installation: h5py 3.3.0
+    Uninstalling h5py-3.3.0:
+      Successfully uninstalled h5py-3.3.0
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+deephyper 0.2.5 requires keras, which is not installed.
+
+
+
+
+(dhvenv) wilsonb@sm-01:~/deephyper/model1/model1/m1_hps$ pip install --no-cache-dir keras
+Collecting keras
+  Downloading Keras-2.4.3-py2.py3-none-any.whl (36 kB)
+Requirement already satisfied: scipy>=0.14 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from keras) (1.7.0)
+Requirement already satisfied: pyyaml in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from keras) (5.4.1)
+Requirement already satisfied: h5py in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from keras) (3.1.0)
+Requirement already satisfied: numpy>=1.9.1 in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from keras) (1.19.5)
+Requirement already satisfied: cached-property in /lambda_stor/homes/wilsonb/venvs/dhvenv/lib/python3.7/site-packages (from h5py->keras) (1.5.2)
+Installing collected packages: keras
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+deephyper 0.2.5 requires tensorflow>=2.0.0, which is not installed.
+
+compile --debug
+
+
+"""
 from keras import backend as K
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization
@@ -181,7 +303,7 @@ def run(config):
     OPTIMIZER = config['optimizer']
 
     #constants
-    EMBED_HIDDEN_SIZE = config['embed_hidden_size']
+    #EMBED_HIDDEN_SIZE = config['embed_hidden_size']
     PATIENCE = config['patience']
 
     # patient early stopping
@@ -250,7 +372,7 @@ def run(config):
 
 if __name__ == '__main__':
     config = {
-        'units': 10,
+        #'units': 10,
         'activation': 'relu',  # can be gelu
         'optimizer':  'Adam',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
@@ -258,8 +380,8 @@ if __name__ == '__main__':
         'epochs':     200,
         'dropout':    0.05,
         'patience':   12,
-        'embed_hidden_size': 21,  # May not get used.
-        'proportion': .80           # A value between [0., 1.] indicating how to split data between
+        #'embed_hidden_size': 21,  # May not get used.
+        #'proportion': .80           # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.
