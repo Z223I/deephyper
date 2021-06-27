@@ -20,7 +20,6 @@ I have seen:
 """
 
 from tensorflow import keras
-print()
 print(f'Keras Version: {keras.__version__}')
 
 from deephyper.search.util import Timer
@@ -258,7 +257,7 @@ if __name__ == '__main__':
         'epochs':     200,
         'dropout':    0.05,
         'patience':   12,
-        'embed_hidden_size': 21,  # May not get used.
+        'embed_hidden_size': 21,    # May not get used.
         'proportion': .80           # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
