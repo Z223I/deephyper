@@ -121,6 +121,9 @@ def load_attr_from(str_full_module):
         split_full = str_full_module.split(".")
         str_module = ".".join(split_full[:-1])
         str_attr = split_full[-1]
+        print(f"split_full: {split_full}")
+        print(f"str_module: {str_module}")
+        print(f"str_attr: {str_attr}")
         module = importlib.import_module(str_module)
         return getattr(module, str_attr)
     else:
