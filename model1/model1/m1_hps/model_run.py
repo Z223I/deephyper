@@ -46,7 +46,7 @@ def softMaxAxis1(x):
     """Return softmax for axis 1."""
     return softmax(x, axis=1)
 
-from model1.m1_hps.load_data import load_data
+from model1.model1.m1_hps.load_data import load_data
 
 
 
