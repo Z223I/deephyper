@@ -209,7 +209,9 @@ def run(config):
     classCount = getClassCount()
 
     model = createModel((numInputs,), samples, batchSamples, classCount)
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['acc', f1_m, precision_m, recall_m])
+    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    metrics = model.metrics_names
+    print(f"metrics: {metrics}")
 
     timer.end('preprocessing')
 

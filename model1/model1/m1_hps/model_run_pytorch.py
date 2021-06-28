@@ -9,11 +9,23 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 #import sambaflow.samba.optim as optim
-import EarlyStopping
+#import EarlyStopping
 
+"""
+from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+
+def validation_step(...):
+    self.log('val_loss', loss)
+
+trainer = Trainer(callbacks=[EarlyStopping(monitor='val_loss')])
+"""
 from model1.model1.m1_hps.load_data_pytorch import load_data
 
 timer.end("module loading")
+
+
+SAMBANOVA = False
+DEEPHYPER = True
 
 class Model1(nn.Module):
     """Model object."""
@@ -105,6 +117,95 @@ class Model1(nn.Module):
 
 
 
+
+
+#def train(  args: argparse.Namespace,
+def train(  args,
+            model: nn.Module,
+            optimizer: optim.AdamW,
+            ) -> None:
+    """
+    Train the model.
+
+    Args:
+        args: argparse.Namespace,
+        model: nn.Module,
+        optimizerD: optim.SGD,
+        optimizerG: optim.SGD
+
+    Returns:
+        None
+    """
+    global SAMBANOVA
+    global DEEPHYPER
+
+    if SAMBANOVA or DEEPHYPER:
+        if args.dry_run:
+            args.niter = 1
+            numEpochs = args.niter
+
+    """
+    for epoch in range(numEpochs):
+        for i, data in enumerate(dataloader, 0):
+            ############################
+            # (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))
+            ###########################
+            # train with real
+            netD.zero_grad()
+            real_cpu = data[0].to(device)
+            batch_size = real_cpu.size(0)
+            label = torch.full((batch_size,), real_label,
+                            dtype=real_cpu.dtype, device=device)
+
+            output = netD(real_cpu)
+            errD_real = criterion(output, label)
+            errD_real.backward()
+            D_x = output.mean().item()
+
+            # train with fake
+            noise = torch.randn(batch_size, nz, 1, 1, device=device)
+            fake = netG(noise)
+            label.fill_(fake_label)
+            output = netD(fake.detach())
+            errD_fake = criterion(output, label)
+            errD_fake.backward()
+            D_G_z1 = output.mean().item()
+            errD = errD_real + errD_fake
+            optimizerD.step()
+
+            ############################
+            # (2) Update G network: maximize log(D(G(z)))
+            ###########################
+            netG.zero_grad()
+            label.fill_(real_label)  # fake labels are real for generator cost
+            output = netD(fake)
+            errG = criterion(output, label)
+            errG.backward()
+            D_G_z2 = output.mean().item()
+            optimizerG.step()
+
+            print('[%d/%d][%d/%d] Loss_D: %.4f Loss_G: %.4f D(x): %.4f D(G(z)): %.4f / %.4f'
+                % (epoch, opt.niter, i, len(dataloader),
+                    errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))
+            if i % 100 == 0:
+                vutils.save_image(real_cpu,
+                        '%s/real_samples.png' % opt.outf,
+                        normalize=True)
+                fake = netG(fixed_noise)
+                vutils.save_image(fake.detach(),
+                        '%s/fake_samples_epoch_%03d.png' % (opt.outf, epoch),
+                        normalize=True)
+
+            if opt.dry_run:
+                break
+        # do checkpointing
+        torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
+        torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    """
+
+
+"""
+# This code is from a pytorch-lightning early stopping example.
 #Train the Model using Early Stopping
 def train_model(model, batch_size, patience, n_epochs):
 
@@ -118,7 +219,8 @@ def train_model(model, batch_size, patience, n_epochs):
     avg_valid_losses = []
 
     # initialize the early_stopping object
-    early_stopping = EarlyStopping(patience=patience, verbose=True)
+    # https://github.com/Bjarten/early-stopping-pytorch
+    #early_stopping = EarlyStopping(patience=patience, verbose=True)
 
     for epoch in range(1, n_epochs + 1):
 
@@ -183,7 +285,7 @@ def train_model(model, batch_size, patience, n_epochs):
     model.load_state_dict(torch.load('checkpoint.pt'))
 
     return  model, avg_train_losses, avg_valid_losses
-
+"""
 
 
 
@@ -194,27 +296,16 @@ HISTORY = None
 def run(config):
     """Run model."""
     global HISTORY
+    global SAMBANOVA
+    global DEEPHYPER
 
 
     timer.start('loading data')
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
     timer.end('loading data')
 
-    #
-    # Retrieve config information.
-    #
-    BATCH_SIZE = config['batch_size']
-    ACTIVATION = config['activation']
-    EPOCHS = config['epochs']
-    DROPOUT = config['dropout']
-    OPTIMIZER = config['optimizer']
 
-    #constants
-    EMBED_HIDDEN_SIZE = config['embed_hidden_size']
-    PATIENCE = config['patience']
-
-
-
+    timer.start('preprocessing')
     model = Model1(config)
 
     # SambaNova conversions.
@@ -224,55 +315,19 @@ def run(config):
 
 
     # BCELoss is correct for Model1.
-    criterion = nn.BCELoss()
+    # Moved to train().
+    #criterion = nn.BCELoss()
 
     # setup optimizer
     optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
 
 
-    if config.dry_run:
-        config.niter = 1
-
-
     # patient early stopping
     #es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=PATIENCE)
-
-    #callbacks = [ es, ]
-
-    timer.start('preprocessing')
-
-    # model_path = param_dict['model_path']
-    # model_mda_path = None
-    # model = None
-    # initial_epoch = 0
-
-    # if model_path:
-    #     savedModel = util.resume_from_disk(BNAME, param_dict, data_dir=model_path)
-    #     model_mda_path = savedModel.model_mda_path
-    #     model_path = savedModel.model_path
-    #     model = savedModel.model
-    #     initial_epoch = savedModel.initial_epoch
-
-    samples = 65
-    batchSamples = 26
-
-    numInputs = samples * batchSamples
-    classCount = getClassCount()
-
-    model = createModel((numInputs,), samples, batchSamples, classCount)
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['acc', f1_m, precision_m, recall_m])
 
     timer.end('preprocessing')
 
     timer.start('model training')
-
-    history = model.fit(x_train, y_train,
-        batch_size = BATCH_SIZE,
-        epochs=EPOCHS,
-        shuffle=True,
-        validation_data=(x_valid, y_valid),
-        callbacks=callbacks,
-        )
 
     # evaluate the model
     # TODO:  Why is loss used here.
@@ -281,9 +336,11 @@ def run(config):
 
     timer.end('model training')
 
-    HISTORY = history.history
+    #HISTORY = history.history
 
-    return history.history['acc'][-1]
+    accJunk = 0.0
+    return accJunk
+    #return history.history['acc'][-1]
 
 
 if __name__ == '__main__':
