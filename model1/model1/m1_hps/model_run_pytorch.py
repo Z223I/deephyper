@@ -362,9 +362,11 @@ if __name__ == '__main__':
     }
     accuracy = run(config)
     print('accuracy: ', accuracy)
+    """
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
+    """
