@@ -319,7 +319,8 @@ def run(config):
     #criterion = nn.BCELoss()
 
     # setup optimizer
-    optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
+    #optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
+    optimizer = optim.AdamW(model.parameters())
 
 
     # patient early stopping
