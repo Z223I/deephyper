@@ -48,7 +48,7 @@ class Model1(nn.Module):
         # Change BatchNorm to LayerNorm on SambaNova.
         self.ln1   = nn.LayerNorm(input_shape)
 
-        in_features = input_shape[0] * input_shape[1]
+        in_features = numInputs
         out_features = samples * 16
         self.fc1 = nn.Linear(in_features, out_features)
         self.dropout1 = nn.Dropout2d(0.20)
