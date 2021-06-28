@@ -30,7 +30,7 @@ DEEPHYPER = True
 class Model1(nn.Module):
     """Model object."""
 
-    def __init__(self):
+    def __init__(self, config):
         """Initialize the model object."""
         super(Model1, self).__init__()
 
