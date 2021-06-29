@@ -123,6 +123,8 @@ class Model1(nn.Module):
 def train(  args,
             model: nn.Module,
             optimizer: optim.AdamW,
+            x_train,
+            y_train
             ) -> None:
     """
     Train the model.
@@ -130,8 +132,9 @@ def train(  args,
     Args:
         args: argparse.Namespace,
         model: nn.Module,
-        optimizerD: optim.SGD,
-        optimizerG: optim.SGD
+        optimizer
+        x_train,
+        y_train
 
     Returns:
         None
@@ -144,14 +147,13 @@ def train(  args,
             args.niter = 1
             numEpochs = args.niter
 
-    """
     for epoch in range(numEpochs):
-        for i, data in enumerate(dataloader, 0):
+        for i, data in enumerate(x_train):
             ############################
-            # (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))
+            # (1) Update network: maximize accuracy.
             ###########################
             # train with real
-            netD.zero_grad()
+            #model.zero_grad()
             real_cpu = data[0].to(device)
             batch_size = real_cpu.size(0)
             label = torch.full((batch_size,), real_label,
@@ -173,35 +175,11 @@ def train(  args,
             errD = errD_real + errD_fake
             optimizerD.step()
 
-            ############################
-            # (2) Update G network: maximize log(D(G(z)))
-            ###########################
-            netG.zero_grad()
-            label.fill_(real_label)  # fake labels are real for generator cost
-            output = netD(fake)
-            errG = criterion(output, label)
-            errG.backward()
-            D_G_z2 = output.mean().item()
-            optimizerG.step()
-
-            print('[%d/%d][%d/%d] Loss_D: %.4f Loss_G: %.4f D(x): %.4f D(G(z)): %.4f / %.4f'
-                % (epoch, opt.niter, i, len(dataloader),
-                    errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))
-            if i % 100 == 0:
-                vutils.save_image(real_cpu,
-                        '%s/real_samples.png' % opt.outf,
-                        normalize=True)
-                fake = netG(fixed_noise)
-                vutils.save_image(fake.detach(),
-                        '%s/fake_samples_epoch_%03d.png' % (opt.outf, epoch),
-                        normalize=True)
-
             if opt.dry_run:
                 break
         # do checkpointing
         torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
         torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
-    """
 
 
 """
@@ -335,6 +313,8 @@ def run(config):
     #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
     #acc = model.evaluate(Xtest, yTest, verbose=0)
 
+    train(config, model, optimizer, x_train, y_train)
+
     timer.end('model training')
 
     #HISTORY = history.history
@@ -351,7 +331,7 @@ if __name__ == '__main__':
         'optimizer':  'Adam',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
         'batch_size': 4096,
-        'epochs':     200,
+        'epochs':     15,
         'dropout':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
