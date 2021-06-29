@@ -2,7 +2,7 @@ from deephyper.problem import HpProblem
 
 Problem = HpProblem()
 
-Problem.add_hyperparameter((10, 11), 'units')
+Problem.add_hyperparameter([10], 'units')
 #Problem.add_hyperparameter(['relu', 'sigmoid', 'tanh'], 'activation')
 Problem.add_hyperparameter(['relu'], 'activation')
 Problem.add_hyperparameter(['Adam'], 'optimizer')
