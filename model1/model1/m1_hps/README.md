@@ -28,7 +28,11 @@ deephyper ray-submit nas agebo -w mnist_1gpu_2nodes_60 -n 2 -t 60 -A $PROJECT_NA
 
 python -m deephyper.search.hps.ambs --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 1
 
-deephyper ray-submit hps ambs --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 1
+export PROJECT_NAME='datascience'
+export PATH_TO_SETUP='/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/'
+
+deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 2
+
 ```
 
 ### Basic Execution
