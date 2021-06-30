@@ -33,11 +33,14 @@ export PATH_TO_SETUP='/lus/theta-fs0/projects/datascience/wilsonb/theta/deephype
 source model1/model1/m1_hps/SingleNodeRayCluster.sh
 
 (conda/2021-06-28//lus/theta-fs0/projects/datascience/wilsonb/theta/dhgpu) wilsonb@thetagpusn1:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper$ source model1/model1/m1_hps/SingleNodeRayCluster.sh
-Script to activate Python env: /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps//SetUpEnv.sh
-IP Head: :6379
+Script to activate Python env: /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/SetUpEnv.sh
+thetagpusn1
+>127.0.1.1<
+IP Head: 127.0.1.1:6379
 Starting HEAD at thetagpusn1
-ssh: Could not resolve hostname source /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps//setupenv.sh: Name or service not known
-[1]+  Exit 255                ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV;     ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
+
+[1]+  Stopped                 ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV;     ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
+
 
 
 deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 2

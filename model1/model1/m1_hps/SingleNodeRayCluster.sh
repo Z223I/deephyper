@@ -34,6 +34,8 @@ export ip_head
 echo "IP Head: $ip_head"
 
 echo "Starting HEAD at $head_node"
+echo "ssh -tt $head_node_ip"
+echo "source $ACTIVATE_PYTHON_ENV; ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
 ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV; \
     ray start --head --node-ip-address=$head_node_ip --port=$port \
     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block" &
