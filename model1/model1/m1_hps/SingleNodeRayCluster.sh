@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # USER CONFIGURATION
-CURRENT_DIR=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/SetUpEnv.sh
+CURRENT_DIR=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
 CPUS_PER_NODE=8
 GPUS_PER_NODE=8
 
