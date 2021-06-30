@@ -17,7 +17,7 @@ on_theta = type(os.environ.get("HOST")) is str and "theta" in os.environ.get("HO
 # Package meta-data.
 NAME = "deephyper"
 DESCRIPTION = "Scalable asynchronous neural architecture and hyperparameter search for deep neural networks."
-URL = "https://github.com/deephyper/deephyper"
+URL = "https://github.com/z223i/deephyper"
 REQUIRES_PYTHON = ">=3.6, <3.9"
 VERSION = None
 

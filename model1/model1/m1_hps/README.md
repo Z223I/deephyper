@@ -5,28 +5,67 @@
 ### ThetaGPU
 
 ```bash
+conda env remove --name dhgpu
+conda remove --name dhgpu --all
+rm -rf dhgpu
+```
+
+```bash
 ssh wilsonb@theta.alcf.anl.gov
 ssh wilsonb@thetagpusn1 or 2
+
+xqsub -I -A $PROJECT_NAME -n 1 -t 60  Takes you to thetagpudd where dd are two numbers.
+
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta
-module load conda/2021-06-28
-conda create -p dhgpu2 --clone base
-chmod +r dhgpu2/lib/python3.8/site-packages/easy-install.pth
-conda activate /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/dhgpu2
+xmodule load conda/2021-06-28
+conda list --explicit > spec-file.txt
+conda create --name dhgpu --file spec-file.txt
+
+xconda create -p dhgpu --clone base
+xchmod +r dhgpu/lib/python3.8/site-packages/easy-install.pth
+conda activate dhgpu
+
+xconda install 'tensorflow==2.5.0'
+conda install tensorflow
+xpip install --ignore-installed --upgrade tensorflow==2.5.0
+conda install 'keras==2.4.3'
+
 pip install pip --upgrade
 
 I think this clashes with the deephyper in conda/2021-06-28
 git clone https://github.com/deephyper/deephyper.git
 cd deephyper/
 git checkout develop
+
+
 pip install -e .
+```
+
+
+
+Sam Foreman  7 hours ago
+alternatively, it looks like you can use deephyper ray-submit directly from thetagpusn1 to automatically generate and submit a submission script
+(documented at the very bottom of https://deephyper.readthedocs.io/en/develop/user_guides/thetagpu.html)
+
+```bash
+```
+
+```bash
+ssh thetagpusn1
+export PROJECT_NAME=datascience
+qsub -I -A $PROJECT_NAME -n 1 -t 30 -q full-node or single-gpu
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+deephyper nas random --evaluator ray --ray-address auto --problem deephyper.benchmark.nas.mnist1D.problem.Problem --max-evals 10 --num-cpus-per-task 1 --num-gpus-per-task 1
 ```
 
 #### Start a node
 
 ```bash
+Start skip
 deephyper ray-submit nas agebo -w mnist_1gpu_2nodes_60 -n 2 -t 60 -A $PROJECT_NAME -q full-node --problem deephyper.benchmark.nas.mnist1D.problem.Problem --run deephyper.nas.run.alpha.run --max-evals 10000 --num-cpus-per-task 1 --num-gpus-per-task 1 -as $PATH_TO_SETUP --n-jobs 16
 
 python -m deephyper.search.hps.ambs --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 1
+
 
 export PROJECT_NAME='datascience'
 export PATH_TO_SETUP='/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/'
@@ -38,12 +77,15 @@ thetagpusn1
 >127.0.1.1<
 IP Head: 127.0.1.1:6379
 Starting HEAD at thetagpusn1
+ssh -tt 127.0.1.1
+source /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/SetUpEnv.sh; ray start --head --node-ip-address=127.0.1.1 --port=6379     --num-cpus 8 --num-gpus 8 --block
 
-[1]+  Stopped                 ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV;     ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
+[2]+  Stopped                 ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV;     ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
 
+End skip
 
-
-deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 2
+From thetagpusn1,2
+deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 2
 
 ```
 
