@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # USER CONFIGURATION
-CURRENT_DIR=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
+CURRENT_DIR=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps
 CPUS_PER_NODE=8
 GPUS_PER_NODE=8
 
@@ -11,7 +11,9 @@ ACTIVATE_PYTHON_ENV="${CURRENT_DIR}/SetUpEnv.sh"
 echo "Script to activate Python env: $ACTIVATE_PYTHON_ENV"
 
 head_node=$HOSTNAME
+echo $HOSTNAME
 head_node_ip=$(dig $head_node a +short | awk 'FNR==2')
+echo head_node_ip
 
 # if we detect a space character in the head node IP, we'll
 # convert it to an ipv4 address. This step is optional.
