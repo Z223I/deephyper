@@ -1,0 +1,1 @@
+Then create a script named SetUpEnv.sh and adapt the path to activate your installed DeepHyper conda environment PATH_TO_ENV:

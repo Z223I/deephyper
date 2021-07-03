@@ -48,29 +48,95 @@ class Model1(nn.Module):
         # Change BatchNorm to LayerNorm on SambaNova.
         self.ln1   = nn.LayerNorm(input_shape)
 
-        in_features = numInputs
-        out_features = samples * 16
-        self.fc1 = nn.Linear(in_features, out_features)
-        self.dropout1 = nn.Dropout2d(0.20)
+
+        if batchSamples >= 16:
+            in_features = numInputs
+            out_features = samples * 16
+            self.fc1 = nn.Linear(in_features, out_features)
+            self.dropout1 = nn.Dropout2d(0.20)
+
+        if batchSamples >= 12:
+            # TODO: out_features is not defined.
+            in_features = out_features
+            out_features = samples * 12
+            self.fc2 = nn.Linear(in_features, out_features)
+            self.dropout2 = nn.Dropout2d(0.10)
+
+
+        if batchSamples >= 10:
+            in_features = out_features
+            out_features = samples * 10
+            self.fc3 = nn.Linear(in_features, out_features)
+            self.dropout3 = nn.Dropout2d(0.10)
+
+            in_features = out_features
+            out_features = samples * 7
+            self.fc4 = nn.Linear(in_features, out_features)
+            #self.dropout4 = nn.Dropout2d(0.00)
+
+        if batchSamples >= 5:
+            in_features = out_features
+            out_features = samples * 5
+            self.fc5 = nn.Linear(in_features, out_features)
+            self.dropout5 = nn.Dropout2d(0.05)
 
         in_features = out_features
-        out_features = samples * 12
-        self.fc2 = nn.Linear(in_features, out_features)
-        self.dropout2 = nn.Dropout2d(0.10)
+        out_features = samples * 2
+        self.fc6 = nn.Linear(in_features, out_features)
+        self.dropout6 = nn.Dropout2d(0.05)
 
+        in_features = out_features
+        out_features = 90
+        self.fc7 = nn.Linear(in_features, out_features)
+        #self.dropout7 = nn.Dropout2d(0.00)
 
+        in_features = out_features
+        out_features = 90
+        self.fc8 = nn.Linear(in_features, out_features)
+        #self.dropout8 = nn.Dropout2d(0.00)
 
-        # TODO: Insert more layers here.
+        in_features = out_features
+        out_features = 48
+        self.fc9 = nn.Linear(in_features, out_features)
+        #self.dropout9 = nn.Dropout2d(0.00)
 
+        in_features = out_features
+        out_features = 24
+        self.fc10 = nn.Linear(in_features, out_features)
+        #self.dropout10 = nn.Dropout2d(0.00)
 
+        in_features = out_features
+        out_features = 12
+        self.fc11 = nn.Linear(in_features, out_features)
+        #self.dropout11 = nn.Dropout2d(0.00)
+
+        in_features = out_features
+        out_features = 12
+        self.fc12 = nn.Linear(in_features, out_features)
+        #self.dropout12 = nn.Dropout2d(0.00)
+
+        in_features = out_features
+        out_features = 12
+        self.fc13 = nn.Linear(in_features, out_features)
+        #self.dropout13 = nn.Dropout2d(0.00)
 
         in_features = out_features
         out_features = 5
-        self.fcN_1 = nn.Linear(in_features, out_features)
+        self.fc14 = nn.Linear(in_features, out_features)
+        #self.dropout14 = nn.Dropout2d(0.00)
+
+        in_features = out_features
+        out_features = 5
+        self.fc15 = nn.Linear(in_features, out_features)
+        #self.dropout15 = nn.Dropout2d(0.00)
+
+        in_features = out_features
+        out_features = 5
+        self.fc16 = nn.Linear(in_features, out_features)
 
         in_features = out_features
         out_features = classCount
-        self.fcN = nn.Linear(in_features, out_features)
+        self.fc17 = nn.Linear(in_features, out_features)
 
     def forward(self, x):
         # sourcery skip: inline-immediately-returned-variable

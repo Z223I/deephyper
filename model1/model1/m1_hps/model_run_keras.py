@@ -26,7 +26,7 @@ from deephyper.search.util import Timer
 timer = Timer()
 timer.start("module loading")
 
-from keras import backend as K
+from tf.keras import backend as K
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization
 from keras.callbacks import EarlyStopping
@@ -117,6 +117,9 @@ def createModel(input_shape, samples, batchSamples, classCount):
     #X = Dropout(0.10)(X)
 
     X = Dense(units = 12, activation='relu')(X)
+
+
+
     #X = Dropout(0.05)(X)
     X = Dense(units = 5, activation='relu')(X)
     #X = Dropout(0.05)(X)
