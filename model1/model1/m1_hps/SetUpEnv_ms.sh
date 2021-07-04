@@ -2,10 +2,8 @@
 
 . /etc/profile
 
-# This module was created by Kyle.
+# Tensorflow optimized for A100 with CUDA 11
 module load conda/deephyper/0.2.5
-
-PATH_TO_ENV="/enter/path"
 
 # Activate conda env
 conda activate
