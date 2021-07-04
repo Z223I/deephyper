@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from torch.utils.data import  DataLoader
 #import sambaflow.samba.optim as optim
 #import EarlyStopping
 import matplotlib.pyplot as plt
@@ -21,7 +22,7 @@ def validation_step(...):
 trainer = Trainer(callbacks=[EarlyStopping(monitor='val_loss')])
 """
 from model1.model1.m1_hps.load_data_pytorch import load_data
-
+from model1.model1.m1_hps.DataLoader import dataset
 timer.end("module loading")
 
 
@@ -255,8 +256,8 @@ def train(  args,
         args: argparse.Namespace,
         model: nn.Module,
         optimizer
-        x_train,
-        y_train
+        X_train,
+        Y_train
 
     Returns:
         history as a dictionary
@@ -273,6 +274,10 @@ def train(  args,
             args.niter = 1
             numEpochs = args.niter
 
+    trainset = dataset(X_train, Y_train)
+    #DataLoader
+    trainloader = DataLoader(trainset, batch_size=64, shuffle=False)
+
     loss_fn = nn.BCELoss()
 
     #forward loop
@@ -285,7 +290,7 @@ def train(  args,
 
 
         # TODO: This should be a batch.
-        for _, (x_train, y_train) in enumerate( zip(X_train, Y_train) ):
+        for _, (x_train, y_train) in enumerate( trainloader ):
 
             #calculate output
             output = model.forward(x_train)
