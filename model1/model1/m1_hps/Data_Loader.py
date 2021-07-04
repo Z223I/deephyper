@@ -32,6 +32,7 @@ if __name__ == '__main__':
                                     # amount of data in validation set.
         'print shape': 0            # Print the data shape.
     }
+    
     (train_X, train_y), (valid_X, valid_y) = load_data(config)
 
     print(f'train_X shape: {np.shape(train_X)}')
