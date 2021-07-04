@@ -10,6 +10,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 #import sambaflow.samba.optim as optim
 #import EarlyStopping
+import matplotlib.pyplot as plt
 
 """
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
@@ -48,37 +49,34 @@ class Model1(nn.Module):
         # Change BatchNorm to LayerNorm on SambaNova.
         self.ln1   = nn.LayerNorm(input_shape)
 
+        #if batchSamples >= 16:
+        in_features = numInputs
+        out_features = samples * 16
+        self.fc1 = nn.Linear(in_features, out_features)
+        self.dropout1 = nn.Dropout2d(0.20)
 
-        if batchSamples >= 16:
-            in_features = numInputs
-            out_features = samples * 16
-            self.fc1 = nn.Linear(in_features, out_features)
-            self.dropout1 = nn.Dropout2d(0.20)
+        #if batchSamples >= 12:
+        in_features = out_features
+        out_features = samples * 12
+        self.fc2 = nn.Linear(in_features, out_features)
+        self.dropout2 = nn.Dropout2d(0.10)
 
-        if batchSamples >= 12:
-            # TODO: out_features is not defined.
-            in_features = out_features
-            out_features = samples * 12
-            self.fc2 = nn.Linear(in_features, out_features)
-            self.dropout2 = nn.Dropout2d(0.10)
+        #if batchSamples >= 10:
+        in_features = out_features
+        out_features = samples * 10
+        self.fc3 = nn.Linear(in_features, out_features)
+        self.dropout3 = nn.Dropout2d(0.10)
 
+        in_features = out_features
+        out_features = samples * 7
+        self.fc4 = nn.Linear(in_features, out_features)
+        #self.dropout4 = nn.Dropout2d(0.00)
 
-        if batchSamples >= 10:
-            in_features = out_features
-            out_features = samples * 10
-            self.fc3 = nn.Linear(in_features, out_features)
-            self.dropout3 = nn.Dropout2d(0.10)
-
-            in_features = out_features
-            out_features = samples * 7
-            self.fc4 = nn.Linear(in_features, out_features)
-            #self.dropout4 = nn.Dropout2d(0.00)
-
-        if batchSamples >= 5:
-            in_features = out_features
-            out_features = samples * 5
-            self.fc5 = nn.Linear(in_features, out_features)
-            self.dropout5 = nn.Dropout2d(0.05)
+        #if batchSamples >= 5:
+        in_features = out_features
+        out_features = samples * 5
+        self.fc5 = nn.Linear(in_features, out_features)
+        self.dropout5 = nn.Dropout2d(0.05)
 
         in_features = out_features
         out_features = samples * 2
@@ -144,7 +142,7 @@ class Model1(nn.Module):
         Do forward pass.
 
         Args:
-            x: represents our data.
+            x: represents one sample of the data.
         """
         # Pass data through ln1
         x = self.ln1(x)
@@ -159,14 +157,75 @@ class Model1(nn.Module):
         x = F.relu(x)
         x = self.dropout2(x)
 
+        x = self.fc3(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        x = self.dropout3(x)
 
-        # TODO: Insert more layers here.
+        x = self.fc4(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout4(x)
 
+        x = self.fc5(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        x = self.dropout5(x)
 
-        x = self.fcN_1(x)
+        x = self.fc6(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        x = self.dropout6(x)
+
+        x = self.fc7(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout7(x)
+
+        x = self.fc8(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout8(x)
+
+        x = self.fc9(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout9(x)
+
+        x = self.fc10(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout10(x)
+
+        x = self.fc11(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout11(x)
+
+        x = self.fc12(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout12(x)
+
+        x = self.fc13(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout13(x)
+
+        x = self.fc14(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout14(x)
+
+        x = self.fc15(x)
+        # Use the rectified-linear activation function over x
+        x = F.relu(x)
+        #x = self.dropout15(x)
+
+        x = self.fc16(x)
         x = F.relu(x)
 
-        x = self.fcN(x)
+        x = self.fc17(x)
 
 
         # Apply softmax to x
@@ -182,16 +241,13 @@ class Model1(nn.Module):
         return 2
 
 
-
-
-
 #def train(  args: argparse.Namespace,
 def train(  args,
             model: nn.Module,
             optimizer: optim.AdamW,
-            x_train,
-            y_train
-            ) -> None:
+            X_train,
+            Y_train
+            ):
     """
     Train the model.
 
@@ -203,133 +259,70 @@ def train(  args,
         y_train
 
     Returns:
-        None
+        history as a dictionary
+            history['acc'] = accur
+            history['losses'] = losses
     """
     global SAMBANOVA
     global DEEPHYPER
+
+    numEpochs = args.epochs
 
     if SAMBANOVA or DEEPHYPER:
         if args.dry_run:
             args.niter = 1
             numEpochs = args.niter
 
-    for epoch in range(numEpochs):
-        for i, data in enumerate(x_train):
-            ############################
-            # (1) Update network: maximize accuracy.
-            ###########################
-            # train with real
-            #model.zero_grad()
-            real_cpu = data[0].to(device)
-            batch_size = real_cpu.size(0)
-            label = torch.full((batch_size,), real_label,
-                            dtype=real_cpu.dtype, device=device)
+    loss_fn = nn.BCELoss()
 
-            output = netD(real_cpu)
-            errD_real = criterion(output, label)
-            errD_real.backward()
-            D_x = output.mean().item()
-
-            # train with fake
-            noise = torch.randn(batch_size, nz, 1, 1, device=device)
-            fake = netG(noise)
-            label.fill_(fake_label)
-            output = netD(fake.detach())
-            errD_fake = criterion(output, label)
-            errD_fake.backward()
-            D_G_z1 = output.mean().item()
-            errD = errD_real + errD_fake
-            optimizerD.step()
-
-            if opt.dry_run:
-                break
-        # do checkpointing
-        torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
-        torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    #forward loop
+    losses = []
+    accur = []
+    for i in range(numEpochs):
 
 
-"""
-# This code is from a pytorch-lightning early stopping example.
-#Train the Model using Early Stopping
-def train_model(model, batch_size, patience, n_epochs):
 
-    # to track the training loss as the model trains
-    train_losses = []
-    # to track the validation loss as the model trains
-    valid_losses = []
-    # to track the average training loss per epoch as the model trains
-    avg_train_losses = []
-    # to track the average validation loss per epoch as the model trains
-    avg_valid_losses = []
 
-    # initialize the early_stopping object
-    # https://github.com/Bjarten/early-stopping-pytorch
-    #early_stopping = EarlyStopping(patience=patience, verbose=True)
 
-    for epoch in range(1, n_epochs + 1):
+        # TODO: This should be a batch.
+        for _, (x_train, y_train) in enumerate( zip(X_train, Y_train) ):
 
-        ###################
-        # train the model #
-        ###################
-        model.train() # prep model for training
-        for batch, (data, target) in enumerate(train_loader, 1):
-            # clear the gradients of all optimized variables
+            #calculate output
+            output = model.forward(x_train)
+
+            #calculate loss
+            loss = loss_fn( output, y_train.reshape(-1,1) )
+
+            #accuracy
+            predicted = model( torch.tensor(x, dtype=torch.float32) )
+            acc = (predicted.reshape(-1).detach().numpy().round() == y).mean()
+
+            #backprop
             optimizer.zero_grad()
-            # forward pass: compute predicted outputs by passing inputs to the model
-            output = model(data)
-            # calculate the loss
-            loss = criterion(output, target)
-            # backward pass: compute gradient of the loss with respect to model parameters
             loss.backward()
-            # perform a single optimization step (parameter update)
             optimizer.step()
-            # record training loss
-            train_losses.append(loss.item())
 
-        ######################
-        # validate the model #
-        ######################
-        model.eval() # prep model for evaluation
-        for data, target in valid_loader:
-            # forward pass: compute predicted outputs by passing inputs to the model
-            output = model(data)
-            # calculate the loss
-            loss = criterion(output, target)
-            # record validation loss
-            valid_losses.append(loss.item())
+        if i%50 == 0:
+            losses.append(loss)
+            accur.append(acc)
+            print("epoch {}\tloss : {}\t accuracy : {}".format(i,loss,acc))
 
-        # print training/validation statistics
-        # calculate average loss over an epoch
-        train_loss = np.average(train_losses)
-        valid_loss = np.average(valid_losses)
-        avg_train_losses.append(train_loss)
-        avg_valid_losses.append(valid_loss)
+    #plotting the loss
+    plt.plot(losses)
+    plt.title('Loss vs Epochs')
+    plt.xlabel('Epochs')
+    plt.ylabel('loss')
 
-        epoch_len = len(str(n_epochs))
+    #printing the accuracy
+    plt.plot(accur)
+    plt.title('Accuracy vs Epochs')
+    plt.xlabel('Accuracy')
+    plt.ylabel('loss')
 
-        print_msg = (f'[{epoch:>{epoch_len}}/{n_epochs:>{epoch_len}}] ' +
-                     f'train_loss: {train_loss:.5f} ' +
-                     f'valid_loss: {valid_loss:.5f}')
-
-        print(print_msg)
-
-        # clear lists to track next epoch
-        train_losses = []
-        valid_losses = []
-
-        # early_stopping needs the validation loss to check if it has decresed,
-        # and if it has, it will make a checkpoint of the current model
-        early_stopping(valid_loss, model)
-
-        if early_stopping.early_stop:
-            print("Early stopping")
-            break
-
-    # load the last checkpoint with the best model
-    model.load_state_dict(torch.load('checkpoint.pt'))
-
-    return  model, avg_train_losses, avg_valid_losses
-"""
+    history = {}
+    history['acc'] = accur
+    history['losses'] = losses
+    return history
 
 
 
@@ -338,7 +331,15 @@ HISTORY = None
 
 
 def run(config):
-    """Run model."""
+    """
+    Run model.
+
+    Args:
+        config (dict): Configuration dictionary.
+
+    Returns:
+        accuracy (float): The accuracy of the run.
+    """
     global HISTORY
     global SAMBANOVA
     global DEEPHYPER
@@ -372,22 +373,17 @@ def run(config):
 
     timer.end('preprocessing')
 
+    #
+    # Training
+    #
     timer.start('model training')
 
-    # evaluate the model
-    # TODO:  Why is loss used here.
-    #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
-    #acc = model.evaluate(Xtest, yTest, verbose=0)
-
-    train(config, model, optimizer, x_train, y_train)
+    history = train(config, model, optimizer, x_train, y_train)
 
     timer.end('model training')
 
-    #HISTORY = history.history
-
-    accJunk = 0.0
-    return accJunk
-    #return history.history['acc'][-1]
+    HISTORY = history
+    return history['acc'][-1]
 
 
 if __name__ == '__main__':
@@ -408,11 +404,10 @@ if __name__ == '__main__':
     }
     accuracy = run(config)
     print('accuracy: ', accuracy)
-    """
+
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
-    """
