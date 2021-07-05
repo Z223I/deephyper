@@ -276,7 +276,7 @@ def train(  args,
             args.niter = 1
             numEpochs = args.niter
     """
-    
+
     trainset = dataset(X_train, Y_train)
     #DataLoader
     trainloader = DataLoader(trainset, batch_size=64, shuffle=False)
@@ -294,7 +294,33 @@ def train(  args,
             #calculate output
             output = model.forward(x_train)
 
+
+            """
+(miniconda-3/latest/base) wilsonb@thetalogin4:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper> python model1/model1/m1_hps/model_run_pytorch.py
+TIMER module loading: 0.6275 seconds
+TIMER loading data: 6.2810 seconds
+TIMER preprocessing: 0.0192 seconds
+/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/loss.py:498: UserWarning: Using a target size (torch.Size([64, 1])) that is different to the input size (torch.Size([64, 2])) is deprecated. Please ensure they have the same size.
+  return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
+Traceback (most recent call last):
+  File "model1/model1/m1_hps/model_run_pytorch.py", line 413, in <module>
+    accuracy = run(config)
+  File "model1/model1/m1_hps/model_run_pytorch.py", line 388, in run
+    history = train(config, model, optimizer, x_train, y_train)
+  File "model1/model1/m1_hps/model_run_pytorch.py", line 298, in train
+    loss = loss_fn( output, y_train.reshape(-1,1) )
+  File "/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/module.py", line 541, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/loss.py", line 498, in forward
+    return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
+  File "/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/functional.py", line 2058, in binary_cross_entropy
+    "!= input nelement ({})".format(target.numel(), input.numel()))
+ValueError: Target and input must have the same number of elements. target nelement (64) != input nelement (128)
+(miniconda-3/latest/base) wilsonb@thetalogin4:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper>
+            """
             #calculate loss
+            print(f"output.shape: {output.shape}")
+            print(f"y_train.shape: {y_train.shape}")
             loss = loss_fn( output, y_train.reshape(-1,1) )
 
             #backprop
