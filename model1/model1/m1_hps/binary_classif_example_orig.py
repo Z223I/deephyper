@@ -90,7 +90,6 @@ for i in range(epochs):
         print("epoch {}\tloss : {}\t accuracy : {}".format(i,loss,acc))
 
 
-
 #plotting the loss
 plt.plot(losses)
 plt.title('Loss vs Epochs')

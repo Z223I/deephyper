@@ -22,7 +22,7 @@ def validation_step(...):
 trainer = Trainer(callbacks=[EarlyStopping(monitor='val_loss')])
 """
 from model1.model1.m1_hps.load_data_pytorch import load_data
-from model1.model1.m1_hps.DataLoader import dataset
+from model1.model1.m1_hps.Data_Loader import dataset
 timer.end("module loading")
 
 
@@ -285,11 +285,7 @@ def train(  args,
     accur = []
     for i in range(numEpochs):
 
-
-
-
-
-        # TODO: This should be a batch.
+        # This steps through batches.
         for _, (x_train, y_train) in enumerate( trainloader ):
 
             #calculate output
@@ -298,16 +294,19 @@ def train(  args,
             #calculate loss
             loss = loss_fn( output, y_train.reshape(-1,1) )
 
-            #accuracy
-            predicted = model( torch.tensor(x, dtype=torch.float32) )
-            acc = (predicted.reshape(-1).detach().numpy().round() == y).mean()
-
             #backprop
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
-        if i%50 == 0:
+        if i % 5 == 0:
+            #accuracy calculated across all batches/training data.
+            # Do I really want to calculate accuracy across so much data?  No.
+            # This has been moved from inside the training loop to here so that
+            # it is only calculated when it actually gets used.
+            predicted = model.forward( torch.tensor(X_train, dtype=torch.float32) )
+            acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
+
             losses.append(loss)
             accur.append(acc)
             print("epoch {}\tloss : {}\t accuracy : {}".format(i,loss,acc))
