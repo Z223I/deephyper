@@ -43,7 +43,7 @@ def load_data(config):
     valid_X = x[sep_index:]
     valid_y = y[sep_index:]
 
-    if config['print shape'] == 1:
+    if config['print_shape'] == 1:
         print(f'train_X shape: {np.shape(train_X)}')
         print(f'train_y shape: {np.shape(train_y)}')
         print(f'valid_X shape: {np.shape(valid_X)}')
@@ -57,7 +57,7 @@ if __name__ == '__main__':
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.
-        'print shape': 0            # Print the data shape.
+        'print_shape': 0            # Print the data shape.
     }
     (train_X, train_y), (valid_X, valid_y) = load_data(config)
 

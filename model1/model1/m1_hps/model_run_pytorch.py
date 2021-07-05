@@ -401,10 +401,11 @@ if __name__ == '__main__':
         'dropout':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
-        'proportion': .80           # A value between [0., 1.] indicating how to split data between
+        'proportion': .80,          # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.
+        'print_shape': 0,           # Print the data shape.
     }
     accuracy = run(config)
     print('accuracy: ', accuracy)
