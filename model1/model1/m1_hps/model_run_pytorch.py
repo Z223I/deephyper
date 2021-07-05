@@ -267,13 +267,16 @@ def train(  args,
     global SAMBANOVA
     global DEEPHYPER
 
-    numEpochs = args.epochs
+    #numEpochs = args.epochs
+    numEpochs = args['epochs']
 
+    """
     if SAMBANOVA or DEEPHYPER:
         if args.dry_run:
             args.niter = 1
             numEpochs = args.niter
-
+    """
+    
     trainset = dataset(X_train, Y_train)
     #DataLoader
     trainloader = DataLoader(trainset, batch_size=64, shuffle=False)
