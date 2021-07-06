@@ -3,7 +3,7 @@
 . /etc/profile
 
 # Tensorflow optimized for A100 with CUDA 11
-module load conda/deephyper/0.2.5
+module load conda/2021-06-26
 
 # Activate conda env
 conda activate
