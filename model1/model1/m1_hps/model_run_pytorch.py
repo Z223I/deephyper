@@ -229,7 +229,8 @@ class Model1(nn.Module):
         x = self.fc17(x)
 
 
-        # Apply softmax to x
+        # Apply log_softmax to x
+        print(f"x.shape: {x.shape}")
         output = F.log_softmax(x, dim=1)
         return output
 
