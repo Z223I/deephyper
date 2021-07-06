@@ -231,7 +231,7 @@ class Model1(nn.Module):
 
         # Apply log_softmax to x
         print(f"x.shape: {x.shape}")
-        output = F.log_softmax(x, dim=1)
+        output = F.softmax(x, dim=1)
         return output
 
     def getClassCount(self):
