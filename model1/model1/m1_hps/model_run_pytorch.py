@@ -324,7 +324,7 @@ ValueError: Target and input must have the same number of elements. target nelem
             print(f"output[0]: {output[0]}")
             print(f"y_train.shape: {y_train.shape}")
             print(f"y_train[0]: {y_train[0]}")
-            loss = loss_fn( output, y_train.reshape(-1,1) )
+            loss = loss_fn( output[:,1], y_train.reshape(-1,1) )
 
             #backprop
             optimizer.zero_grad()
