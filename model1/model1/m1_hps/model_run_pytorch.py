@@ -336,6 +336,29 @@ ValueError: Target and input must have the same number of elements. target nelem
             # Do I really want to calculate accuracy across so much data?  No.
             # This has been moved from inside the training loop to here so that
             # it is only calculated when it actually gets used.
+
+
+
+            """
+x.shape: torch.Size([20, 2])
+output.shape: torch.Size([20, 2])
+output[0]: tensor([0.5456, 0.4544], grad_fn=<SelectBackward>)
+y_train.shape: torch.Size([20])
+y_train[0]: 0.0
+/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/loss.py:498: UserWarning: Using a target size (torch.Size([20, 1])) that is different to the input size (torch.Size([20])) is deprecated. Please ensure they have the same size.
+  return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
+x.shape: torch.Size([4692, 2])
+model1/model1/m1_hps/model_run_pytorch.py:340: DeprecationWarning: elementwise comparison failed; this will raise an error in the future.
+  acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
+Traceback (most recent call last):
+  File "model1/model1/m1_hps/model_run_pytorch.py", line 442, in <module>
+    accuracy = run(config)
+  File "model1/model1/m1_hps/model_run_pytorch.py", line 417, in run
+    history = train(config, model, optimizer, x_train, y_train)
+  File "model1/model1/m1_hps/model_run_pytorch.py", line 340, in train
+    acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
+AttributeError: 'bool' object has no attribute 'mean'
+            """
             predicted = model.forward( torch.tensor(X_train, dtype=torch.float32) )
             acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
 
