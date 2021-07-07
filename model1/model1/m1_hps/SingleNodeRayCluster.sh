@@ -35,7 +35,7 @@ echo "IP Head: $ip_head"
 
 echo "Starting HEAD at $head_node"
 echo "ssh -tt $head_node_ip -o StrictHostKeyChecking=no"
-echo "source $ACTIVATE_PYTHON_ENV; ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
+echo "source $ACTIVATE_PYTHON_ENV; ray start --head --node-ip-address=$head_node_ip --port=$port --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
 ssh -tt $head_node_ip -o StrictHostKeyChecking=no "source $ACTIVATE_PYTHON_ENV; \
     ray start --head --node-ip-address=$head_node_ip --port=$port \
     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block" &

@@ -9,5 +9,6 @@ module load conda/2021-06-26
 conda activate
 
 # This will allow you to run DeepHyper from anywhere.
-PATH_TO_ENV=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
-export PYTHONPATH=$PATH_TO_ENV:$PYTHONPATH
+# No can do.  Use the DH in the module.
+#PATH_TO_ENV=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+#export PYTHONPATH=$PATH_TO_ENV:$PYTHONPATH
