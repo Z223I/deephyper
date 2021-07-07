@@ -12,7 +12,7 @@ echo "Script to activate Python env: $ACTIVATE_PYTHON_ENV"
 
 head_node=$HOSTNAME
 # echo $HOSTNAME
-head_node_ip=$(dig $head_node a +short | awk 'FNR==1')
+head_node_ip=$(dig $head_node a +short | awk 'FNR==2')
 # echo ">$head_node_ip<"
 
 # if we detect a space character in the head node IP, we'll
