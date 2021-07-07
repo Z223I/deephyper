@@ -11,9 +11,9 @@ ACTIVATE_PYTHON_ENV="${CURRENT_DIR}/SetUpEnv.sh"
 echo "Script to activate Python env: $ACTIVATE_PYTHON_ENV"
 
 head_node=$HOSTNAME
-echo $HOSTNAME
+# echo $HOSTNAME
 head_node_ip=$(dig $head_node a +short | awk 'FNR==1')
-echo ">$head_node_ip<"
+# echo ">$head_node_ip<"
 
 # if we detect a space character in the head node IP, we'll
 # convert it to an ipv4 address. This step is optional.
@@ -34,9 +34,9 @@ export ip_head
 echo "IP Head: $ip_head"
 
 echo "Starting HEAD at $head_node"
-echo "ssh -tt $head_node_ip"
+echo "ssh -tt $head_node_ip -o StrictHostKeyChecking=no"
 echo "source $ACTIVATE_PYTHON_ENV; ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
-ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV; \
+ssh -tt $head_node_ip -o StrictHostKeyChecking=no "source $ACTIVATE_PYTHON_ENV; \
     ray start --head --node-ip-address=$head_node_ip --port=$port \
     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block" &
 
