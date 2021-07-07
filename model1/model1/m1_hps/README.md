@@ -104,7 +104,7 @@ Where to do the source?
 
 
 ```bash
-source /lus/theta-fs0/software/thetagpu/conda/2021-06-28/mconda3/setup.sh
+source /lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/setup.sh
 ```
 
 ### Basic Execution

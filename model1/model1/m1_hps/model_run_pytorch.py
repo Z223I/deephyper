@@ -317,7 +317,7 @@ def train(  args,
             loss.backward()
             optimizer.step()
 
-        if i % 10 == 0:
+        if i % 1 == 0:
             #accuracy calculated across all batches/training data.
             # Do I really want to calculate accuracy across so much data?  No.
             # This has been moved from inside the training loop to here so that
