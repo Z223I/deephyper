@@ -9,6 +9,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.utils.data import  DataLoader
+import numpy as np
+
 #import sambaflow.samba.optim as optim
 #import EarlyStopping
 import matplotlib.pyplot as plt
@@ -21,8 +23,10 @@ def validation_step(...):
 
 trainer = Trainer(callbacks=[EarlyStopping(monitor='val_loss')])
 """
-from model1.model1.m1_hps.load_data_pytorch import load_data
-from model1.model1.m1_hps.Data_Loader import dataset
+#####from model1.model1.m1_hps.load_data_pytorch import load_data
+#####from model1.model1.m1_hps.Data_Loader import dataset
+from load_data_pytorch import load_data
+from Data_Loader import dataset
 #####timer.end("module loading")
 
 
@@ -269,7 +273,9 @@ def train(  args,
     global DEEPHYPER
 
     #numEpochs = args.epochs
-    numEpochs = args['epochs']
+    numEpochs  = args['epochs']
+    #batch_size = args.batch_size
+    batch_size = args['batch_size']
 
     """
     if SAMBANOVA or DEEPHYPER:
@@ -280,7 +286,7 @@ def train(  args,
 
     trainset = dataset(X_train, Y_train)
     #DataLoader
-    trainloader = DataLoader(trainset, batch_size=64, shuffle=False)
+    trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=False)
 
     loss_fn = nn.BCELoss()
 
@@ -295,77 +301,51 @@ def train(  args,
             #calculate output
             output = model.forward(x_train)
 
-
-            """
-(miniconda-3/latest/base) wilsonb@thetalogin4:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper> python model1/model1/m1_hps/model_run_pytorch.py
-TIMER module loading: 0.6275 seconds
-TIMER loading data: 6.2810 seconds
-TIMER preprocessing: 0.0192 seconds
-/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/loss.py:498: UserWarning: Using a target size (torch.Size([64, 1])) that is different to the input size (torch.Size([64, 2])) is deprecated. Please ensure they have the same size.
-  return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
-Traceback (most recent call last):
-  File "model1/model1/m1_hps/model_run_pytorch.py", line 413, in <module>
-    accuracy = run(config)
-  File "model1/model1/m1_hps/model_run_pytorch.py", line 388, in run
-    history = train(config, model, optimizer, x_train, y_train)
-  File "model1/model1/m1_hps/model_run_pytorch.py", line 298, in train
-    loss = loss_fn( output, y_train.reshape(-1,1) )
-  File "/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/module.py", line 541, in __call__
-    result = self.forward(*input, **kwargs)
-  File "/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/loss.py", line 498, in forward
-    return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
-  File "/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/functional.py", line 2058, in binary_cross_entropy
-    "!= input nelement ({})".format(target.numel(), input.numel()))
-ValueError: Target and input must have the same number of elements. target nelement (64) != input nelement (128)
-(miniconda-3/latest/base) wilsonb@thetalogin4:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper>
-            """
             #calculate loss
-            print(f"output.shape: {output.shape}")
-            print(f"output[0]: {output[0]}")
-            print(f"y_train.shape: {y_train.shape}")
-            print(f"y_train[0]: {y_train[0]}")
-            loss = loss_fn( output[:,1], y_train.reshape(-1,1) )
+            #print(f"output.shape: {output.shape}")
+            #print(f"output[0]: {output[0]}")
+            #print(f"y_train.shape: {y_train.shape}")
+            #print(f"y_train[0]: {y_train[0]}")
+
+            # This is a binary classification problem.  The 'output' columns
+            # should be Pn, Py.  Only Py is wanted.
+            pyIndex = 1
+            loss = loss_fn( (output[:, pyIndex]).reshape(-1,1), y_train.reshape(-1,1) )
 
             #backprop
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
-        if i % 5 == 0:
+        if i % 10 == 0:
             #accuracy calculated across all batches/training data.
             # Do I really want to calculate accuracy across so much data?  No.
             # This has been moved from inside the training loop to here so that
             # it is only calculated when it actually gets used.
 
+            output = model.forward( torch.tensor(X_train, dtype=torch.float32) )
 
+            # This is a binary classification problem.  The 'output' columns
+            # should be Pn, Py.  Only Py is wanted.
+            pyIndex = 1
+            predicted = (output[:,pyIndex]).reshape(-1)
 
-            """
-x.shape: torch.Size([20, 2])
-output.shape: torch.Size([20, 2])
-output[0]: tensor([0.5456, 0.4544], grad_fn=<SelectBackward>)
-y_train.shape: torch.Size([20])
-y_train[0]: 0.0
-/soft/datascience/conda/miniconda3/latest/lib/python3.7/site-packages/torch/nn/modules/loss.py:498: UserWarning: Using a target size (torch.Size([20, 1])) that is different to the input size (torch.Size([20])) is deprecated. Please ensure they have the same size.
-  return F.binary_cross_entropy(input, target, weight=self.weight, reduction=self.reduction)
-x.shape: torch.Size([4692, 2])
-model1/model1/m1_hps/model_run_pytorch.py:340: DeprecationWarning: elementwise comparison failed; this will raise an error in the future.
-  acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
-Traceback (most recent call last):
-  File "model1/model1/m1_hps/model_run_pytorch.py", line 442, in <module>
-    accuracy = run(config)
-  File "model1/model1/m1_hps/model_run_pytorch.py", line 417, in run
-    history = train(config, model, optimizer, x_train, y_train)
-  File "model1/model1/m1_hps/model_run_pytorch.py", line 340, in train
-    acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
-AttributeError: 'bool' object has no attribute 'mean'
-            """
-            predicted = model.forward( torch.tensor(X_train, dtype=torch.float32) )
-            acc = (predicted.reshape(-1).detach().numpy().round() == Y_train).mean()
+            for k, pred in enumerate( predicted ):
+                if pred < 0.5:
+                    predicted[k] = 0
+                else:
+                    predicted[k] = 1
+
+            areEqual = np.equal(predicted.detach().numpy(), Y_train)
+
+            # Get count of True elements in a numpy array
+            acc = np.count_nonzero( areEqual ) / len( areEqual )
 
             losses.append(loss)
             accur.append(acc)
-            print("epoch {}\tloss : {}\t accuracy : {}".format(i,loss,acc))
+            print(f"epoch: {i}\tloss: {loss}\t accuracy: {acc}")
 
+    """
     #plotting the loss
     plt.plot(losses)
     plt.title('Loss vs Epochs')
@@ -377,6 +357,7 @@ AttributeError: 'bool' object has no attribute 'mean'
     plt.title('Accuracy vs Epochs')
     plt.xlabel('Accuracy')
     plt.ylabel('loss')
+    """
 
     history = {}
     history['acc'] = accur
@@ -404,12 +385,12 @@ def run(config):
     global DEEPHYPER
 
 
-    timer.start('loading data')
+    #####timer.start('loading data')
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
-    timer.end('loading data')
+    #####timer.end('loading data')
 
 
-    timer.start('preprocessing')
+    #####timer.start('preprocessing')
     model = Model1(config)
 
     # SambaNova conversions.
@@ -430,16 +411,16 @@ def run(config):
     # patient early stopping
     #es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=PATIENCE)
 
-    timer.end('preprocessing')
+    #####timer.end('preprocessing')
 
     #
     # Training
     #
-    timer.start('model training')
+    #####timer.start('model training')
 
     history = train(config, model, optimizer, x_train, y_train)
 
-    timer.end('model training')
+    #####timer.end('model training')
 
     HISTORY = history
     return history['acc'][-1]
@@ -451,8 +432,8 @@ if __name__ == '__main__':
         'activation': 'relu',  # can be gelu
         'optimizer':  'Adam',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
-        'batch_size': 4096,
-        'epochs':     15,
+        'batch_size': 32,
+        'epochs':     30,
         'dropout':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
@@ -465,9 +446,11 @@ if __name__ == '__main__':
     accuracy = run(config)
     print('accuracy: ', accuracy)
 
+    """
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
+    """

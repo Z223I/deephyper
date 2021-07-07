@@ -4,7 +4,8 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 
-from model1.model1.m1_hps.load_data_pytorch import load_data
+#####from model1.model1.m1_hps.load_data_pytorch import load_data
+from load_data_pytorch import load_data
 
 class dataset(Dataset):
     """Class for dataset."""
@@ -32,7 +33,7 @@ if __name__ == '__main__':
                                     # amount of data in validation set.
         'print shape': 0            # Print the data shape.
     }
-    
+
     (train_X, train_y), (valid_X, valid_y) = load_data(config)
 
     print(f'train_X shape: {np.shape(train_X)}')
