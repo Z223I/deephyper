@@ -26,7 +26,7 @@ from deephyper.search.util import Timer
 timer = Timer()
 timer.start("module loading")
 
-from tf.keras import backend as K
+from tensorflow.keras import backend as K
 from keras.models import Model
 from keras.layers import Dense, Input, Dropout, BatchNormalization
 from keras.callbacks import EarlyStopping
@@ -45,7 +45,7 @@ def softMaxAxis1(x):
     """Return softmax for axis 1."""
     return softmax(x, axis=1)
 
-from model1.model1.m1_hps.load_data import load_data
+from load_data import load_data
 
 
 
@@ -270,7 +270,7 @@ if __name__ == '__main__':
     }
     accuracy = run(config)
     print('accuracy: ', accuracy)
-    
+
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
