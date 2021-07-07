@@ -125,6 +125,13 @@ An example command line for HPS:
 python -m deephyper.search.hps.ambs --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 1
 ```
 
+```bash
+```
+
+```bash
+python model_run_pytorch.py
+```
+
 ### Note
 
 ```bash

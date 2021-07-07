@@ -1,8 +1,8 @@
 """PyTorch version of Model 1."""
 
-from deephyper.search.util import Timer
-timer = Timer()
-timer.start("module loading")
+#####from deephyper.search.util import Timer
+#####timer = Timer()
+#####timer.start("module loading")
 
 import torch
 import torch.nn as nn
@@ -23,7 +23,7 @@ trainer = Trainer(callbacks=[EarlyStopping(monitor='val_loss')])
 """
 from model1.model1.m1_hps.load_data_pytorch import load_data
 from model1.model1.m1_hps.Data_Loader import dataset
-timer.end("module loading")
+#####timer.end("module loading")
 
 
 SAMBANOVA = False
@@ -230,7 +230,7 @@ class Model1(nn.Module):
 
 
         # Apply log_softmax to x
-        print(f"x.shape: {x.shape}")
+        #print(f"x.shape: {x.shape}")
         output = F.softmax(x, dim=1)
         return output
 
