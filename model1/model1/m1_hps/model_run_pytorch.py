@@ -360,7 +360,7 @@ def train(  args,
 
             predictedCpu = predictedCpu.cpu()
 
-            areEqual = np.equal(predictedCpu.detach().numpy(), Y_train)
+            areEqual = np.equal(predictedCpu.detach().numpy(), Y_train) # Finally
 
             # Get count of True elements in a numpy array
             acc = np.count_nonzero( areEqual ) / len( areEqual )
