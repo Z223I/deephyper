@@ -16,7 +16,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from torch_wrapper import load_cuda_vs_knl, benchmark_forward, use_knl, use_cuda  # noqa
-from utils import get_first_gpu_memory_usage
+#from utils import get_first_gpu_memory_usage
 
 """
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
@@ -289,6 +289,8 @@ def train(  args,
     """
     global SAMBANOVA
     global DEEPHYPER
+    global DEVICE
+    global DTYPE
 
     #numEpochs = args.epochs
     numEpochs  = args['epochs']
@@ -317,7 +319,7 @@ def train(  args,
         for _, (x_train, y_train) in enumerate( trainloader ):
 
             #calculate output
-            output = model.forward(x_train)
+            output = model.forward(x_train.to(DEVICE, dtype=DTYPE))
 
             #calculate loss
             #print(f"output.shape: {output.shape}")
