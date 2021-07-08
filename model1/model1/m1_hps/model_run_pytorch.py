@@ -296,6 +296,7 @@ def train(  args,
     numEpochs  = args['epochs']
     #batch_size = args.batch_size
     batch_size = args['batch_size']
+    batch_size = abs(int(batch_size))
 
     """
     if SAMBANOVA or DEEPHYPER:
