@@ -12,8 +12,8 @@ from torch.utils.data import  DataLoader
 import numpy as np
 
 #import sambaflow.samba.optim as optim
-#import EarlyStopping
-import matplotlib.pyplot as plt
+from early_stopping import EarlyStopping
+#import matplotlib.pyplot as plt
 
 from torch_wrapper import load_cuda_vs_knl, benchmark_forward, use_knl, use_cuda  # noqa
 #from utils import get_first_gpu_memory_usage
@@ -270,7 +270,9 @@ def train(  args,
             model: nn.Module,
             optimizer: optim.AdamW,
             X_train,
-            Y_train
+            Y_train,
+            X_valid,
+            Y_valid
             ):
     """
     Train the model.
@@ -280,7 +282,9 @@ def train(  args,
         model: nn.Module,
         optimizer
         X_train,
-        Y_train
+        Y_train,
+        X_valid,
+        Y_valid
 
     Returns:
         history as a dictionary
@@ -309,7 +313,35 @@ def train(  args,
     #DataLoader
     trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True)
 
+    validset = dataset(X_valid, Y_valid)
+    #DataLoader
+    validloader = DataLoader(validset, batch_size=batch_size, shuffle=False)
+
     loss_fn = nn.BCELoss()
+
+    #
+    # EarlyStopping start
+    #
+
+    # to track the training loss as the model trains
+    train_losses = []
+    # to track the validation loss as the model trains
+    valid_losses = []
+    # to track the average training loss per epoch as the model trains
+    avg_train_losses = []
+    # to track the average validation loss per epoch as the model trains
+    avg_valid_losses = []
+
+    # initialize the early_stopping object
+    patience = config['patience']
+    early_stopping = EarlyStopping(patience=patience, verbose=True)
+
+    #
+    # EarlyStopping stop
+    #
+
+
+
 
     #forward loop
     losses = []
@@ -318,6 +350,12 @@ def train(  args,
 
         # This steps through batches.
         for _, (x_train, y_train) in enumerate( trainloader ):
+
+            ###################
+            # train the model #
+            ###################
+            # Clear the gradients of all optimized variables
+            optimizer.zero_grad()
 
             #calculate output
             output = model.forward(x_train.to(DEVICE, dtype=DTYPE))
@@ -328,6 +366,12 @@ def train(  args,
             #print(f"y_train.shape: {y_train.shape}")
             #print(f"y_train[0]: {y_train[0]}")
 
+
+            #
+            # TODO:
+            # Hmm... this is updating on batches instead of epochs.
+            #
+
             # This is a binary classification problem.  The 'output' columns
             # should be Pn, Py.  Only Py is wanted.
             pyIndex = 1
@@ -335,11 +379,66 @@ def train(  args,
                 y_train.reshape(-1,1).to(DEVICE, dtype=DTYPE) )
 
             #backprop
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            loss.backward()         #
+            optimizer.step()        #
 
-        if i % 1 == 0:
+            # record training loss
+            train_losses.append(loss.item())
+
+        #
+        # EarlyStopping start
+        #
+
+        ######################
+        # validate the model #
+        ######################
+        #model.eval() # prep model for evaluation
+        for data, y_valid in validloader:
+            # forward pass: compute predicted outputs by passing inputs to the model
+            output = model(data)
+
+            # This is a binary classification problem.  The 'output' columns
+            # should be Pn, Py.  Only Py is wanted.
+            pyIndex = 1
+            loss = loss_fn( (output[:, pyIndex]).reshape(-1,1).to(DEVICE, dtype=DTYPE),
+                y_valid.reshape(-1,1).to(DEVICE, dtype=DTYPE) )
+
+            # record validation loss
+            valid_losses.append(loss.item())
+
+        # print training/validation statistics
+        # calculate average loss over an epoch
+        train_loss = np.average(train_losses)
+        valid_loss = np.average(valid_losses)
+        avg_train_losses.append(train_loss)
+        avg_valid_losses.append(valid_loss)
+
+        epoch = i + 1
+        n_epochs = numEpochs
+        epoch_len = len(str(n_epochs))
+
+        print_msg = (f'[{epoch:>{epoch_len}}/{n_epochs:>{epoch_len}}] ' +
+                     f'train_loss: {train_loss:.5f} ' +
+                     f'valid_loss: {valid_loss:.5f}')
+
+        print(print_msg)
+
+        # clear lists to track next epoch
+        train_losses = []
+        valid_losses = []
+
+        # early_stopping needs the validation loss to check if it has decresed,
+        # and if it has, it will make a checkpoint of the current model
+        early_stopping(valid_loss, model)
+
+        #
+        # EarlyStopping stop
+        #
+
+#
+#
+#
+        if epoch % 1 == 0:
             #accuracy calculated across all batches/training data.
             # Do I really want to calculate accuracy across so much data?  No.
             # This has been moved from inside the training loop to here so that
@@ -368,7 +467,19 @@ def train(  args,
 
             losses.append(loss)
             accur.append(acc)
-            print(f"epoch: {i}\tloss: {loss}\t accuracy: {acc}")
+            print(f"epoch: {epoch}\t loss: {loss}\t accuracy: {acc}")
+
+        #
+        # EarlyStopping start
+        #
+
+        if early_stopping.early_stop:
+            print("Early stopping")
+            break
+
+        #
+        # EarlyStopping stop
+        #
 
     """
     #plotting the loss
@@ -464,7 +575,7 @@ def run(config):
         #
         #####timer.start('model training')
 
-        history = train(config, model, optimizer, x_train, y_train)
+        history = train(config, model, optimizer, x_train, y_train, x_valid, y_valid)
 
         #####timer.end('model training')
 
@@ -500,7 +611,7 @@ objective                                        0.902046
 elapsed_sec                                       1250.48
 Name: 132, dtype: object
     """
-    
+
     config = {
         'units': 10,
         'activation': 'relu',  # can be gelu
@@ -512,7 +623,7 @@ Name: 132, dtype: object
         'dropout2':   0.05,
         'dropout3':   0.10,
         'dropout4':   0.05,
-        'patience':   12,           # Not currently used.
+        'patience':   12,           # Not currently used.  It is being worked.
         'embed_hidden_size': 21,    # May not get used.
         'proportion': .90,          # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
