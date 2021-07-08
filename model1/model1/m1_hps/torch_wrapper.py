@@ -5,7 +5,7 @@ from utils import get_first_gpu_memory_usage
 
 num_runs = 5  # number of independent trials (or forward passes)
 use_cuda = torch.cuda.is_available()
-use_knl = not use_cuda
+use_knl = False
 # TODO(KGF): more robust way to detect presence of an Intel KNL device?
 # this might be unset for the default affinity? Check hostname for Theta instead?
 #
