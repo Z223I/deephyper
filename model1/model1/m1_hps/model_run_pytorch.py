@@ -90,7 +90,7 @@ class Model1(nn.Module):
         in_features = out_features
         out_features = samples * 7
         self.fc4 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout4 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout4 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         #if batchSamples >= 5:
         in_features = out_features
@@ -106,47 +106,47 @@ class Model1(nn.Module):
         in_features = out_features
         out_features = 90
         self.fc7 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 90
         self.fc8 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout8 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout8 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 48
         self.fc9 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout9 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout9 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 24
         self.fc10 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout10 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout10 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 12
         self.fc11 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout11 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout11 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 12
         self.fc12 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout12 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout12 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 12
         self.fc13 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout13 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout13 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 5
         self.fc14 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout14 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout14 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 5
         self.fc15 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        #self.dropout15 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        self.dropout15 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 5
@@ -203,12 +203,12 @@ class Model1(nn.Module):
         x = self.fc7(x)
         # Use the rectified-linear activation function over x
         x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout7(x)
+        x = self.dropout7(x)
 
         x = self.fc8(x)
         # Use the rectified-linear activation function over x
         x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout8(x)
+        x = self.dropout8(x)
 
         x = self.fc9(x)
         # Use the rectified-linear activation function over x
