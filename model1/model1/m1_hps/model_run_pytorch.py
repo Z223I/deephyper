@@ -330,7 +330,8 @@ def train(  args,
             # This is a binary classification problem.  The 'output' columns
             # should be Pn, Py.  Only Py is wanted.
             pyIndex = 1
-            loss = loss_fn( (output[:, pyIndex]).reshape(-1,1), y_train.reshape(-1,1) )
+            loss = loss_fn( (output[:, pyIndex]).reshape(-1,1).to(DEVICE, dtype=DTYPE),
+                y_train.reshape(-1,1).to(DEVICE, dtype=DTYPE) )
 
             #backprop
             optimizer.zero_grad()
@@ -343,12 +344,12 @@ def train(  args,
             # This has been moved from inside the training loop to here so that
             # it is only calculated when it actually gets used.
 
-            output = model.forward( torch.tensor(X_train, dtype=torch.float32) )
+            output = model.forward( torch.tensor(X_train, dtype=torch.float32).to(DEVICE, dtype=DTYPE) )
 
             # This is a binary classification problem.  The 'output' columns
             # should be Pn, Py.  Only Py is wanted.
             pyIndex = 1
-            predicted = (output[:,pyIndex]).reshape(-1)
+            predicted = (output[:,pyIndex]).reshape(-1).to(DEVICE, dtype=DTYPE)
 
             for k, pred in enumerate( predicted ):
                 if pred < 0.5:
