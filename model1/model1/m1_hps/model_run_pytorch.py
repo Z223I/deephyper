@@ -475,6 +475,14 @@ def train(  args,
 
         if early_stopping.early_stop:
             print("Early stopping")
+
+            # This is the true epoch number.
+            best = early_stopping.bestEpoch
+
+            # Truncate lists to the best epoch.
+            accur = accur[:best]
+            losses = losses[:best]
+
             break
 
         #
@@ -618,7 +626,7 @@ Name: 132, dtype: object
         'optimizer':  'AdamW',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
         'batch_size': 32,
-        'epochs':     20,
+        'epochs':     40,
         'dropout1':   0.05,
         'dropout2':   0.05,
         'dropout3':   0.10,
