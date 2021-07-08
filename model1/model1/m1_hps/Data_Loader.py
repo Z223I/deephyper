@@ -44,4 +44,4 @@ if __name__ == '__main__':
     trainset = dataset(train_X, train_y)
 
     #DataLoader
-    trainloader = DataLoader(trainset, batch_size=64, shuffle=False)
+    trainloader = DataLoader(trainset, batch_size=64, shuffle=True)
