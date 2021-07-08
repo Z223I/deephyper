@@ -16,6 +16,7 @@ Problem.add_hyperparameter([0.05] , 'dropout4')
 Problem.add_hyperparameter([12], 'patience')
 Problem.add_hyperparameter([21], 'embed_hidden_size')
 Problem.add_hyperparameter([64], 'omp_num_threads')
+Problem.add_hyperparameter([0.90], 'proportion')
 
 """
 Problem.add_starting_point(
