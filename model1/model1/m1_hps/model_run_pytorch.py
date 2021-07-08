@@ -349,7 +349,8 @@ def train(  args,
             # This is a binary classification problem.  The 'output' columns
             # should be Pn, Py.  Only Py is wanted.
             pyIndex = 1
-            predicted = (output[:,pyIndex]).reshape(-1).to(DEVICE, dtype=DTYPE)
+            predictedCpu = (output[:,pyIndex]).reshape(-1)
+            predicted = predictedCpu.to(DEVICE, dtype=DTYPE)
 
             for k, pred in enumerate( predicted ):
                 if pred < 0.5:
@@ -357,7 +358,7 @@ def train(  args,
                 else:
                     predicted[k] = 1
 
-            areEqual = np.equal(predicted.detach().cpu(), (Y_train).cpu())
+            areEqual = np.equal(predictedCpu, Y_train)
 
             # Get count of True elements in a numpy array
             acc = np.count_nonzero( areEqual ) / len( areEqual )
