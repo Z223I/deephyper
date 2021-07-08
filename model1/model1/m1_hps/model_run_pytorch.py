@@ -54,6 +54,9 @@ class Model1(nn.Module):
 
         self.batchSamples = batchSamples
 
+        device = config['device']
+        dtype  = config['dtype']
+
         dropout1 = config['dropout1']
         dropout2 = config['dropout2']
         dropout3 = config['dropout3']
@@ -62,94 +65,94 @@ class Model1(nn.Module):
         # TODO: How to shuffle.
         # Need batch norm and shuffle.
         # Change BatchNorm to LayerNorm on SambaNova.
-        self.ln1   = nn.LayerNorm(input_shape)
+        self.ln1   = nn.LayerNorm(input_shape).to(device, dtype=dtype)
 
         #if batchSamples >= 16:
         in_features = numInputs
         out_features = samples * 16
-        self.fc1 = nn.Linear(in_features, out_features)
-        self.dropout1 = nn.Dropout2d(dropout1) # This started at 0.20
+        self.fc1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout1 = nn.Dropout2d(dropout1).to(device, dtype=dtype) # This started at 0.20
 
         #if batchSamples >= 12:
         in_features = out_features
         out_features = samples * 12
-        self.fc2 = nn.Linear(in_features, out_features)
-        self.dropout2 = nn.Dropout2d(dropout2)
+        self.fc2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
         #if batchSamples >= 10:
         in_features = out_features
         out_features = samples * 10
-        self.fc3 = nn.Linear(in_features, out_features)
-        self.dropout3 = nn.Dropout2d(dropout2)
+        self.fc3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = samples * 7
-        self.fc4 = nn.Linear(in_features, out_features)
-        #self.dropout4 = nn.Dropout2d(dropout4)
+        self.fc4 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout4 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         #if batchSamples >= 5:
         in_features = out_features
         out_features = samples * 5
-        self.fc5 = nn.Linear(in_features, out_features)
-        self.dropout5 = nn.Dropout2d(dropout3)
+        self.fc5 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout5 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = samples * 2
-        self.fc6 = nn.Linear(in_features, out_features)
-        self.dropout6 = nn.Dropout2d(dropout3)
+        self.fc6 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout6 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 90
-        self.fc7 = nn.Linear(in_features, out_features)
-        #self.dropout7 = nn.Dropout2d(dropout4)
+        self.fc7 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 90
-        self.fc8 = nn.Linear(in_features, out_features)
-        #self.dropout8 = nn.Dropout2d(dropout4)
+        self.fc8 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout8 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 48
-        self.fc9 = nn.Linear(in_features, out_features)
-        #self.dropout9 = nn.Dropout2d(dropout4)
+        self.fc9 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout9 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 24
-        self.fc10 = nn.Linear(in_features, out_features)
-        #self.dropout10 = nn.Dropout2d(dropout4)
+        self.fc10 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout10 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 12
-        self.fc11 = nn.Linear(in_features, out_features)
-        #self.dropout11 = nn.Dropout2d(dropout4)
+        self.fc11 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout11 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 12
-        self.fc12 = nn.Linear(in_features, out_features)
-        #self.dropout12 = nn.Dropout2d(dropout4)
+        self.fc12 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout12 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 12
-        self.fc13 = nn.Linear(in_features, out_features)
-        #self.dropout13 = nn.Dropout2d(dropout4)
+        self.fc13 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout13 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 5
-        self.fc14 = nn.Linear(in_features, out_features)
-        #self.dropout14 = nn.Dropout2d(dropout4)
+        self.fc14 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout14 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 5
-        self.fc15 = nn.Linear(in_features, out_features)
-        #self.dropout15 = nn.Dropout2d(dropout4)
+        self.fc15 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #self.dropout15 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 5
-        self.fc16 = nn.Linear(in_features, out_features)
+        self.fc16 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
 
         in_features = out_features
         out_features = classCount
-        self.fc17 = nn.Linear(in_features, out_features)
+        self.fc17 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
 
     def forward(self, x):
         # sourcery skip: inline-immediately-returned-variable
@@ -404,6 +407,9 @@ def run(config):
         #####timer.start('preprocessing')
 
         device, dtype = load_cuda_vs_knl(config)
+
+        config['device'] = device
+        config['dtype']  = dtype
 
         model = Model1(config).to(device, dtype=dtype)
 
