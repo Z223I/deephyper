@@ -358,7 +358,9 @@ def train(  args,
                 else:
                     predicted[k] = 1
 
-            areEqual = np.equal(predictedCpu, (Y_train).cpu())
+            predictedCpu = predictedCpu.cpu()
+
+            areEqual = np.equal(predictedCpu, Y_train)
 
             # Get count of True elements in a numpy array
             acc = np.count_nonzero( areEqual ) / len( areEqual )
