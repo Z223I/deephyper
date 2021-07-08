@@ -15,6 +15,9 @@ import numpy as np
 #import EarlyStopping
 import matplotlib.pyplot as plt
 
+from torch_wrapper import load_cuda_vs_knl, benchmark_forward, use_knl, use_cuda  # noqa
+from utils import get_first_gpu_memory_usage
+
 """
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
@@ -34,7 +37,9 @@ SAMBANOVA = False
 DEEPHYPER = True
 
 class Model1(nn.Module):
-    """Model object."""
+    """Model 1 object."""
+
+    # dtype=float != torch.float
 
     def __init__(self, config):
         """Initialize the model object."""
@@ -266,7 +271,7 @@ def train(  args,
 
     Returns:
         history as a dictionary
-            history['acc'] = accur
+            history['acc'] = accuracy
             history['losses'] = losses
     """
     global SAMBANOVA
@@ -286,7 +291,7 @@ def train(  args,
 
     trainset = dataset(X_train, Y_train)
     #DataLoader
-    trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=False)
+    trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True)
 
     loss_fn = nn.BCELoss()
 
@@ -385,45 +390,56 @@ def run(config):
     global DEEPHYPER
 
 
-    #####timer.start('loading data')
-    (x_train, y_train), (x_valid, y_valid) = load_data(config)
-    #####timer.end('loading data')
+    try:
+        #####timer.start('loading data')
+        (x_train, y_train), (x_valid, y_valid) = load_data(config)
+        #####timer.end('loading data')
 
 
-    #####timer.start('preprocessing')
-    model = Model1(config)
+        #####timer.start('preprocessing')
 
-    # SambaNova conversions.
-    #model.bfloat16().float()
-    #samba.from_torch_(model)
+        device, dtype = load_cuda_vs_knl(config)
 
+        model = Model1(config).to(device, dtype=dtype)
 
-
-    # BCELoss is correct for Model1.
-    # Moved to train().
-    #criterion = nn.BCELoss()
-
-    # setup optimizer
-    #optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
-    optimizer = optim.AdamW(model.parameters())
+        # SambaNova conversions.
+        #model.bfloat16().float()
+        #samba.from_torch_(model)
 
 
-    # patient early stopping
-    #es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=PATIENCE)
 
-    #####timer.end('preprocessing')
+        # BCELoss is correct for Model1.
+        # Moved to train().
+        #criterion = nn.BCELoss()
 
-    #
-    # Training
-    #
-    #####timer.start('model training')
+        # setup optimizer
+        #optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
+        optimizer = optim.AdamW(model.parameters())
 
-    history = train(config, model, optimizer, x_train, y_train)
 
-    #####timer.end('model training')
+        # patient early stopping
+        #es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=PATIENCE)
 
-    HISTORY = history
-    return history['acc'][-1]
+        #####timer.end('preprocessing')
+
+        #
+        # Training
+        #
+        #####timer.start('model training')
+
+        history = train(config, model, optimizer, x_train, y_train)
+
+        #####timer.end('model training')
+
+        HISTORY = history
+        return history['acc'][-1]
+    except Exception as e:
+        import traceback
+
+        print("received exception: ", str(e))
+        print(traceback.print_exc())
+        #print("runtime=", time.time() - start)
+        return 0.0
 
 
 if __name__ == '__main__':
@@ -443,6 +459,10 @@ if __name__ == '__main__':
                                     # amount of data in validation set.
         'print_shape': 0,           # Print the data shape.
     }
+
+    if use_knl:
+        config["omp_num_threads"] = 64
+
     accuracy = run(config)
     print('accuracy: ', accuracy)
 
