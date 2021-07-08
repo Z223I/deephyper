@@ -22,9 +22,9 @@ I have seen:
 from tensorflow import keras
 print(f'Keras Version: {keras.__version__}')
 
-from deephyper.search.util import Timer
-timer = Timer()
-timer.start("module loading")
+#####from deephyper.search.util import Timer
+#####timer = Timer()
+#####timer.start("module loading")
 
 from tensorflow.keras import backend as K
 from keras.models import Model
@@ -33,7 +33,7 @@ from keras.callbacks import EarlyStopping
 
 #from pprint import pprint
 
-timer.end("module loading")
+#####timer.end("module loading")
 
 def getClassCount():
     """Return the number of classes."""
@@ -169,9 +169,9 @@ def run(config):
     global HISTORY
 
 
-    timer.start('loading data')
+    #####timer.start('loading data')
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
-    timer.end('loading data')
+    #####timer.end('loading data')
 
     #
     # Retrieve config information.
@@ -191,7 +191,7 @@ def run(config):
 
     callbacks = [ es, ]
 
-    timer.start('preprocessing')
+    #####timer.start('preprocessing')
 
     # model_path = param_dict['model_path']
     # model_mda_path = None
@@ -216,9 +216,9 @@ def run(config):
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
 
-    timer.end('preprocessing')
+    #####timer.end('preprocessing')
 
-    timer.start('model training')
+    #####timer.start('model training')
 
     history = model.fit(x_train, y_train,
         batch_size = BATCH_SIZE,
@@ -243,7 +243,7 @@ def run(config):
     #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
     #acc = model.evaluate(Xtest, yTest, verbose=0)
 
-    timer.end('model training')
+    #####timer.end('model training')
 
     HISTORY = history.history
 
@@ -258,8 +258,8 @@ if __name__ == '__main__':
         'activation': 'relu',  # can be gelu
         'optimizer':  'Adam',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
-        'batch_size': 4096,
-        'epochs':     200,
+        'batch_size': 32,
+        'epochs':     30,
         'dropout':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.

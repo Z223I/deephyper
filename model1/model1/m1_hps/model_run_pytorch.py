@@ -54,6 +54,11 @@ class Model1(nn.Module):
 
         self.batchSamples = batchSamples
 
+        dropout1 = config['dropout1']
+        dropout2 = config['dropout2']
+        dropout3 = config['dropout3']
+        dropout4 = config['dropout4']
+
         # TODO: How to shuffle.
         # Need batch norm and shuffle.
         # Change BatchNorm to LayerNorm on SambaNova.
@@ -63,80 +68,80 @@ class Model1(nn.Module):
         in_features = numInputs
         out_features = samples * 16
         self.fc1 = nn.Linear(in_features, out_features)
-        self.dropout1 = nn.Dropout2d(0.20)
+        self.dropout1 = nn.Dropout2d(dropout1) # This started at 0.20
 
         #if batchSamples >= 12:
         in_features = out_features
         out_features = samples * 12
         self.fc2 = nn.Linear(in_features, out_features)
-        self.dropout2 = nn.Dropout2d(0.10)
+        self.dropout2 = nn.Dropout2d(dropout2)
 
         #if batchSamples >= 10:
         in_features = out_features
         out_features = samples * 10
         self.fc3 = nn.Linear(in_features, out_features)
-        self.dropout3 = nn.Dropout2d(0.10)
+        self.dropout3 = nn.Dropout2d(dropout2)
 
         in_features = out_features
         out_features = samples * 7
         self.fc4 = nn.Linear(in_features, out_features)
-        #self.dropout4 = nn.Dropout2d(0.00)
+        #self.dropout4 = nn.Dropout2d(dropout4)
 
         #if batchSamples >= 5:
         in_features = out_features
         out_features = samples * 5
         self.fc5 = nn.Linear(in_features, out_features)
-        self.dropout5 = nn.Dropout2d(0.05)
+        self.dropout5 = nn.Dropout2d(dropout3)
 
         in_features = out_features
         out_features = samples * 2
         self.fc6 = nn.Linear(in_features, out_features)
-        self.dropout6 = nn.Dropout2d(0.05)
+        self.dropout6 = nn.Dropout2d(dropout3)
 
         in_features = out_features
         out_features = 90
         self.fc7 = nn.Linear(in_features, out_features)
-        #self.dropout7 = nn.Dropout2d(0.00)
+        #self.dropout7 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 90
         self.fc8 = nn.Linear(in_features, out_features)
-        #self.dropout8 = nn.Dropout2d(0.00)
+        #self.dropout8 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 48
         self.fc9 = nn.Linear(in_features, out_features)
-        #self.dropout9 = nn.Dropout2d(0.00)
+        #self.dropout9 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 24
         self.fc10 = nn.Linear(in_features, out_features)
-        #self.dropout10 = nn.Dropout2d(0.00)
+        #self.dropout10 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 12
         self.fc11 = nn.Linear(in_features, out_features)
-        #self.dropout11 = nn.Dropout2d(0.00)
+        #self.dropout11 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 12
         self.fc12 = nn.Linear(in_features, out_features)
-        #self.dropout12 = nn.Dropout2d(0.00)
+        #self.dropout12 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 12
         self.fc13 = nn.Linear(in_features, out_features)
-        #self.dropout13 = nn.Dropout2d(0.00)
+        #self.dropout13 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 5
         self.fc14 = nn.Linear(in_features, out_features)
-        #self.dropout14 = nn.Dropout2d(0.00)
+        #self.dropout14 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 5
         self.fc15 = nn.Linear(in_features, out_features)
-        #self.dropout15 = nn.Dropout2d(0.00)
+        #self.dropout15 = nn.Dropout2d(dropout4)
 
         in_features = out_features
         out_features = 5
@@ -414,7 +419,16 @@ def run(config):
 
         # setup optimizer
         #optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
-        optimizer = optim.AdamW(model.parameters())
+        optimizer = config['optimizer'].lower()
+
+        if optimizer == 'adamw':
+            optimizer = optim.AdamW(model.parameters())
+        elif optimizer == 'adam':
+            optimizer = optim.Adam(model.parameters())
+        else:
+            print("ERROR:")
+            print("Choose either AdamW or Adam as an optimizer.")
+            return 0.0
 
 
         # patient early stopping
@@ -446,14 +460,17 @@ if __name__ == '__main__':
     config = {
         'units': 10,
         'activation': 'relu',  # can be gelu
-        'optimizer':  'Adam',  # can be AdamW but it has to be installed.
+        'optimizer':  'AdamW',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
         'batch_size': 32,
-        'epochs':     30,
-        'dropout':    0.05,
-        'patience':   12,
+        'epochs':     15,
+        'dropout1':   0.20,
+        'dropout2':   0.10,
+        'dropout3':   0.05,
+        'dropout4':   0.00,
+        'patience':   12,           # Not currently used.
         'embed_hidden_size': 21,    # May not get used.
-        'proportion': .80,          # A value between [0., 1.] indicating how to split data between
+        'proportion': .90,          # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.
