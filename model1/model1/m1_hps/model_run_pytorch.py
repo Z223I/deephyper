@@ -314,8 +314,8 @@ def train(  args,
     trainloader = DataLoader(trainset, batch_size=batch_size, shuffle=True)
 
     validset = dataset(X_valid, Y_valid)
-    #DataLoader
-    validloader = DataLoader(validset, batch_size=batch_size, shuffle=False)
+    #DataLoader  # shuffle should not matter here.
+    validloader = DataLoader(validset, batch_size=batch_size, shuffle=True)
 
     loss_fn = nn.BCELoss()
 
@@ -429,7 +429,7 @@ def train(  args,
 
         # early_stopping needs the validation loss to check if it has decresed,
         # and if it has, it will make a checkpoint of the current model
-        early_stopping(valid_loss, model)
+        early_stopping(valid_loss, model, epoch)
 
         #
         # EarlyStopping stop
@@ -479,9 +479,11 @@ def train(  args,
             # This is the true epoch number.
             best = early_stopping.bestEpoch
 
+            best = max(1, best)
+
             # Truncate lists to the best epoch.
-            accur = accur[:best]
-            losses = losses[:best]
+            del accur[best:]
+            del losses[best:]
 
             break
 
@@ -588,7 +590,9 @@ def run(config):
         #####timer.end('model training')
 
         HISTORY = history
+
         return history['acc'][-1]
+
     except Exception as e:
         import traceback
 
