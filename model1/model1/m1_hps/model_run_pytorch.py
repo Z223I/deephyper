@@ -35,6 +35,8 @@ from Data_Loader import dataset
 
 SAMBANOVA = False
 DEEPHYPER = True
+DEVICE    = None
+DTYPE     = None
 
 class Model1(nn.Module):
     """Model 1 object."""
@@ -162,86 +164,89 @@ class Model1(nn.Module):
         Args:
             x: represents one sample of the data.
         """
+        device = DEVICE
+        dtype  = DTYPE
+
         # Pass data through ln1
         x = self.ln1(x)
 
         x = self.fc1(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         x = self.dropout1(x)
 
         x = self.fc2(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         x = self.dropout2(x)
 
         x = self.fc3(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         x = self.dropout3(x)
 
         x = self.fc4(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout4(x)
 
         x = self.fc5(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         x = self.dropout5(x)
 
         x = self.fc6(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         x = self.dropout6(x)
 
         x = self.fc7(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout7(x)
 
         x = self.fc8(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout8(x)
 
         x = self.fc9(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout9(x)
 
         x = self.fc10(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout10(x)
 
         x = self.fc11(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout11(x)
 
         x = self.fc12(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout12(x)
 
         x = self.fc13(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout13(x)
 
         x = self.fc14(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout14(x)
 
         x = self.fc15(x)
         # Use the rectified-linear activation function over x
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
         #x = self.dropout15(x)
 
         x = self.fc16(x)
-        x = F.relu(x)
+        x = F.relu(x).to(device, dtype=dtype)
 
         x = self.fc17(x)
 
@@ -396,6 +401,8 @@ def run(config):
     global HISTORY
     global SAMBANOVA
     global DEEPHYPER
+    global DEVICE
+    global DTYPE
 
 
     try:
@@ -410,6 +417,9 @@ def run(config):
 
         config['device'] = device
         config['dtype']  = dtype
+
+        DEVICE = device
+        DTYPE  = dtype
 
         model = Model1(config).to(device, dtype=dtype)
 
