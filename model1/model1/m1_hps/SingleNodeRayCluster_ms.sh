@@ -16,7 +16,7 @@ if [[ ${#ADDR[0]} -gt 16 ]]; then
 head_node_ip=${ADDR[1]}
 else
 head_node_ip=${ADDR[0]}
-fi
+fi 
 echo "IPV6 address detected. We split the IPV4 address as $head_node_ip"
 fi
 # Starting the Ray Head Node

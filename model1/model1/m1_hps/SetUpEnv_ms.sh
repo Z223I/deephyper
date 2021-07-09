@@ -9,3 +9,4 @@ module load conda/deephyper/0.2.5
 conda activate
 
 export PYTHONPATH=$HOME/deephyper_pytorch_layers:$PYTHONPATH
+ 
