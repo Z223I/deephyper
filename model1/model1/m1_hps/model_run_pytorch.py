@@ -673,6 +673,9 @@ Name: 1331, dtype: object
         'print_shape': 0,           # Print the data shape.
     }
 
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"device: {device}")
+    
     if use_knl:
         config["omp_num_threads"] = 64
 
