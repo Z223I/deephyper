@@ -633,25 +633,23 @@ accuracy:  0.0
 """
 if __name__ == '__main__':
     """
-activation                                           relu
-batch_size                                             32
-dropout1                                             0.05
-dropout2                                             0.05
-dropout3                                              0.1
-dropout4                                             0.05
-embed_hidden_size                                      21
-epochs                                                 20
-loss                                  binary_crossentropy
-omp_num_threads                                        64
-optimizer                                            Adam
-patience                                               12
-proportion                                            0.9
-units                                                  10
-id                   435e78da-e014-11eb-b3dc-e77839edcbe4
-objective                                        0.902046
-elapsed_sec                                       1250.48
-Name: 132, dtype: object
-    """
+{'activation': 'relu',
+ 'batch_size': 32,
+ 'dropout1': 0.05,
+ 'dropout2': 0.05,
+ 'dropout3': 0.1,
+ 'dropout4': 0.05,
+ 'embed_hidden_size': 21,
+ 'epochs': 20,
+ 'loss': 'binary_crossentropy',
+ 'omp_num_threads': 64,
+ 'optimizer': 'Adam',
+ 'patience': 12,
+ 'proportion': 0.9,
+ 'units': 10,
+ 'id': '435e78da-e014-11eb-b3dc-e77839edcbe4',
+ 'objective': 0.9020462296324364,
+ 'elapsed_sec': 1250.4827599525454}    """
 
     config = {
         'units': 10,
@@ -664,7 +662,7 @@ Name: 132, dtype: object
         'dropout2':   0.05,
         'dropout3':   0.10,
         'dropout4':   0.05,
-        'patience':   12,           # Not currently used.  It is being worked.
+        'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
         'proportion': .90,          # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
