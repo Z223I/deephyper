@@ -333,7 +333,7 @@ def train(  args,
     avg_valid_losses = []
 
     # initialize the early_stopping object
-    patience = config['patience']
+    patience = args['patience']
     early_stopping = EarlyStopping(patience=patience, verbose=True)
 
     #
