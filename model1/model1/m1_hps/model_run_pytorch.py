@@ -633,23 +633,25 @@ accuracy:  0.0
 """
 if __name__ == '__main__':
     """
-{'activation': 'relu',
- 'batch_size': 32,
- 'dropout1': 0.05,
- 'dropout2': 0.05,
- 'dropout3': 0.1,
- 'dropout4': 0.05,
- 'embed_hidden_size': 21,
- 'epochs': 20,
- 'loss': 'binary_crossentropy',
- 'omp_num_threads': 64,
- 'optimizer': 'Adam',
- 'patience': 12,
- 'proportion': 0.9,
- 'units': 10,
- 'id': '435e78da-e014-11eb-b3dc-e77839edcbe4',
- 'objective': 0.9020462296324364,
- 'elapsed_sec': 1250.4827599525454}    """
+activation                                           relu
+batch_size                                             64
+dropout1                                             0.05
+dropout2                                             0.05
+dropout3                                             0.05
+dropout4                                             0.05
+embed_hidden_size                                      21
+epochs                                                 15
+loss                                  binary_crossentropy
+omp_num_threads                                        64
+optimizer                                            Adam
+patience                                               12
+proportion                                            0.9
+units                                                  10
+id                   5a8aee34-e0cf-11eb-8f12-7fbf608d3b5e
+objective                                        0.832512
+elapsed_sec                                       4532.67
+Name: 1331, dtype: object
+    """
 
     config = {
         'units': 10,
@@ -660,7 +662,7 @@ if __name__ == '__main__':
         'epochs':     40,
         'dropout1':   0.05,
         'dropout2':   0.05,
-        'dropout3':   0.10,
+        'dropout3':   0.05,
         'dropout4':   0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
