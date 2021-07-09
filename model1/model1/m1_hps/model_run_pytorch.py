@@ -395,7 +395,7 @@ def train(  args,
         #model.eval() # prep model for evaluation
         for data, y_valid in validloader:
             # forward pass: compute predicted outputs by passing inputs to the model
-            output = model(data)
+            output = model(data.to(DEVICE, dtype=DTYPE))
 
             # This is a binary classification problem.  The 'output' columns
             # should be Pn, Py.  Only Py is wanted.
