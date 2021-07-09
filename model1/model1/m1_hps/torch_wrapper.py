@@ -19,6 +19,7 @@ if os.environ.get("CRAY_CPU_TARGET") == "mic-knl":
 
 
 def load_cuda_vs_knl(point):
+    use_cuda = torch.cuda.is_available()
     print("torch version: ", torch.__version__, " torch file: ", torch.__file__)
 
     print("PyTorch: CUDA available? {}".format(use_cuda))
