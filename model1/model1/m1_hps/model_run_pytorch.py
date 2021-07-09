@@ -15,7 +15,7 @@ import numpy as np
 from early_stopping import EarlyStopping
 #import matplotlib.pyplot as plt
 
-from torch_wrapper import load_cuda_vs_knl, benchmark_forward, use_knl, use_cuda  # noqa
+#from torch_wrapper import load_cuda_vs_knl, benchmark_forward, use_knl, use_cuda  # noqa
 #from utils import get_first_gpu_memory_usage
 
 """
@@ -541,8 +541,11 @@ def run(config):
 
         #####timer.start('preprocessing')
 
-        device, dtype = load_cuda_vs_knl(config)
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        print(f"device: {device}")
 
+        dtype = torch.float if device == "cuda" else torch.float32
+        
         config['device'] = device
         config['dtype']  = dtype
 
@@ -595,10 +598,8 @@ def run(config):
 
     except Exception as e:
         import traceback
-
-        print("received exception: ", str(e))
+        print('received exception: ', str(e))
         print(traceback.print_exc())
-        #print("runtime=", time.time() - start)
         return 0.0
 
 """
@@ -675,9 +676,6 @@ Name: 1331, dtype: object
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"device: {device}")
-    
-    if use_knl:
-        config["omp_num_threads"] = 64
 
     accuracy = run(config)
     print('accuracy: ', accuracy)
