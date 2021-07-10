@@ -545,7 +545,7 @@ def run(config):
         print(f"device: {device}")
 
         dtype = torch.float if device == "cuda" else torch.float32
-        
+
         config['device'] = device
         config['dtype']  = dtype
 
@@ -602,36 +602,6 @@ def run(config):
         print(traceback.print_exc())
         return 0.0
 
-"""
-(/base) wilsonb@thetagpu11:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps$ python3 model_run_pytorch.py
-torch version:  1.9.0a0+gitd69c22d  torch file:  /lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/torch/__init__.py
-PyTorch: CUDA available? True
-torch.cuda.current_device()=0
-CUDA_DEVICE_ORDER=FASTEST_FIRST
-CUDA_VISIBLE_DEVICES=None
-torch.backends.cuda.matmul.allow_tf32=True
-torch.backends.cudnn.allow_tf32=True
-received exception:  Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking arugment for argument weight in method wrapper_native_layer_norm)
-Traceback (most recent call last):
-  File "model_run_pytorch.py", line 588, in run
-    history = train(config, model, optimizer, x_train, y_train, x_valid, y_valid)
-  File "model_run_pytorch.py", line 398, in train
-    output = model(data)
-  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "model_run_pytorch.py", line 171, in forward
-    x = self.ln1(x)
-  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1051, in _call_impl
-    return forward_call(*input, **kwargs)
-  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/torch/nn/modules/normalization.py", line 173, in forward
-    return F.layer_norm(
-  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/torch/nn/functional.py", line 2346, in layer_norm
-    return torch.layer_norm(input, normalized_shape, weight, bias, eps, torch.backends.cudnn.enabled)
-RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking arugment for argument weight in method wrapper_native_layer_norm)
-None
-accuracy:  0.0
-
-"""
 if __name__ == '__main__':
     """
 activation                                           relu
@@ -675,7 +645,7 @@ Name: 1331, dtype: object
     }
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"device: {device}")
+    print(f"***** device: {device} *****")
 
     accuracy = run(config)
     print('accuracy: ', accuracy)
