@@ -17,12 +17,20 @@ def load_data(config):
     data_source = os.path.dirname(os.path.abspath(__file__))
     data_source = os.path.join(data_source, 'data')
 
-    path = os.path.join(data_source, "data.tar.gz")
+    #tarFilename    = "data.tar.gz"
+    #XTrainFilename = 'dh_data/Xtrain.txt'
+    #YTrainFilename = 'dh_data/yTrain.txt'
+
+    tarFilename    = "data485.tar.gz"
+    XTrainFilename = 'XTrain.txt'
+    YTrainFilename = 'YTrain.txt'
+
+    path = os.path.join(data_source, tarFilename)
 
     # Extract data from tar file.
     with tarfile.open(path) as tar:
-        x  = np.loadtxt(tar.extractfile('dh_data/Xtrain.txt'), delimiter=",")
-        y  = np.loadtxt(tar.extractfile('dh_data/yTrain.txt'), delimiter=",", dtype=np.int32)
+        x  = np.loadtxt(tar.extractfile(XTrainFilename), delimiter=",")
+        y  = np.loadtxt(tar.extractfile(YTrainFilename), delimiter=",", dtype=np.int32)
         # floor and int are a replacement for keras to_categorical
         y  = (np.floor(y)).astype(int)
         #print(f'x shape: {x.shape}')
@@ -50,7 +58,7 @@ def load_data(config):
         print(f'valid_X shape: {np.shape(valid_X)}')
         print(f'valid_y shape: {np.shape(valid_y)}')
     """
-    
+
     return (train_X, train_y), (valid_X, valid_y)
 
 if __name__ == '__main__':
