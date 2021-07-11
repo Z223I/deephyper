@@ -542,7 +542,7 @@ def run(config):
         #####timer.start('preprocessing')
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print(f"device: {device}")
+        print(f"*** device: {device} ***")
 
         dtype = torch.float if device == "cuda" else torch.float32
 
