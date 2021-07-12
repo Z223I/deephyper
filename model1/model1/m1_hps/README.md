@@ -132,6 +132,8 @@ python -m deephyper.search.hps.ambs --evaluator ray --problem model1.model1.m1_h
 python model_run_pytorch.py
 ```
 
+DeepHyper is open. So, you can always do one on Deephyper ThetaGPU is an ALCF machine. So, send a note to media@alcf.anl.gov regarding this
+
 ### Note
 
 ```bash
