@@ -55,13 +55,12 @@ def load_data(config):
     valid_X = x[sep_index:]
     valid_y = y[sep_index:]
 
-    """
-    if config['print_shape'] == 1:
+    key = 'print_shape'
+    if key in config.keys() and config['print_shape'] == 1:
         print(f'train_X shape: {np.shape(train_X)}')
         print(f'train_y shape: {np.shape(train_y)}')
         print(f'valid_X shape: {np.shape(valid_X)}')
         print(f'valid_y shape: {np.shape(valid_y)}')
-    """
 
     return (train_X, train_y), (valid_X, valid_y)
 

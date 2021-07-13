@@ -18,7 +18,7 @@ Problem.hyperparameters(
     num_epochs=20,
     callbacks=dict(
         EarlyStopping=dict(
-            monitor='val_acc', # 'val_r2' or 'val_acc' ?
+            monitor='val_r2', # or 'val_acc' ?
             mode='max',
             verbose=0,
             patience=5
@@ -26,11 +26,11 @@ Problem.hyperparameters(
     )
 )
 
-Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
+Problem.loss('mse') # or 'categorical_crossentropy' ?
 
-Problem.metrics(['acc']) # 'r2' or 'acc' ?
+Problem.metrics(['r2']) # or 'acc' ?
 
-Problem.objective('val_acc__last') # 'val_r2__last' or 'val_acc__last' ?
+Problem.objective('val_r2__last') # or 'val_acc__last' ?
 
 
 # Just to print your problem, to test its definition and imports in the current python environment.

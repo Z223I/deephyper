@@ -57,10 +57,11 @@ def create_search_space(input_shape=(10,),
 
 
 def test_create_search_space():
-    """Generate a random neural network from the search_space definition."""
+    """Generate a random neural network from the search_space definition.
+    """
     from random import random
     from tensorflow.keras.utils import plot_model
-    #import tensorflow as tf
+    import tensorflow as tf
 
     search_space = create_search_space(num_layers=10)
     ops = [random() for _ in range(search_space.num_nodes)]
