@@ -49,5 +49,8 @@ conda activate dl-hps
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/problem.py
 ./SingleNodeRayCluster.sh
 source ./SetUpEnv.sh
-deephyper nas random --evaluator ray --problem problem.Problem
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+pip3 install -e .
+cd lksjflsdkfj
+deephyper nas random --evaluator ray --problem nas_problems.nas_problems.model1.problem.Problem
 ```
