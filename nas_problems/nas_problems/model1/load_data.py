@@ -11,7 +11,7 @@ import tarfile
 #
 #
 
-def load_data(config):
+def load_data():
     """
     Load data for Model 1.
 
@@ -21,6 +21,15 @@ def load_data(config):
     Returns:
         tuple(tuple(ndarray, ndarray), tuple(ndarray, ndarray)): of Numpy arrays: `(train_X, train_y), (valid_X, valid_y)`.
     """
+
+    config = {
+        'proportion': .90,          # A value between [0., 1.] indicating how to split data between
+                                    # training set and validation set. `prop` corresponds to the
+                                    # ratio of data in training set. `1.-prop` corresponds to the
+                                    # amount of data in validation set.
+        'print_shape': 0            # Print the data shape.
+    }
+
     data_source = os.path.dirname(os.path.abspath(__file__))
     data_source = os.path.join(data_source, 'data')
 
@@ -72,14 +81,7 @@ def load_data(config):
     return (train_X, train_y), (valid_X, valid_y)
 
 if __name__ == '__main__':
-    config = {
-        'proportion': .90,          # A value between [0., 1.] indicating how to split data between
-                                    # training set and validation set. `prop` corresponds to the
-                                    # ratio of data in training set. `1.-prop` corresponds to the
-                                    # amount of data in validation set.
-        'print_shape': 0            # Print the data shape.
-    }
-    (train_X, train_y), (valid_X, valid_y) = load_data(config)
+    (train_X, train_y), (valid_X, valid_y) = load_data()
 
     print(f'train_X shape: {np.shape(train_X)}')
     print(f'train_y shape: {np.shape(train_y)}')

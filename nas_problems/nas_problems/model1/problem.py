@@ -5,15 +5,7 @@ from deephyper.nas.preprocessing import minmaxstdscaler
 
 Problem = NaProblem(seed=2019)
 
-config = {
-    'proportion': .90,          # A value between [0., 1.] indicating how to split data between
-                                # training set and validation set. `prop` corresponds to the
-                                # ratio of data in training set. `1.-prop` corresponds to the
-                                # amount of data in validation set.
-    'print_shape': 0            # Print the data shape.
-}
-
-Problem.load_data( load_data(config) )
+Problem.load_data( load_data )
 
 Problem.preprocessing(minmaxstdscaler)
 
