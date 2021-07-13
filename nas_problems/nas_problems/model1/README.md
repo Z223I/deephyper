@@ -39,6 +39,12 @@ qsub -I -A datascience -t 120 -q full-node -n 1
 ### Basic NAS Execution
 
 ```bash
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
+./SingleNodeRayCluster.sh
+source ./SetUpEnv.sh
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/
+deephyper nas random --evaluator ray --problem problem.Problem
+
 conda activate dl-hps
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/problem.py
 ./SingleNodeRayCluster.sh
