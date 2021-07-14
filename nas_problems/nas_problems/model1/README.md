@@ -121,6 +121,7 @@ On ThetaGPU
 ```bash
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
 git pull
+git checkout feature/008-more
 source ./SetUpEnv.sh
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
 
