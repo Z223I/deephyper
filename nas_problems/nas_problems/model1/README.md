@@ -165,7 +165,7 @@ Last login: Wed Jun 30 23:27:50 2021 from thetalogin4.tmi.alcf.anl.gov
 wilsonb@thetagpusn1:~$
 ```
 
-#### Start a node
+##### Start a node
 
 From thetagpusn1,2
 
@@ -178,9 +178,9 @@ On ThetaGPU
 ```bash
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
 source ./SetUpEnv.sh
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/
 
-python3 get_model.py
+python3 nas_problems/nas_problems/model1/get_model.py
 git add -f model
 git commit -am "New model."
 git push
