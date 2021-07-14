@@ -184,6 +184,9 @@ python3 nas_problems/nas_problems/model1/get_model.py
 git add -f model
 git commit -am "New model."
 git push
+exit
+exit
+exit
 ```
 
 On local machine

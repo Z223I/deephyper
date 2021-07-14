@@ -41,3 +41,13 @@ if __name__ == '__main__':
 
     print('Saving model...')
     model.save('model')
+
+    json_config = model.to_json()
+    #new_model = keras.models.model_from_json(json_config)
+
+    # TODO: Add json dump.
+
+    config = model.get_config()
+    #new_model = keras.Sequential.from_config(config)
+
+    # TODO: Add json dump.
