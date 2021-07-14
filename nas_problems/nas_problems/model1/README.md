@@ -61,31 +61,77 @@ Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
 
 deephyper-analytics notebook --type nas --output dh-analytics-nas.ipynb data_2021-07-14_01.json
 
+tx dh-analytics-nas.ipynb results.csv and init_info* to local machine.
+
+$ jupyter notebook
 ```
 
-I am attempting to run DeepHyper with NAS.  Because I am using my own model I had to do
-a developer install for DeepHyper 0.2.5.
+Select dh-analytics-nas.ipynb and run all cells
+
+Output of best models
 
 ```bash
-.../deephyper $ pip install -e .
-```
+'0':
+  arch_seq: '[0.8323024001314224, 0.7889290619064494, 0.9385678954207153, 0.16059637997392429,
+    0.6488539744120456, 0.8325765404421139, 0.9888735139157468, 0.9322143923769549,
+    0.7933123406870071]'
+  elapsed_sec: 89.9581792355
+  id: 678aa6f4-e42d-11eb-a964-f18f9b2aeba1
+  objective: 1.0
+'1':
+  arch_seq: '[0.11650447341058867, 0.5875885504875177, 0.7616171130499415, 0.40112081475681394,
+    0.7493532265120827, 0.2800965658218403, 0.31393139677072335, 0.165157311048022,
+    0.8629399531678635]'
+  elapsed_sec: 1583.2949447632
+  id: 02a893d0-e431-11eb-aa27-f18f9b2aeba1
+  objective: 1.0
+'2':
+  arch_seq: '[0.33164869729598867, 0.20248330614152665, 0.2547469587010932, 0.015167333255724169,
+    0.2775206010994029, 0.9916415578893681, 0.4538746929355745, 0.21892060220106446,
+    0.9121595786916527]'
+  elapsed_sec: 1584.8581268787
+  id: 039cd79e-e431-11eb-aa27-f18f9b2aeba1
+  objective: 1.0
+  ```
 
-I ran the model and parsed the log:
+Create a new .py script, get_model.py
+
+```python
+from deephyper.problem import NaProblem
+
+Problem = NaProblem(seed=2019)
+
+# Just to print your problem, to test its definition and imports in the current python environment.
+if __name__ == '__main__':
+    arch_seq = [0.8323024001314224, 0.7889290619064494, 0.9385678954207153, 0.16059637997392429,
+    0.6488539744120456, 0.8325765404421139, 0.9888735139157468, 0.9322143923769549,
+    0.7933123406870071]
+    model = Problem.get_keras_model(arch_seq)
+
+    print('Saving model...')
+    model.save('model')
+```
 
 ```bash
-deephyper nas random --evaluator ray --problem nas_problems.nas_problems.model1.problem.Problem
-deephyper-analytics parse deephyper.log
+git push
 ```
 
-Then attempted the next step per https://deephyper.readthedocs.io/en/latest/tutorials/nas.html and
-received the following error:
+On ThetaGPU
 
 ```bash
-(conda/2021-06-26/base) wilsonb@thetagpu02:/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper$ deephyper-analytics single -p data_2021-07-14_01.json
-detected env BALSAM_SPHINX_DOC_BUILD_ONLY: will not connect to a real DB
-Module: 'balsam' module was found but not connected to a databse.
-usage: deephyper-analytics [-h] {notebook,parse,quickplot,topk,balsam} ...
-deephyper-analytics: error: invalid choice: 'single' (choose from 'notebook', 'parse', 'quickplot', 'topk', 'balsam')
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
+git pull
+source ./SetUpEnv.sh
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+
+python3 get_model.py
+git add -f model
+git commit -am "New model."
+git push
 ```
 
-Is single an old option?
+On local machine
+
+```bash
+git pull
+```

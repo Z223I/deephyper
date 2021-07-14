@@ -36,3 +36,4 @@ Problem.objective('val_acc__last') # 'val_r2__last' or 'val_acc__last' ?
 # Just to print your problem, to test its definition and imports in the current python environment.
 if __name__ == '__main__':
     print(Problem)
+    model = Problem.get_keras_model([1])
