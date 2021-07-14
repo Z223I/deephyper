@@ -1,0 +1,42 @@
+{
+  "start_timestamp": 1626216916.9987772,
+  "num_workers": 256,
+  "max_evals": 1000000,
+  "problem": {
+    "create_search_space": {
+      "func": "nas_problems.nas_problems.model1.search_space.create_search_space",
+      "kwargs": {
+        "num_layers": 3
+      }
+    },
+    "hyperparameters": {
+      "verbose": 0,
+      "batch_size": 32,
+      "learning_rate": 0.01,
+      "optimizer": "adam",
+      "num_epochs": 20,
+      "callbacks": {
+        "EarlyStopping": {
+          "monitor": "val_acc",
+          "mode": "max",
+          "verbose": 0,
+          "patience": 5
+        }
+      }
+    },
+    "load_data": {
+      "func": "nas_problems.nas_problems.model1.load_data.load_data",
+      "kwargs": {}
+    },
+    "log_dir": null,
+    "loss": "binary_crossentropy",
+    "metrics": [
+      "acc"
+    ],
+    "objective": "val_acc__last",
+    "preprocessing": {
+      "func": "deephyper.nas.preprocessing.preprocessing.minmaxstdscaler"
+    },
+    "seed": 2019
+  }
+}
