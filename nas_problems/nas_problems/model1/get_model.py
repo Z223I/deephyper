@@ -34,20 +34,12 @@ Problem.objective('val_acc__last') # 'val_r2__last' or 'val_acc__last' ?
 
 # Get model.
 if __name__ == '__main__':
+
+    #
+    # Deprecated
+    #
+
     arch_seq = [0.8323024001314224, 0.7889290619064494, 0.9385678954207153, 0.16059637997392429,
     0.6488539744120456, 0.8325765404421139, 0.9888735139157468, 0.9322143923769549,
     0.7933123406870071]
     model = Problem.get_keras_model(arch_seq)
-
-    print('Saving model...')
-    model.save('model')
-
-    json_config = model.to_json()
-    #new_model = keras.models.model_from_json(json_config)
-
-    # TODO: Add json dump.
-
-    config = model.get_config()
-    #new_model = keras.Sequential.from_config(config)
-
-    # TODO: Add json dump.
