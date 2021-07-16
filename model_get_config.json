@@ -14,6 +14,8 @@
     "name": "input_0",
     "inbound_nodes": []},
 
+## forward(x)
+## input_0 = x
 
 
 
@@ -42,13 +44,16 @@
 "name": "dense",
 "inbound_nodes": [[["input_0", 0, 0, {}]]]},
 
-self.dense   = nn.LayerNorm(input_shape).to(device, dtype=dtype)
+self.layer_norm = nn.LayerNorm(input_shape).to(device, dtype=dtype)
+##layer_norm = self.layer_norm(input_0)
 
 #if batchSamples >= 16:
 in_features = numInputs
 out_features = 80
-self.fc1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+self.dense = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+##dense = self.dense(layer_norm)
 self.dropout_1 = nn.Dropout2d(dropout1).to(device, dtype=dtype)
+##dropout1 = self.dropout_1(dense)
 
 
 
@@ -63,7 +68,9 @@ self.dropout_1 = nn.Dropout2d(dropout1).to(device, dtype=dtype)
 "name": "activation",
 "inbound_nodes": [[["dense", 0, 0, {}]]]},
 
-self.activation = torch.nn.Sigmoid()
+self.activation = torch.nn.Sigmoid().to(device, dtype=dtype)
+##dense = dropout1
+##activation = self.activation(dense)
 
 
 
@@ -94,7 +101,10 @@ self.activation = torch.nn.Sigmoid()
 in_features = out_features
 out_features = 80
 self.dense_1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+input_0 = activation
+##dense_1 = self.dense_1(input_0)
 self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
+##dropout_2 = self.dropout_2(dense_1)
 
 
 
@@ -110,11 +120,10 @@ self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 "name": "add",
 "inbound_nodes": [[["activation", 0, 0, {}], ["dense_1", 0, 0, {}]]]},
 
-# activation, dense_1
 # Add
 out_features = 1
-self.add = torch.nn.Sum()
-
+self.add = torch.nn.Sum().to(device, dtype=dtype)
+##add = self.add(activation, dense_1)
 
 
 
@@ -132,7 +141,8 @@ self.add = torch.nn.Sum()
 
 # Can use ReLU(inplace=False)
 out_features = 1
-self.activation_1 = torch.nn.ReLU()
+self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
+##activation_1 = self.activation_1(add)
 
 
 
@@ -167,7 +177,9 @@ self.activation_1 = torch.nn.ReLU()
 in_features = out_features
 out_features = 96
 self.dense_2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+##dense_2 = self.dense_2(activation_1)
 self.dropout_3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
+##dropout_3 = self.dropout_3(dense_2)
 
 
 
@@ -184,7 +196,9 @@ self.dropout_3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 "inbound_nodes": [[["dense_2", 0, 0, {}]]]},
 
 out_features = 1
-self.activation_2 = torch.nn.Tanh()
+self.activation_2 = torch.nn.Tanh().to(device, dtype=dtype)
+##dense_2 = dropout_3
+##activation_2 = self.activation_2(dense_2)
 
 
 
@@ -236,7 +250,7 @@ self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
 # activation_2, dense_3
 out_features = 1
-self.add_1 = torch.nn.Sum()
+self.add_1 = torch.nn.Sum().to(device, dtype=dtype)
 
 
 
@@ -254,7 +268,7 @@ self.add_1 = torch.nn.Sum()
 
 # Can use ReLU(inplace=False)
 out_features = 1
-self.activation_3 = torch.nn.ReLU()
+self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
 
 
 
@@ -305,7 +319,7 @@ self.dropout_5 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 "inbound_nodes": [[["dense_4", 0, 0, {}]]]},
 
 out_features = 1
-self.activation = torch.nn.Sigmoid()
+self.activation = torch.nn.Sigmoid().to(device, dtype=dtype)
 
 
 
@@ -392,7 +406,7 @@ self.dropout_7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
 #"activation_4, dense_5, activation_1, dense_6
 out_features = 1
-self.add_2 = torch.nn.Sum()
+self.add_2 = torch.nn.Sum().to(device, dtype=dtype)
 
 
 
@@ -410,7 +424,7 @@ self.add_2 = torch.nn.Sum()
 
 # Can use ReLU(inplace=False)
 out_features = 1
-self.activation_5 = torch.nn.ReLU()
+self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
 
 
 
