@@ -47,20 +47,18 @@ if __name__ == '__main__':
     # Save model config info.
     #
 
+    import json
+    import pprint
+
     json_config = model.to_json()
     #new_model = keras.models.model_from_json(json_config)
 
-    import json
-
     print('Saving model_to_json.json...')
-    jsonString = json.dumps(json_config)
-    with open("model_to_json.json", "w") as jsonFile:
-        jsonFile.write(jsonString)
+    pprint.pprint(json.loads(json_config), indent=4, stream=open('model_to_json.json', 'w'))
+
 
     config = model.get_config()
     #new_model = keras.Sequential.from_config(config)
 
     print('Saving model_get_config.json...')
-    jsonString = json.dumps(config)
-    with open("model_get_config.json", "w") as jsonFile:
-        jsonFile.write(jsonString)
+    pprint.pprint(json.loads(config), indent=4, stream=open('model_get_config.json', 'w'))

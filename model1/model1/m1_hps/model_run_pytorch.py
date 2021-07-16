@@ -153,7 +153,7 @@ class Model1(nn.Module):
         self.fc16 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
 
         in_features = out_features
-        out_features = classCount
+        out_features = 2 #classCount
         self.fc17 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
 
     def forward(self, x):

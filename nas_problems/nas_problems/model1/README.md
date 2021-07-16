@@ -168,9 +168,9 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_
 source ./SetUpEnv.sh
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/
 
-python3 nas_problems/nas_problems/model1/get_model.py
-git add -f model
-git commit -am "New model."
+python3 nas_problems/nas_problems/model1/problem.py
+git add -f *.json
+git commit -am "New model JSON files."
 git push
 exit
 exit
