@@ -43,6 +43,9 @@ if __name__ == '__main__':
     print('Saving model...')
     model.save('model')
 
+    ## This is needed for converting from Keras to PyTorch.
+    model.save_weights('model.h5')
+
     #
     # Save model config info.
     #
@@ -54,6 +57,7 @@ if __name__ == '__main__':
     #new_model = keras.models.model_from_json(json_config)
 
     print('Saving model_to_json.json...')
+    ## This is needed for converting from Keras to PyTorch.
     pprint.pprint(json.loads(json_config), indent=4, stream=open('model_to_json.json', 'w'))
 
 

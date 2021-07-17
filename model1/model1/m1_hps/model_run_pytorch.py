@@ -67,94 +67,87 @@ class Model1(nn.Module):
         # TODO: How to shuffle.
         # Need batch norm and shuffle.
         # Change BatchNorm to LayerNorm on SambaNova.
-        self.ln1   = nn.LayerNorm(input_shape).to(device, dtype=dtype)
+
+
+
+
+
+        #"input_layers": [["input_0", 0, 0]],
+        self.layer_norm = nn.LayerNorm(input_shape).to(device, dtype=dtype)
 
         #if batchSamples >= 16:
         in_features = numInputs
-        out_features = samples * 16
-        self.fc1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout1 = nn.Dropout2d(dropout1).to(device, dtype=dtype) # This started at 0.20
+        out_features = 80
+        self.dense = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_1 = nn.Dropout2d(dropout1).to(device, dtype=dtype)
+
+        self.activation = torch.nn.Sigmoid().to(device, dtype=dtype)
+
 
         #if batchSamples >= 12:
         in_features = out_features
-        out_features = samples * 12
-        self.fc2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
+        out_features = 80
+        self.dense_1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
+
+
+        # Add
+        out_features = 1
+        self.add = torch.nn.Sum().to(device, dtype=dtype)
+
+        out_features = 1
+        self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
 
         #if batchSamples >= 10:
         in_features = out_features
-        out_features = samples * 10
-        self.fc3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
+        out_features = 96
+        self.dense_2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
+
+        out_features = 1
+        self.activation_2 = torch.nn.Tanh().to(device, dtype=dtype)
 
         in_features = out_features
-        out_features = samples * 7
-        self.fc4 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout4 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        out_features = 96
+        self.dense_3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
-        #if batchSamples >= 5:
-        in_features = out_features
-        out_features = samples * 5
-        self.fc5 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout5 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
+        out_features = 1
+        self.add_1 = torch.nn.Sum().to(device, dtype=dtype)
 
-        in_features = out_features
-        out_features = samples * 2
-        self.fc6 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout6 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
+        out_features = 1
+        self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
 
         in_features = out_features
-        out_features = 90
-        self.fc7 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        out_features = 80
+        self.dense_4 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_5 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+
+        out_features = 1
+        self.activation_4 = torch.nn.Sigmoid().to(device, dtype=dtype)
 
         in_features = out_features
-        out_features = 90
-        self.fc8 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout8 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        out_features = 80
+        self.dense_5 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_6 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         in_features = out_features
-        out_features = 48
-        self.fc9 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout9 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        out_features = 80
+        self.dense_6 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        self.dropout_7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+
+        out_features = 1
+        self.add_2 = torch.nn.Sum().to(device, dtype=dtype)
+
+        out_features = 1
+        self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
+
 
         in_features = out_features
-        out_features = 24
-        self.fc10 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout10 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
+        out_features = 2 # This is 2 instead of 1 due to the PyTorch softmax.
+        self.dense_7 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
+        #"output_layers": [["dense_7", 0, 0]]}
 
-        in_features = out_features
-        out_features = 12
-        self.fc11 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout11 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        in_features = out_features
-        out_features = 12
-        self.fc12 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout12 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        in_features = out_features
-        out_features = 12
-        self.fc13 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout13 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        in_features = out_features
-        out_features = 5
-        self.fc14 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout14 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        in_features = out_features
-        out_features = 5
-        self.fc15 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-        self.dropout15 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        in_features = out_features
-        out_features = 5
-        self.fc16 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-
-        in_features = out_features
-        out_features = 2 #classCount
-        self.fc17 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
 
     def forward(self, x):
         # sourcery skip: inline-immediately-returned-variable
@@ -167,93 +160,54 @@ class Model1(nn.Module):
         device = DEVICE
         dtype  = DTYPE
 
-        # Pass data through ln1
-        x = self.ln1(x)
 
-        x = self.fc1(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout1(x)
 
-        x = self.fc2(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout2(x)
+        input_0 = x
+        input_0 = self.layer_norm(input_0)
+        dense = self.dense(input_0)
+        dense = self.dropout_1(dense)
+        activation = self.activation(dense)
+        input_0 = activation
 
-        x = self.fc3(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout3(x)
+        dense_1 = self.dense_1(input_0)
+        dense_1 = self.dropout_2(dense_1)
+        add = self.add(activation, dense_1)
 
-        x = self.fc4(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout4(x)
+        # Can use ReLU(inplace=False)
+        activation_1 = self.activation_1(add)
 
-        x = self.fc5(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout5(x)
+        dense_2 = self.dense_2(activation_1)
+        dense_2 = self.dropout_3(dense_2)
+        activation_2 = self.activation_2(dense_2)
 
-        x = self.fc6(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout6(x)
+        dense_3 = self.dense_3(activation_1)
+        dense_3 = self.dropout_4(dense_3)
+        add_1 = self.add_1(activation_2, dense_3)
+        # Can use ReLU(inplace=False)
+        activation_3 = self.activation_3(add_1)
 
-        x = self.fc7(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout7(x)
+        dense_4 = self.dense_4(activation_3)
+        dense_4 = self.dropout_5(dense_4)
+        activation_4 = self.activation_4(dense_4)
 
-        x = self.fc8(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        x = self.dropout8(x)
+        dense_5 = self.dense_5(input_0)
+        dense_5 = self.dropout_6(dense_5)
 
-        x = self.fc9(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout9(x)
+        dense_6 = self.dense_6(activation_3)
+        dense_6 = self.dropout_7(dense_6)
+        add_2 = self.add_2(activation_4, dense_5, activation_1, dense_6)
+        # Can use ReLU(inplace=False)
+        activation_5 = self.activation_5(add_2)
 
-        x = self.fc10(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout10(x)
+        dense_7 = self.dense_7(activation_5)
 
-        x = self.fc11(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout11(x)
 
-        x = self.fc12(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout12(x)
 
-        x = self.fc13(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout13(x)
 
-        x = self.fc14(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout14(x)
-
-        x = self.fc15(x)
-        # Use the rectified-linear activation function over x
-        x = F.relu(x).to(device, dtype=dtype)
-        #x = self.dropout15(x)
-
-        x = self.fc16(x)
-        x = F.relu(x).to(device, dtype=dtype)
-
-        x = self.fc17(x)
 
 
         # Apply log_softmax to x
-        #print(f"x.shape: {x.shape}")
-        output = F.softmax(x, dim=1)
+        output = F.softmax(dense_7, dim=1)
         return output
 
     def getClassCount(self):

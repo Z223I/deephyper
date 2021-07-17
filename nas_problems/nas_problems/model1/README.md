@@ -170,6 +170,7 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/
 
 python3 nas_problems/nas_problems/model1/problem.py
 git add -f *.json
+git add -f *.h5
 git commit -am "New model JSON files."
 git push
 exit
@@ -181,4 +182,34 @@ On local machine
 
 ```bash
 git pull
+```
+
+## Keras to PyTorch Conversion
+
+This notes are from [Conversion Reference](https://github.com/fishjump/sketchPytorch).
+
+Basically, you can follow steps on MMdnn, but I highly recommend you to convert a model step-by-step, don't use mmconvert directly.
+
+1. Convert your model to IR files
+
+```bash
+mmtoir  -f keras -iw model.h5 -in model.json -o ir
+```
+
+You can get your h5 file by model.save_weights(your_path), and get your json file by model.to_json(). Then, you'll get ir.npy, ir.pd, ir.json.
+
+2. Convert IR files to Pytorch code snippet
+
+```bash
+mmtocode -f pytorch -in ir.pb -iw ir.npy -o model.py -ow weight.pkl
+```
+
+3. Edit model.py
+
+Because of the compatibility, you may need modify some layers by your self. Please see the output of mmtocode.
+
+\[I don't know why this next line is here.  It looks like a full conversion.\]
+
+```bash
+mmconvert -sf keras -iw model.h5 -df tensorflow -om keras_resnet50.dnn
 ```

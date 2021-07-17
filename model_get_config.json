@@ -100,7 +100,7 @@ self.activation = torch.nn.Sigmoid().to(device, dtype=dtype)
 in_features = out_features
 out_features = 80
 self.dense_1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
-input_0 = activation
+    ##input_0 = activation
 ##dense_1 = self.dense_1(input_0)
 self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 ##dense_1 = self.dropout_2(dense_1)
