@@ -54,7 +54,8 @@ if __name__ == '__main__':
     import pprint
 
     json_config = model.to_json()
-    #new_model = keras.models.model_from_json(json_config)
+    import keras.models
+    new_model = keras.models.model_from_json(json_config)
 
     print('Saving model_to_json.json...')
     ## This is needed for converting from Keras to PyTorch.
