@@ -167,7 +167,9 @@ On ThetaGPU
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
 source ./SetUpEnv.sh
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/
+pip3 install -e .
 
+consider cd nas_problems/nas_problems/model1 because model is going to root dir
 python3 nas_problems/nas_problems/model1/problem.py
 git add -f *.json
 git add -f *.h5
@@ -186,9 +188,13 @@ git pull
 
 ## Keras to PyTorch Conversion
 
+```bash
+pip3 install mmdnn
+```
+
 This notes are from [Conversion Reference](https://github.com/fishjump/sketchPytorch).
 
-Basically, you can follow steps on MMdnn, but I highly recommend you to convert a model step-by-step, don't use mmconvert directly.
+"Basically, you can follow steps on MMdnn, but I highly recommend you to convert a model step-by-step, don't use mmconvert directly.
 
 1. Convert your model to IR files
 
@@ -213,3 +219,5 @@ Because of the compatibility, you may need modify some layers by your self. Plea
 ```bash
 mmconvert -sf keras -iw model.h5 -df tensorflow -om keras_resnet50.dnn
 ```
+
+"
