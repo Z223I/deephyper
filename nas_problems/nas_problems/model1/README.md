@@ -170,7 +170,7 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/
 pip3 install -e .
 
 cd nas_problems/nas_problems/model1
-python3 nas_problems/nas_problems/model1/problem.py
+python3 problem.py
 git add -f model
 git add -f *.json
 git add -f *.h5
@@ -189,12 +189,9 @@ git pull
 
 ## Keras to PyTorch Conversion
 
-"i downgraded to Keras 2.1.4, it works fine. noticed pr on removing relu6 in 2.2, but the pretrained model still has it."
-
 ```bash
-pip3 install keras==2.1.4
 pip3 install mmdnn
-PATH=/home/wilsonb/.local/conda/2021-06-26/bin:$PATH
+PATH=/gpfs/mira-home/wilsonb/.local/conda/2021-06-26/bin:$PATH
 ```
 
 This notes are from [Conversion Reference](https://github.com/fishjump/sketchPytorch).
