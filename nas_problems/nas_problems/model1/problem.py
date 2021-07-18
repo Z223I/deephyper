@@ -50,21 +50,8 @@ if __name__ == '__main__':
     # Save model config info.
     #
 
-    import json
-    import pprint
-
-    json_config = model.to_json()
-    import keras.models
-    new_model = keras.models.model_from_json(json_config)
-
     print('Saving model_to_json.json...')
     ## This is needed for converting from Keras to PyTorch.
-    pprint.pprint(json.loads(json_config), indent=4, stream=open('model.json', 'w'))
-
-
-    config = model.get_config()
-    #new_model = keras.Sequential.from_config(config)
-
-    print('Saving model_get_config.json...')
-    # TODO: Maybe fix this.  It is not required though.
-    #pprint.pprint(json.loads(config), indent=4, stream=open('model_get_config.json', 'w'))
+    model_json = model.to_json()
+    with open("model.json", "w") as json_file:
+        json_file.write(model_json)
