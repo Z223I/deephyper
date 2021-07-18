@@ -1,4 +1,0 @@
-activation,batch_size,dropout1,dropout2,dropout3,dropout4,embed_hidden_size,epochs,loss,optimizer,patience,proportion,units,id,objective,elapsed_sec
-relu,32,0.1,0.1,0.1,0.05,21,75,binary_crossentropy,Adam,12,0.5,10,9e0258a0-e403-11eb-aeb0-579958739127,0.5133015006821282,71.14248466491699
-relu,32,0.05,0.1,0.1,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,9e0258a2-e403-11eb-aeb0-579958739127,0.5133015006821282,97.29369735717773
-relu,64,0.1,0.05,0.05,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,9e0258a4-e403-11eb-aeb0-579958739127,0.48669849931787174,109.32859683036804
