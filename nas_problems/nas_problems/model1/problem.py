@@ -50,7 +50,7 @@ if __name__ == '__main__':
     # Save model config info.
     #
 
-    print('Saving model_to_json.json...')
+    print('Saving model.json...')
     ## This is needed for converting from Keras to PyTorch.
     model_json = model.to_json()
     with open("model.json", "w") as json_file:
