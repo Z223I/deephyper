@@ -161,7 +161,9 @@ From thetagpusn1,2
 wilsonb@thetagpusn1:~$ qsub -I -A datascience -t 120 -q full-node -n 1
 ```
 
-On ThetaGPU
+#### On ThetaGPU
+
+##### Run problem.py
 
 ```bash
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
@@ -171,23 +173,16 @@ pip3 install -e .
 
 cd nas_problems/nas_problems/model1
 python3 problem.py
-git add -f model
-git add -f *.json
-git add -f *.h5
-git commit -am "New model JSON files."
-git push
-exit
-exit
-exit
-```
-
-On local machine
-
-```bash
-git pull
 ```
 
 ## Keras to PyTorch Conversion
+
+You must do the model conversion with the same TensorFlow and Keras versions with
+which the original model was made.
+
+Pip3 will tell you that MMdnn was installed to a directory that is not on the path.
+
+Copy the path that is displayed and update the path.
 
 ```bash
 pip3 install mmdnn
@@ -223,3 +218,22 @@ mmconvert -sf keras -iw model.h5 -df tensorflow -om keras_resnet50.dnn
 ```
 
 "
+
+##### Update Git Repo
+
+```bash
+git add -f model
+git add -f *.json
+git add -f *.h5
+git commit -am "New model JSON files."
+git push
+exit
+exit
+exit
+```
+
+#### On local machine
+
+```bash
+git pull
+```
