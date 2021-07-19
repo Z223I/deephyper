@@ -211,7 +211,12 @@ def run(config):
     numInputs = samples * batchSamples
     classCount = getClassCount()
 
-    model = createModel((numInputs,), samples, batchSamples, classCount)
+    createModel = False
+    if createModel:
+        model = createModel((numInputs,), samples, batchSamples, classCount)
+    else:
+        model = keras.models.load_model('model')
+
     model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
