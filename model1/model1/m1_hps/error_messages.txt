@@ -1,0 +1,22 @@
+2021-07-11 11:31:16,596	WARNING worker.py:1123 -- A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. Task ID: 5d51c9acaefe7611ffffffffffffffffffffffff01000000 Worker ID: 829ba23811a2c1ef755a1a5f0187844d11736c2356697abb4d453d0e Node ID: 88f7441e37aa0b8dd81e7e2793c8ae569efe38bd17a007bab7e88385 Worker IP address: 127.0.1.1 Worker port: 41115 Worker PID: 386735
+Traceback (most recent call last):
+  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/deephyper/evaluator/_ray_evaluator.py", line 30, in _poll
+    self._result = ray.get(id_done[0])
+  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/ray/_private/client_mode_hook.py", line 62, in wrapper
+    return func(*args, **kwargs)
+  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/ray/worker.py", line 1497, in get
+    raise value
+ray.exceptions.WorkerCrashedError: The worker died unexpectedly while executing this task. Check python-core-worker-*.log files for more information.
+
+2021-07-11 11:31:20,310	WARNING worker.py:1123 -- A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. Task ID: 36e14f5d7a18682effffffffffffffffffffffff01000000 Worker ID: 4b9989956cdea685012951138c6cef121adf157ce132ca0cef97d7e8 Node ID: 88f7441e37aa0b8dd81e7e2793c8ae569efe38bd17a007bab7e88385 Worker IP address: 127.0.1.1 Worker port: 45263 Worker PID: 387587
+Traceback (most recent call last):
+  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/deephyper/evaluator/_ray_evaluator.py", line 30, in _poll
+    self._result = ray.get(id_done[0])
+  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/ray/_private/client_mode_hook.py", line 62, in wrapper
+    return func(*args, **kwargs)
+  File "/lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/lib/python3.8/site-packages/ray/worker.py", line 1497, in get
+    raise value
+ray.exceptions.WorkerCrashedError: The worker died unexpectedly while executing this task. Check python-core-worker-*.log files for more information.
+
+2021-07-11 11:31:21,819	WARNING worker.py:1123 -- A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. Task ID: 59f3350af995668affffffffffffffffffffffff01000000 Worker ID: cbf9d6c552c48fc3c13febfeffb178919374f3a3ab76407eebe51655 Node ID: 88f7441e37aa0b8dd81e7e2793c8ae569efe38bd17a007bab7e88385 Worker IP address: 127.0.1.1 Worker port: 36543 Worker PID: 387307
+2021-07-11 11:31:22,823	WARNING worker.py:1123 -- A worker died or was killed while executing a task by an unexpected system error. To troubleshoot the problem, check the logs for the dead worker. Task ID: f72915c3acda6455ffffffffffffffffffffffff01000000 Worker ID: b826b648b2f47338afc882f1aef668f668f910ef9c072becd7368002 Node ID: 88f7441e37aa0b8dd81e7e2793c8ae569efe38bd17a007bab7e88385 Worker IP address: 127.0.1.1 Worker port: 34427 Worker PID: 386737
