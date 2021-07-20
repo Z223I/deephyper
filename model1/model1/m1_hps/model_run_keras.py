@@ -211,8 +211,15 @@ def run(config):
     numInputs = samples * batchSamples
     classCount = getClassCount()
 
-    model = createModel((numInputs,), samples, batchSamples, classCount)
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    createModel = False
+    if createModel:
+        model = createModel((numInputs,), samples, batchSamples, classCount)
+        #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+        model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m, precision_m, recall_m]])
+    else:
+        # Use model that NAS built.
+        model = keras.models.load_model('model')
+
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
 

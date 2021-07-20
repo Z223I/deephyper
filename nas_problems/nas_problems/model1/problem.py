@@ -1,3 +1,5 @@
+"""Problem description."""
+
 from deephyper.problem import NaProblem
 from nas_problems.nas_problems.model1.load_data import load_data
 from nas_problems.nas_problems.model1.search_space import create_search_space

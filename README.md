@@ -50,7 +50,7 @@ pip install -e '.[tests,docs]'
 
 # Directory search_space
 
-```
+```text
 benchmark/
     a set of problems for hyperparameter or neural architecture search which the user can use to compare our different search algorithms or as examples to build their own problems.
 evaluator/
@@ -62,7 +62,6 @@ hps/
 nas/
         neural architecture search applications
 ```
-
 
 # How do I learn more?
 
