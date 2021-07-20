@@ -27,9 +27,9 @@ print(f'Keras Version: {keras.__version__}')
 #####timer.start("module loading")
 
 from tensorflow.keras import backend as K
-from keras.models import Model
-from keras.layers import Dense, Input, Dropout, BatchNormalization
-from keras.callbacks import EarlyStopping
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, Input, Dropout, BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping
 
 #from pprint import pprint
 
@@ -39,7 +39,7 @@ def getClassCount():
     """Return the number of classes."""
     return 2
 
-from keras.activations import softmax
+from tensorflow.keras.activations import softmax
 
 def softMaxAxis1(x):
     """Return softmax for axis 1."""
@@ -179,7 +179,7 @@ def run(config):
     BATCH_SIZE = config['batch_size']
     ACTIVATION = config['activation']
     EPOCHS = config['epochs']
-    DROPOUT = config['dropout']
+    #DROPOUT = config['dropout']
     OPTIMIZER = config['optimizer']
 
     #constants
@@ -214,11 +214,12 @@ def run(config):
     createModel = False
     if createModel:
         model = createModel((numInputs,), samples, batchSamples, classCount)
-        #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
-        model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m, precision_m, recall_m]])
     else:
         # Use model that NAS built.
         model = keras.models.load_model('model')
+
+    #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m, precision_m, recall_m]])
 
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
