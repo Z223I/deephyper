@@ -211,18 +211,17 @@ def run(config):
     numInputs = samples * batchSamples
     classCount = getClassCount()
 
-    createModel = False
-    if createModel:
+    doCreateModel = True
+    if doCreateModel:
         model = createModel((numInputs,), samples, batchSamples, classCount)
     else:
         # Use model that NAS built.
         model = keras.models.load_model('model')
 
-    #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m, precision_m, recall_m]])
+    model.summary()
 
-    metrics = model.metrics_names
-    print(f"metrics: {metrics}")
+    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m, precision_m, recall_m]])
 
     #####timer.end('preprocessing')
 
@@ -246,17 +245,14 @@ def run(config):
         validation_split=0.05)
     """
 
-    # evaluate the model
-    # TODO:  Why is loss used here.
-    #loss, accuracy, f1_m, precision_m, recall_m = modelAnalyzeThis.evaluate(Xtest, Ytest, verbose=0)
-    #acc = model.evaluate(Xtest, yTest, verbose=0)
+    # "You have to run the model for atleast 1 epoch for the metric names to be available"
+    metrics = model.metrics_names
+    print(f"metrics: {metrics}")
 
     #####timer.end('model training')
 
     HISTORY = history.history
 
-    #return acc[-1]
-    #return -acc[1]
     return history.history['acc'][-1]
 
 

@@ -1,9 +1,9 @@
 activation,batch_size,dropout1,dropout2,dropout3,dropout4,embed_hidden_size,epochs,loss,optimizer,patience,proportion,units,id,objective,elapsed_sec
-relu,128,0.1,0.1,0.1,0.05,21,150,binary_crossentropy,AdamW,12,0.5,10,3c4516e0-e8f2-11eb-bbee-b7f93e071fc7,0.5,36.45638179779053
-relu,32,0.1,0.1,0.05,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,3c4516e2-e8f2-11eb-bbee-b7f93e071fc7,0.5,44.56282711029053
-relu,64,0.1,0.05,0.1,0.05,21,150,binary_crossentropy,AdamW,12,0.5,10,3c4516e4-e8f2-11eb-bbee-b7f93e071fc7,0.5,39.671780586242676
-relu,128,0.05,0.05,0.1,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,3c4516e6-e8f2-11eb-bbee-b7f93e071fc7,0.5,36.1015682220459
-relu,64,0.1,0.05,0.05,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,3c4516e8-e8f2-11eb-bbee-b7f93e071fc7,0.5,40.659384965896606
-relu,64,0.1,0.05,0.05,0.05,21,75,binary_crossentropy,AdamW,12,0.5,10,3c4516ea-e8f2-11eb-bbee-b7f93e071fc7,0.5,39.67239499092102
-relu,64,0.05,0.05,0.05,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,3c4516ec-e8f2-11eb-bbee-b7f93e071fc7,0.5,39.25924730300903
-relu,128,0.1,0.1,0.1,0.05,21,150,binary_crossentropy,AdamW,12,0.5,10,3c4516ee-e8f2-11eb-bbee-b7f93e071fc7,0.5,35.40101718902588
+relu,32,0.1,0.05,0.05,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,cadb5cca-e8f2-11eb-bbee-b7f93e071fc7,0.5,44.38535404205322
+relu,32,0.1,0.1,0.1,0.05,21,75,binary_crossentropy,AdamW,12,0.5,10,cadb5ccc-e8f2-11eb-bbee-b7f93e071fc7,0.5,45.366671085357666
+relu,64,0.1,0.05,0.05,0.05,21,150,binary_crossentropy,AdamW,12,0.5,10,cadb5cce-e8f2-11eb-bbee-b7f93e071fc7,0.5,37.804034948349
+relu,64,0.05,0.05,0.05,0.05,21,150,binary_crossentropy,AdamW,12,0.5,10,cadb5cd0-e8f2-11eb-bbee-b7f93e071fc7,0.5,38.57224202156067
+relu,32,0.1,0.1,0.1,0.05,21,75,binary_crossentropy,AdamW,12,0.5,10,cadb5cd2-e8f2-11eb-bbee-b7f93e071fc7,0.5,45.366761684417725
+relu,128,0.1,0.05,0.05,0.05,21,75,binary_crossentropy,AdamW,12,0.5,10,cadb5cd4-e8f2-11eb-bbee-b7f93e071fc7,0.5,33.20182991027832
+relu,64,0.1,0.1,0.1,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,cadb5cd6-e8f2-11eb-bbee-b7f93e071fc7,0.5,35.74238133430481
+relu,32,0.1,0.1,0.1,0.05,21,150,binary_crossentropy,Adam,12,0.5,10,cadb5cd8-e8f2-11eb-bbee-b7f93e071fc7,0.5,45.04097104072571
