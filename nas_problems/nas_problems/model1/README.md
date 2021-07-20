@@ -2,6 +2,19 @@
 
 ## Model 1
 
+## Update Model
+
+```python
+        ModelCheckpoint=dict(
+                        monitor="val_loss",
+                        mode="min",
+                        save_best_only=True,
+                        verbose=0,
+                        filepath="model.h5",
+                        save_weights_only=False,
+                    ),
+```
+
 ### ThetaGPU
 
 Sam Foreman  7 hours ago

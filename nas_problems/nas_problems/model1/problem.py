@@ -19,6 +19,14 @@ Problem.hyperparameters(
     optimizer='adam',
     num_epochs=20,
     callbacks=dict(
+        ModelCheckpoint=dict(
+                        monitor="val_loss",
+                        mode="min",
+                        save_best_only=True,
+                        verbose=0,
+                        filepath="model.h5",
+                        save_weights_only=False,
+                    ),
         EarlyStopping=dict(
             monitor='val_acc', # 'val_r2' or 'val_acc' ?
             mode='max',
@@ -26,6 +34,11 @@ Problem.hyperparameters(
             patience=5
         )
     )
+)
+
+callbacks=dict(
+  ...
+  ...
 )
 
 Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
