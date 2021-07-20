@@ -4,14 +4,7 @@ import numpy as np
 #from tensorflow.keras.utils import to_categorical
 import tarfile
 
-#
-#
-# Note:  This is a copy of model1/model1/m1_hps/load_data_pytorch.py.
-# It is a copy because I didn't want to break the other code.
-#
-#
-
-def load_data():
+def load_data(config):
     """
     Load data for Model 1.
 
@@ -21,15 +14,6 @@ def load_data():
     Returns:
         tuple(tuple(ndarray, ndarray), tuple(ndarray, ndarray)): of Numpy arrays: `(train_X, train_y), (valid_X, valid_y)`.
     """
-
-    config = {
-        'proportion': .90,          # A value between [0., 1.] indicating how to split data between
-                                    # training set and validation set. `prop` corresponds to the
-                                    # ratio of data in training set. `1.-prop` corresponds to the
-                                    # amount of data in validation set.
-        'print_shape': 0            # Print the data shape.
-    }
-
     data_source = os.path.dirname(os.path.abspath(__file__))
     data_source = os.path.join(data_source, 'data')
 
@@ -40,10 +24,6 @@ def load_data():
     tarFilename    = "data485.tar.gz"
     XTrainFilename = 'XTrain.txt'
     YTrainFilename = 'YTrain.txt'
-
-    tarFilename    = "data.tar.gz"
-    XTrainFilename = 'dh_data/Xtrain.txt'
-    YTrainFilename = 'dh_data/yTrain.txt'
 
     path = os.path.join(data_source, tarFilename)
 
@@ -81,7 +61,14 @@ def load_data():
     return (train_X, train_y), (valid_X, valid_y)
 
 if __name__ == '__main__':
-    (train_X, train_y), (valid_X, valid_y) = load_data()
+    config = {
+        'proportion': .90,          # A value between [0., 1.] indicating how to split data between
+                                    # training set and validation set. `prop` corresponds to the
+                                    # ratio of data in training set. `1.-prop` corresponds to the
+                                    # amount of data in validation set.
+        'print_shape': 0            # Print the data shape.
+    }
+    (train_X, train_y), (valid_X, valid_y) = load_data(config)
 
     print(f'train_X shape: {np.shape(train_X)}')
     print(f'train_y shape: {np.shape(train_y)}')

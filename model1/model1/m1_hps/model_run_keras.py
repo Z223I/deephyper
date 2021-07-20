@@ -19,8 +19,8 @@ I have seen:
     --evaluator ray
 """
 
-from tensorflow import keras
-print(f'Keras Version: {keras.__version__}')
+from tensorflow import keras as tf_keras
+print(f'TensorFlow.Keras Version: {tf_keras.__version__}')
 
 #####from deephyper.search.util import Timer
 #####timer = Timer()
@@ -30,6 +30,7 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Input, Dropout, BatchNormalization
 from tensorflow.keras.callbacks import EarlyStopping
+import tensorflow
 
 #from pprint import pprint
 
@@ -211,12 +212,12 @@ def run(config):
     numInputs = samples * batchSamples
     classCount = getClassCount()
 
-    doCreateModel = True
+    doCreateModel = False
     if doCreateModel:
         model = createModel((numInputs,), samples, batchSamples, classCount)
     else:
         # Use model that NAS built.
-        model = keras.models.load_model('model')
+        model = tensorflow.keras.models.load_model('model')
         #model = keras.models.load_model("../../../nas_problems/nas_problems/model1/model.h5")
 
     model.summary()
