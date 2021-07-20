@@ -3,6 +3,7 @@
 head_node=$HOSTNAME
 echo $HOSTNAME
 head_node_ip=$(dig $head_node a +short | awk 'FNR==2')
+head_node_ip=127.0.0.1
 echo ">$head_node_ip<"
 
 # if we detect a space character in the head node IP, we'll
@@ -18,7 +19,8 @@ echo "IPV6 address detected. We split the IPV4 address as $head_node_ip"
 fi
 
 # Starting the Ray Head Node
-port=6379
+# port=6379 original
+port=6380
 ip_head=$head_node_ip:$port
 export ip_head
 echo "IP Head: $ip_head"
