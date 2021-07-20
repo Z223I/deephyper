@@ -128,6 +128,9 @@ yarl==1.6.3
 ```bash
 pip3 install -r requirements.txt
 ```
+
+## Run DeepHyper
+
 ```bash
 deephyper nas random --evaluator ray --ray-address auto --problem deephyper.benchmark.nas.mnist1D.problem.Problem --max-evals 10 --num-cpus-per-task 6
 ```
