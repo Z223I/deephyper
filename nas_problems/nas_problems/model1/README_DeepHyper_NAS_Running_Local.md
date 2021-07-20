@@ -131,15 +131,8 @@ pip3 install -r requirements.txt
 
 ## Run DeepHyper
 
-### Start Ray
-
-```bash
-cd /path/to/deephyper/nas_problems/nas_problems/model1
-./RayLocal.sh
-```
-
 ### Start DeepHyper
 
 ```bash
-deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --max-evals 10 --num-cpus-per-task 6
+deephyper nas random --evaluator deephyper.evaluator.SubProcessEvaluator --problem nas_problems.nas_problems.model1.problem.Problem --max-evals 10 --num-cpus-per-task 6
 ```
