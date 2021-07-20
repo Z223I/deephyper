@@ -2292,3 +2292,117 @@ Loading Deephyper
 2021-07-19 18:39:06|36054|INFO|deephyper.search.hps.ambs:143] >>> {"type": "env_stats", "num_cache_used": 0}
 2021-07-19 18:39:07|36054|INFO|deephyper.evaluator.evaluate:191] Submitted new eval of {'activation': 'relu', 'batch_size': 32, 'dropout1': 0.05, 'dropout2': 0.05, 'dropout3': 0.05, 'dropout4': 0.05, 'embed_hidden_size': 21, 'epochs': 75, 'loss': 'binary_crossentropy', 'optimizer': 'AdamW', 'patience': 12, 'proportion': 0.5, 'units': 10, 'id': UUID('e450041d-e8f2-11eb-bbee-b7f93e071fc7')}
 2021-07-19 18:39:07|36054|INFO|deephyper.evaluator.evaluate:191] Submitted new eval of {'activation': 'relu', 'batch_size': 128, 'dropout1': 0.05, 'dropout2': 0.05, 'dropout3': 0.05, 'dropout4': 0.05, 'embed_hidden_size': 21, 'epochs': 150, 'loss': 'binary_crossentropy', 'optimizer': 'Adam', 'patience': 12, 'proportion': 0.5, 'units': 10, 'id': UUID('e450041f-e8f2-11eb-bbee-b7f93e071fc7')}
+2021-07-20 09:36:54|54642|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-20 09:36:54|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:36:54|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:36:54|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:36:54|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:36:54|54642|INFO|deephyper.search.nas.run:217] actions list: [0.6281452600916735]
+2021-07-20 09:36:54|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:36:54|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:36:54|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:36:54|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:36:55|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:36:58|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/4e641cee-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-36-54.json
+2021-07-20 09:36:58|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:36:58|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:36:58|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:36:58|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:36:58|54642|INFO|deephyper.search.nas.run:217] actions list: [0.2806653568413411]
+2021-07-20 09:36:58|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:36:58|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:36:58|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:36:58|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:36:58|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:01|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/51de8ecc-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-36-58.json
+2021-07-20 09:37:01|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:02|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:02|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:02|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:02|54642|INFO|deephyper.search.nas.run:217] actions list: [0.04938295403180337]
+2021-07-20 09:37:02|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:02|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:02|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:02|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:02|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:04|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/53ea4846-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-01.json
+2021-07-20 09:37:04|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:05|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:05|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:05|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:05|54642|INFO|deephyper.search.nas.run:217] actions list: [0.798771341317409]
+2021-07-20 09:37:05|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:05|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:05|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:05|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:05|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:07|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/55c386b4-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-04.json
+2021-07-20 09:37:07|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:08|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:08|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:08|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:08|54642|INFO|deephyper.search.nas.run:217] actions list: [0.7268196071694897]
+2021-07-20 09:37:08|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:08|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:08|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:08|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:08|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:10|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/5783a2c2-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-07.json
+2021-07-20 09:37:10|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:11|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:11|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:11|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:11|54642|INFO|deephyper.search.nas.run:217] actions list: [0.5430754145269895]
+2021-07-20 09:37:11|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:11|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:11|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:11|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:11|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:13|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/593d8bf0-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-10.json
+2021-07-20 09:37:13|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:14|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:14|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:14|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:14|54642|INFO|deephyper.search.nas.run:217] actions list: [0.4208138780257238]
+2021-07-20 09:37:14|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:14|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:14|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:14|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:14|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:16|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/5af75368-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-13.json
+2021-07-20 09:37:16|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:16|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:16|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:16|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:16|54642|INFO|deephyper.search.nas.run:217] actions list: [0.6724773677727662]
+2021-07-20 09:37:16|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:16|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:16|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:16|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:16|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:19|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/5ca476fa-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-16.json
+2021-07-20 09:37:19|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:19|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:19|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:19|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:19|54642|INFO|deephyper.search.nas.run:217] actions list: [0.37673450981033385]
+2021-07-20 09:37:19|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:19|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:19|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:19|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:19|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:22|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/5e64a7ee-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-19.json
+2021-07-20 09:37:22|54642|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-20 09:37:22|54642|INFO|deephyper.search.nas.run:119] Data loaded with kwargs: {}
+2021-07-20 09:37:22|54642|INFO|deephyper.search.nas.run:191] input_shape: (784,)
+2021-07-20 09:37:22|54642|INFO|deephyper.search.nas.run:192] output_shape: (10,)
+2021-07-20 09:37:22|54642|INFO|deephyper.search.nas.run:217] actions list: [0.7689826079318791]
+2021-07-20 09:37:22|54642|DEBUG|deephyper.model.trainer:104] load_data
+2021-07-20 09:37:22|54642|DEBUG|deephyper.model.trainer:107] data config type: ndarray
+2021-07-20 09:37:22|54642|DEBUG|deephyper.model.trainer:205] TrainerTrainValid: 1 inputs
+2021-07-20 09:37:22|54642|INFO|deephyper.model.trainer:253] no preprocessing function
+2021-07-20 09:37:22|54642|INFO|deephyper.model.trainer:448] Trainer is computing metrics on validation after each training epoch.
+2021-07-20 09:37:25|54642|INFO|deephyper.search.nas.run:330] Saving history at: /home/bwilson/DL/deephyper/save/history/6024efda-e970-11eb-bbee-b7f93e071fc7_20-Jul-2021_09-37-22.json

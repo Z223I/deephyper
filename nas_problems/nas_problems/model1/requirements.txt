@@ -1,26 +1,3 @@
-# DeepHyper NAS Running Local
-
-## Python Environment
-
-This work is being done with Python 3.8.7.  It may be possible to use a newer Python version.
-
-### Create Python 3.8.7 Venv
-
-Do this in your preferred location.
-
-```bash
-cd /path/to/venvs/directory
-python3 -m venv /path/to/new/virtual/environment
-source /path/to/new/virtual/environment/bin/activate
-```
-
-### Update Venv
-
-#### Requirements.txt
-
-Note:  You will find a 'developer' install of DeepHyper in the following file.  You will need to update that per your situation.
-
-```text
 absl-py==0.13.0
 aiohttp==3.7.4.post0
 aiohttp-cors==0.7.0
@@ -123,11 +100,3 @@ wrapt==1.12.1
 xgboost==1.4.2
 xmltodict==0.12.0
 yarl==1.6.3
-```
-
-```bash
-pip3 install -r requirements.txt
-```
-```bash
-deephyper nas random --evaluator ray --ray-address auto --problem deephyper.benchmark.nas.mnist1D.problem.Problem --max-evals 10 --num-cpus-per-task 6
-```
