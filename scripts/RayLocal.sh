@@ -25,7 +25,7 @@ echo "IP Head: $ip_head"
 
 echo "Starting HEAD at $head_node"
 echo "ray start --head --node-ip-address=$head_node_ip --port=$port --block &"
-ray start --head --node-ip-address=$head_node_ip --port=$port --blockdeephyper nas random --evaluator ray --ray-address auto --problem deephyper.benchmark.nas.mnist1D.problem.Problem --max-evals 10 --num-cpus-per-task 6^ &
+ray start --head --node-ip-address=$head_node_ip --port=$port --block &
 
 # optional, though may be useful in certain versions of Ray < 1.0.
 sleep 10

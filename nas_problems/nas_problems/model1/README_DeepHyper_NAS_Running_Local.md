@@ -2,7 +2,7 @@
 
 ## Python Environment
 
-This work is being done with Python 3.8.7.  It may be possible to use a newer Python version.
+This work is being done with Python 3.8.7.  It might be possible to use a newer Python version.
 
 ### Create Python 3.8.7 Venv
 
@@ -131,6 +131,15 @@ pip3 install -r requirements.txt
 
 ## Run DeepHyper
 
+### Start Ray
+
 ```bash
-deephyper nas random --evaluator ray --ray-address auto --problem deephyper.benchmark.nas.mnist1D.problem.Problem --max-evals 10 --num-cpus-per-task 6
+cd /path/to/deephyper/nas_problems/nas_problems/model1
+./RayLocal.sh
+```
+
+### Start DeepHyper
+
+```bash
+deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --max-evals 10 --num-cpus-per-task 6
 ```

@@ -4,7 +4,8 @@ import numpy as np
 #from tensorflow.keras.utils import to_categorical
 import tarfile
 
-def load_data(config):
+
+def load_data(config={'proportion': .90, 'print_shape': 0}):
     """
     Load data for Model 1.
 

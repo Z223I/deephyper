@@ -36,11 +36,6 @@ Problem.hyperparameters(
     )
 )
 
-callbacks=dict(
-  ...
-  ...
-)
-
 Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
 
 Problem.metrics(['acc']) # 'r2' or 'acc' ?
