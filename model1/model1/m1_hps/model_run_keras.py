@@ -217,11 +217,11 @@ def run(config):
     else:
         # Use model that NAS built.
         model = keras.models.load_model('model')
+        #model = keras.models.load_model("../../../nas_problems/nas_problems/model1/model.h5")
 
     model.summary()
 
     model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
-    #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m, precision_m, recall_m]])
 
     #####timer.end('preprocessing')
 
