@@ -26,15 +26,19 @@ Problem.hyperparameters(
                         verbose=0,
                         filepath="model.h5",
                         save_weights_only=False,
-                    ),
+                    )
+    )
+)
+
+""" ,
         EarlyStopping=dict(
             monitor='val_acc', # 'val_r2' or 'val_acc' ?
             mode='max',
             verbose=0,
             patience=5
         )
-    )
-)
+"""
+
 
 Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
 
