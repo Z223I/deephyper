@@ -135,4 +135,6 @@ pip3 install -r requirements.txt
 
 ```bash
 deephyper nas random --evaluator deephyper.evaluator.SubProcessEvaluator --problem nas_problems.nas_problems.model1.problem.Problem --max-evals 10 --num-cpus-per-task 6
+
+deephyper nas random --evaluator deephyper.evaluator.RayEvaluator --problem nas_problems.nas_problems.model1.problem.Problem --max-evals 10 --num-cpus-per-task 6
 ```

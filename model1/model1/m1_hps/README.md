@@ -1,66 +1,59 @@
 # Quickstart
 
-## Model 1
-
-### ThetaGPU
-
-Sam Foreman  7 hours ago
-alternatively, it looks like you can use deephyper ray-submit directly from thetagpusn1 to automatically generate and submit a submission script
-(documented at the very bottom of https://deephyper.readthedocs.io/en/develop/user_guides/thetagpu.html)
+## ssh to Login Node
 
 ```bash
+theta
 ```
+
+## Git as Necessary
+
+```bash
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+git pull
+```
+
+## ssh to thetagpusn1
 
 ```bash
 ssh thetagpusn1
+```
+
+## Request Time for a ThetaGPU Node
+
+```bash
 export PROJECT_NAME=datascience
-qsub -I -A $PROJECT_NAME -n 1 -t 30 -q full-node or single-gpu
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
-deephyper nas random --evaluator ray --ray-address auto --problem deephyper.benchmark.nas.mnist1D.problem.Problem --max-evals 10 --num-cpus-per-task 1 --num-gpus-per-task 1
+qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
 ```
 
-```bash
-ssh wilsonb@theta.alcf.anl.gov
-(miniconda-3/latest/base) wilsonb@thetalogin6:~> ssh thetagpusn1
+## thetagpu
 
-Last login: Wed Jun 30 23:27:50 2021 from thetalogin4.tmi.alcf.anl.gov
-wilsonb@thetagpusn1:~$ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/
-```
-
-#### Start a node
-
-From thetagpusn1,2
-deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 2
-
-### Basic Execution
+### Start Ray Cluster
 
 ```bash
-conda activate dl-hps
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
-python model_run.py
+./SingleNodeRayCluster.sh
 ```
 
-## Hyperparameter Search (HPS)
-
-An example command line for HPS:
+Start Conda Env
 
 ```bash
-#deephyper hps ambs --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 1
-#deephyper hps ambs --evaluator ray --problem model1.m1_hps.problem.Problem --run model1.m1_hps.model_run.run --n-jobs 1
-python -m deephyper.search.hps.ambs --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 1
-or
-... --max-evals=8
-
+source ./SetUpEnv.sh
 ```
+
+Run Model
+
+This is a check to ensure your model is running correctly.
 
 ```bash
+python3 model_run_pytorch.py
 ```
+
+Run DeepHyper
 
 ```bash
-python model_run_pytorch.py
+python -m deephyper.search.hps.ambs --evaluator ray --problem problem.Problem --run model_run_keras.run --num-cpus-per-task 1 --num-gpus-per-task 1 --n-jobs 1
 ```
-
-DeepHyper is open. So, you can always do one on Deephyper ThetaGPU is an ALCF machine. So, send a note to media@alcf.anl.gov regarding this
 
 ### Note
 

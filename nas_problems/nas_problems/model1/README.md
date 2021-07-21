@@ -1,28 +1,57 @@
-# Quickstart
+# Quickstart NAS Model 1
 
-## Model 1
-
-## Update Model
-
-```python
-        ModelCheckpoint=dict(
-                        monitor="val_loss",
-                        mode="min",
-                        save_best_only=True,
-                        verbose=0,
-                        filepath="model.h5",
-                        save_weights_only=False,
-                    ),
-```
-
-### ThetaGPU
-
-Sam Foreman  7 hours ago
-alternatively, it looks like you can use deephyper ray-submit directly from thetagpusn1 to automatically generate and submit a submission script
-(documented at the very bottom of https://deephyper.readthedocs.io/en/develop/user_guides/thetagpu.html)
+## ssh to Login Node
 
 ```bash
+theta
 ```
+
+## Git as Necessary
+
+```bash
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+git pull
+```
+
+## ssh to thetagpusn1
+
+```bash
+ssh thetagpusn1
+```
+
+## Request Time for a ThetaGPU Node
+
+```bash
+export PROJECT_NAME=datascience
+qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
+```
+
+## thetagpu
+
+### Start Ray Cluster
+
+```bash
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
+./SingleNodeRayCluster.sh
+```
+
+Start Conda Env
+
+```bash
+source ./SetUpEnv.sh
+```
+
+Run Model
+
+This is a check to ensure your model is running correctly.
+
+```bash
+xxpython3 model_run_pytorch.py
+```
+
+Run DeepHyper
+
+## Model 1
 
 ```bash
 ssh thetagpusn1
@@ -53,20 +82,13 @@ qsub -I -A datascience -t 120 -q full-node -n 1
 ### Basic NAS Execution
 
 ```bash
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
-./SingleNodeRayCluster.sh
-source ./SetUpEnv.sh
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/
-deephyper nas random --evaluator ray --problem problem.Problem
-
-conda activate dl-hps
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/problem.py
 ./SingleNodeRayCluster.sh
 source ./SetUpEnv.sh
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
 pip3 install -e .
 
-deephyper nas random --evaluator ray --problem nas_problems.nas_problems.model1.problem.Problem
+deephyper nas random --evaluator ray --problem nas_problems.nas_problems.model1.problem.Problem --max-evals=10
 
 deephyper-analytics parse deephyper.log
 Xdeephyper-analytics single -p $MY_JSON_FILE
@@ -250,3 +272,8 @@ exit
 ```bash
 git pull
 ```
+## Note
+
+Sam Foreman  7 hours ago
+alternatively, it looks like you can use deephyper ray-submit directly from thetagpusn1 to automatically generate and submit a submission script
+(documented at the very bottom of https://deephyper.readthedocs.io/en/develop/user_guides/thetagpu.html)
