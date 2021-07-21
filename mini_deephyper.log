@@ -1,0 +1,100 @@
+
+Loading Deephyper
+--------------
+2021-07-21 23:21:49|2184370|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:21:49|2184364|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:21:49|2184540|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:21:49|2184628|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:21:56|2184540|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:21:56|2184370|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:21:56|2184477|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:21:56|2184364|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:21:56|2184628|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:21:56|2184633|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:02|2184633|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:12|2185018|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184999|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2185067|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184784|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184990|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184689|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184988|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184836|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184770|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184648|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2185027|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184805|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:12|2184802|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-21 23:22:18|2184999|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2185027|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184784|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2185067|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184689|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184990|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2185018|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184648|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184836|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184988|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184770|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184802|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:18|2184805|INFO|deephyper.search.nas.run:50] OMP_NUM_THREADS is 1
+2021-07-21 23:22:51|2139019|INFO|deephyper.evaluator.evaluate:296] New eval finished: 7cad3742-d231-429e-8ee3-cd0d29057d63 --> -3.4028234663852886e+38
+2021-07-21 23:22:51|2139019|INFO|deephyper.evaluator.evaluate:307] Requested eval x: {'create_search_space': {'func': 'nas_problems.nas_problems.model1.search_space.create_search_space', 'kwargs': {'num_layers': 3}}, 'hyperparameters': {'verbose': 0, 'batch_size': 32, 'learning_rate': 0.01, 'optimizer': 'adam', 'num_epochs': 20, 'callbacks': {'ModelCheckpoint': {'monitor': 'val_loss', 'mode': 'min', 'save_best_only': True, 'verbose': 0, 'filepath': 'model.h5', 'save_weights_only': False}}}, 'load_data': {'func': 'nas_problems.nas_problems.model1.load_data.load_data', 'kwargs': {}}, 'log_dir': '/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper', 'loss': 'binary_crossentropy', 'metrics': ['acc'], 'objective': 'val_acc__last', 'preprocessing': {'func': 'deephyper.nas.preprocessing.preprocessing.minmaxstdscaler'}, 'seed': 2483786419, 'arch_seq': [0.4589367737990955, 0.10551911128186586, 0.04647903736214054, 0.9941550795057409, 0.025199216927247248, 0.1326737410266292, 0.0680036267909192, 0.5836252524299164, 0.025090511302493623], 'id': 'b674d070-ea77-11eb-a7d5-b9f3ebebee75'} y: -3.4028234663852886e+38
+2021-07-21 23:22:51|2139019|INFO|deephyper.evaluator.evaluate:191] Submitted new eval of OrderedDict([('create_search_space', {'func': <function create_search_space at 0x7f8451ec2310>, 'kwargs': {'num_layers': 3}}), ('hyperparameters', {'verbose': 0, 'batch_size': 32, 'learning_rate': 0.01, 'optimizer': 'adam', 'num_epochs': 20, 'callbacks': {'ModelCheckpoint': {'monitor': 'val_loss', 'mode': 'min', 'save_best_only': True, 'verbose': 0, 'filepath': 'model.h5', 'save_weights_only': False}}}), ('load_data', {'func': <function load_data at 0x7f8452c87dc0>, 'kwargs': {}}), ('log_dir', '/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper'), ('loss', 'binary_crossentropy'), ('metrics', ['acc']), ('objective', 'val_acc__last'), ('preprocessing', {'func': <function minmaxstdscaler at 0x7f8451edd280>}), ('seed', 3852825940), ('arch_seq', [0.8013373430233413, 0.18201989614490244, 0.6337599555526537, 0.21914708885700163, 0.7103874029558895, 0.04135563529498132, 0.18061275299616597, 0.11660869421319509, 0.8775222738838141]), ('id', UUID('9157fa06-ea7a-11eb-a8ea-b9f3ebebee75'))])
+2021-07-21 23:22:52|2139019|INFO|deephyper.evaluator.evaluate:296] New eval finished: f256197c-c3b6-4d93-99a4-13541af7eba4 --> -3.4028234663852886e+38
+2021-07-21 23:22:52|2139019|INFO|deephyper.evaluator.evaluate:307] Requested eval x: {'create_search_space': {'func': 'nas_problems.nas_problems.model1.search_space.create_search_space', 'kwargs': {'num_layers': 3}}, 'hyperparameters': {'verbose': 0, 'batch_size': 32, 'learning_rate': 0.01, 'optimizer': 'adam', 'num_epochs': 20, 'callbacks': {'ModelCheckpoint': {'monitor': 'val_loss', 'mode': 'min', 'save_best_only': True, 'verbose': 0, 'filepath': 'model.h5', 'save_weights_only': False}}}, 'load_data': {'func': 'nas_problems.nas_problems.model1.load_data.load_data', 'kwargs': {}}, 'log_dir': '/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper', 'loss': 'binary_crossentropy', 'metrics': ['acc'], 'objective': 'val_acc__last', 'preprocessing': {'func': 'deephyper.nas.preprocessing.preprocessing.minmaxstdscaler'}, 'seed': 4144140784, 'arch_seq': [0.8269555276619195, 0.31876644485617556, 0.3281594274818779, 0.9213282333013969, 0.3966658950125761, 0.8762218866219308, 0.6699146891168248, 0.20267646636203218, 0.31119117987419065], 'id': 'b674d0cf-ea77-11eb-a7d5-b9f3ebebee75'} y: -3.4028234663852886e+38
+2021-07-21 23:22:52|2139019|INFO|deephyper.evaluator.evaluate:191] Submitted new eval of OrderedDict([('create_search_space', {'func': <function create_search_space at 0x7f8451ec2310>, 'kwargs': {'num_layers': 3}}), ('hyperparameters', {'verbose': 0, 'batch_size': 32, 'learning_rate': 0.01, 'optimizer': 'adam', 'num_epochs': 20, 'callbacks': {'ModelCheckpoint': {'monitor': 'val_loss', 'mode': 'min', 'save_best_only': True, 'verbose': 0, 'filepath': 'model.h5', 'save_weights_only': False}}}), ('load_data', {'func': <function load_data at 0x7f8452c87dc0>, 'kwargs': {}}), ('log_dir', '/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper'), ('loss', 'binary_crossentropy'), ('metrics', ['acc']), ('objective', 'val_acc__last'), ('preprocessing', {'func': <function minmaxstdscaler at 0x7f8451edd280>}), ('seed', 465172061), ('arch_seq', [0.5178621010207568, 0.11406619751301206, 0.9045698603786055, 0.24252418807189446, 0.7059991243707191, 0.330555700836658, 0.655133925097688, 0.7618447304070676, 0.934255052463103]), ('id', UUID('9157fa07-ea7a-11eb-a8ea-b9f3ebebee75'))])
