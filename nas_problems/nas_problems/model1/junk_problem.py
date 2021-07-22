@@ -26,23 +26,16 @@ Problem.hyperparameters(
                         verbose=0,
                         filepath="model.h5",
                         save_weights_only=False,
-                    ),
-        EarlyStopping=dict(
-            monitor='val_loss', # 'val_loss', 'val_r2' or 'val_acc' ?
-            mode='min',
-            verbose=0,
-            patience=5
-        )
+                    )
     )
 )
 
 
 Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
 
-# Metrics: accuracy and validation loss.
-Problem.metrics(['acc', 'val_loss']) # 'r2', 'acc', 'val_loss'
+Problem.metrics(['acc']) # 'r2' or 'acc' ?
 
-Problem.objective('val_acc__last') # 'val_r2__last', 'val_acc__last'
+Problem.objective('val_acc__last') # 'val_r2__last' or 'val_acc__last' ?
 
 
 # Get model.
@@ -54,16 +47,3 @@ if __name__ == '__main__':
 
     print('Saving model...')
     model.save('model')
-
-    ## This is needed for converting from Keras to PyTorch.
-    model.save_weights('model.h5')
-
-    #
-    # Save model config info.
-    #
-
-    print('Saving model.json...')
-    ## This is needed for converting from Keras to PyTorch.
-    model_json = model.to_json()
-    with open("model.json", "w") as json_file:
-        json_file.write(model_json)
