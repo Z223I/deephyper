@@ -1,4 +1,4 @@
-# Quickstart
+# Quickstart HPS Model 1
 
 ## ssh to Login Node
 
@@ -35,13 +35,13 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_
 ./SingleNodeRayCluster.sh
 ```
 
-Start Conda Env
+### Start Conda Env
 
 ```bash
 source ./SetUpEnv.sh
 ```
 
-Run Model
+### Run Model
 
 This is a check to ensure your model is running correctly.
 
@@ -49,7 +49,7 @@ This is a check to ensure your model is running correctly.
 python3 model_run_pytorch.py
 ```
 
-Run DeepHyper
+### Run DeepHyper
 
 ```bash
 python -m deephyper.search.hps.ambs --evaluator ray --problem problem.Problem --run model_run_keras.run --num-cpus-per-task 1 --num-gpus-per-task 1 --n-jobs 1

@@ -35,54 +35,43 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_
 ./SingleNodeRayCluster.sh
 ```
 
-Start Conda Env
+### Start Conda Env
 
 ```bash
 source ./SetUpEnv.sh
 ```
 
-Run Model
-
-This is a check to ensure your model is running correctly.
+### Run DeepHyper
 
 ```bash
-xxpython3 model_run_pytorch.py
-```
-
-Run DeepHyper
-
-## Model 1
-
-```bash
-ssh wilsonb@theta.alcf.anl.gov
-(miniconda-3/latest/base) wilsonb@thetalogin6:~> ssh thetagpusn1
-
-Last login: Wed Jun 30 23:27:50 2021 from thetalogin4.tmi.alcf.anl.gov
-wilsonb@thetagpusn1:~$ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/
-```
-
-### Start a node
-
-From thetagpusn1,2
-
-```bash
-qsub -I -A datascience -t 120 -q full-node -n 1
-```
-
-
-### Basic NAS Execution
-
-```bash
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1
-./SingleNodeRayCluster.sh
-source ./SetUpEnv.sh
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
-Only the first time     $ pip3 install -e .
+```
 
+If you have your own fork of DeepHyper, do a developer install only the first time.
 
+```bash
+pip3 install -e .
+```
+
+```bash
 HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
+```
 
+
+
+
+
+
+
+### Analytics
+
+#### Prepare Jupyter Notebook
+
+replace data_2021-07-14_01.json
+
+```bash
 deephyper-analytics parse deephyper.log
+
 Xdeephyper-analytics single -p $MY_JSON_FILE
 Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
 
