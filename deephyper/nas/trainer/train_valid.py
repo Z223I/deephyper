@@ -15,8 +15,6 @@ from deephyper.nas.losses import selectLoss
 logger = util.conf_logger("deephyper.model.trainer")
 
 
-
-
 class TrainerTrainValid:
     def __init__(self, config, model):
         self.cname = self.__class__.__name__
@@ -471,8 +469,6 @@ class TrainerTrainValid:
                         epochs=num_epochs - 1,
                         steps_per_epoch=self.train_steps_per_epoch,
                         callbacks=self.callbacks,
-                        validation_data=self.dataset_valid,
-                        validation_steps=self.valid_steps_per_epoch,
                         class_weight=self.class_weights,
                     )
                 history = self.model.fit(

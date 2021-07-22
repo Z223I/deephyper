@@ -13,6 +13,8 @@ Problem.preprocessing(minmaxstdscaler)
 
 Problem.search_space(create_search_space, num_layers=3)
 
+# Metrics: [metrics.mae, metrics.accuracy, metrics.binary_accuracy, metrics.categorical_accuracy, metrics.sparse_categorical_accuracy, metrics.confusion_matrix]
+
 Problem.hyperparameters(
     batch_size=32,
     learning_rate=0.01,
@@ -26,16 +28,23 @@ Problem.hyperparameters(
                         verbose=0,
                         filepath="model.h5",
                         save_weights_only=False,
-                    )
+                    ),
+        EarlyStopping=dict(
+            monitor='val_loss', # 'val_loss', 'val_r2' or 'val_acc' ?
+            mode='min',
+            verbose=0,
+            patience=5
+        )
     )
 )
 
 
 Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
 
-Problem.metrics(['acc']) # 'r2' or 'acc' ?
+# Metrics: accuracy and validation loss.
+Problem.metrics(['acc', 'val_loss']) # 'r2', 'acc', 'val_loss'
 
-Problem.objective('val_acc__last') # 'val_r2__last' or 'val_acc__last' ?
+Problem.objective('val_acc__last') # 'val_r2__last', 'val_acc__last'
 
 
 # Get model.
