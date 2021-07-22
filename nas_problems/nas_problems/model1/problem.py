@@ -94,7 +94,30 @@ ValueError: in user code:
         raise ValueError(
 
     ValueError: Unknown metric function: val_loss
+
+
+    See the second answer.
+    https://stackoverflow.com/questions/49035200/keras-early-stopping-callback-error-val-loss-metric-not-available
+The error occurs to us because we forgot to set validation_data in fit() method, while used 'callbacks': [keras.callbacks.EarlyStopping(monitor='val_loss', patience=1)],
+
+Code causing error is:
+
+self.model.fit(
+        x=x_train,
+        y=y_train,
+        callbacks=[keras.callbacks.EarlyStopping(monitor='val_loss', patience=1)],
+        verbose=True)
+Adding validation_data=(self.x_validate, self.y_validate), in fit() fixed:
+
+self.model.fit(
+        x=x_train,
+        y=y_train,
+        callbacks=[keras.callbacks.EarlyStopping(monitor='val_loss', patience=1)],
+        validation_data=(x_validate, y_validate),
+
 """
+
+# Metrics: [metrics.mae, metrics.accuracy, metrics.binary_accuracy, metrics.categorical_accuracy, metrics.sparse_categorical_accuracy, metrics.confusion_matrix]
 
 Problem.hyperparameters(
     batch_size=32,
