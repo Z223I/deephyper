@@ -26,7 +26,7 @@ export PROJECT_NAME=datascience
 qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
 ```
 
-## thetagpu
+## ThetaGPU
 
 ### Start Ray Cluster
 
