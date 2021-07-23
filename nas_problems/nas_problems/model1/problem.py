@@ -146,12 +146,13 @@ Problem.hyperparameters(
 Problem.loss('binary_crossentropy') # 'mse', 'binary_crossentropy' or 'categorical_crossentropy' ?
 
 # Metrics: accuracy and validation loss.
-Problem.metrics(['acc', 'val_loss']) # 'r2', 'acc', 'val_loss'
+#Problem.metrics(['acc', 'val_loss']) # 'r2', 'acc', 'val_loss'
+Problem.metrics(['acc']) # 'r2', 'acc', 'val_loss'
 
 #Problem.objective('val_loss__last') # 'val_r2__last', 'val_acc__last'
 # Using val_loss__min instead of val_loss__last will cause validation to be calculated for every
 # epoch.  This is required to enable early stopping.
-Problem.objective('-val_loss') # 'val_r2__last', 'val_acc__last'
+Problem.objective(-'val_loss') # 'val_r2__last', 'val_acc__last'
 
 
 # Get model.
