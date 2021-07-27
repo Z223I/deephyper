@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # USER CONFIGURATION
-CURRENT_DIR=/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps
+CURRENT_DIR=/homes/wilsonb/deephyper
 CPUS_PER_NODE=8
 GPUS_PER_NODE=8
 
 # Script to launch Ray cluster
 
-ACTIVATE_PYTHON_ENV="${CURRENT_DIR}/SetUpEnv.sh"
-echo "Script to activate Python env: $ACTIVATE_PYTHON_ENV"
+###ACTIVATE_PYTHON_ENV="${CURRENT_DIR}/SetUpEnv.sh"
+###echo "Script to activate Python env: $ACTIVATE_PYTHON_ENV"
 
 head_node=$HOSTNAME
 # echo $HOSTNAME
@@ -36,9 +36,9 @@ echo "IP Head: $ip_head"
 echo "Starting HEAD at $head_node"
 echo "ssh -tt $head_node_ip"
 echo "source $ACTIVATE_PYTHON_ENV; ray start --head --node-ip-address=$head_node_ip --port=$port --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
-ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV; \
-    ray start --head --node-ip-address=$head_node_ip --port=$port \
-    --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block" &
+###ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV; \
+###    ray start --head --node-ip-address=$head_node_ip --port=$port \
+###    --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block" &
 
 # optional, though may be useful in certain versions of Ray < 1.0.
-sleep 10
+###sleep 10
