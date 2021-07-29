@@ -177,3 +177,27 @@ if __name__ == '__main__':
     model_json = model.to_json()
     with open("model.json", "w") as json_file:
         json_file.write(model_json)
+
+
+
+
+
+
+    import tensorflow.keras as keras
+    # From https://www.tensorflow.org/guide/keras/save_and_serialize
+    # Calling `save('my_model')` creates a SavedModel folder `my_model`.
+    model.save("my_model")
+
+    # It can be used to reconstruct the model identically.
+    reconstructed_model = keras.models.load_model("my_model")
+
+
+    """
+    import onnx
+
+    pytorch_model = '/path/to/pytorch/model'
+    keras_output = '/path/to/converted/keras/model.hdf5'
+    onnx.convert(pytorch_model, keras_output)
+    reconstructed_model = load_model(keras_output)
+    preds = reconstructed_model.predict(x)
+    """
