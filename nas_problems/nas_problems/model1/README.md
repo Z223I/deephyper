@@ -75,6 +75,8 @@ deephyper-analytics parse deephyper.log
 Xdeephyper-analytics single -p $MY_JSON_FILE
 Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
 
+
+Actually, try replacing the *.json with '.'
 deephyper-analytics notebook --type nas --output dh-analytics-nas.ipynb data_2021-07-14_01.json
 
 tx dh-analytics-nas.ipynb results.csv and init_info* to local machine.
