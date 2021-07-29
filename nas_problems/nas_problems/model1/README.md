@@ -193,6 +193,26 @@ cd nas_problems/nas_problems/model1
 python3 problem.py
 ```
 
+When that finishes...
+
+```bash
+git commit -am "Keras model saved.""
+git push
+exit
+exit
+```
+
+## Hey!  Diff 009 with 011
+
+model.json
+model/*
+model.h5
+
+```text
+From one of our model engineers: I believe this should work, we used the torch save/load_state_dict in the past for hermit as well. As long as the parameter values on host are correct, i.e. if training we called model.cpu() after finishing, the parameters saved should be correct. And for loading it should probably be done before the samba.from_torch_(model), though it might work after (not sure).
+```
+
+
 ## Keras to PyTorch Conversion
 
 You must do the model conversion with the same TensorFlow and Keras versions with
