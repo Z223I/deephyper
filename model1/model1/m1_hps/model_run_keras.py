@@ -220,7 +220,8 @@ def run(config):
         model = tensorflow.keras.models.load_model('model')
         #model = keras.models.load_model("../../../nas_problems/nas_problems/model1/model.h5")
 
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['acc'])
 
     #####timer.end('preprocessing')
 
@@ -277,9 +278,12 @@ if __name__ == '__main__':
     accuracy = run(config)
     print('accuracy: ', accuracy)
 
+    """
     import matplotlib.pyplot as plt
     plt.plot(HISTORY['acc'])
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
+    """
+    
