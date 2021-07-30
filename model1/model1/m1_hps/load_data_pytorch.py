@@ -25,10 +25,6 @@ def load_data(config):
     XTrainFilename = 'XTrain.txt'
     YTrainFilename = 'YTrain.txt'
 
-    tarFilename    = "data.tar.gz"
-    XTrainFilename = 'dh_data/Xtrain.txt'
-    YTrainFilename = 'dh_data/yTrain.txt'
-
     path = os.path.join(data_source, tarFilename)
 
     # Extract data from tar file.
