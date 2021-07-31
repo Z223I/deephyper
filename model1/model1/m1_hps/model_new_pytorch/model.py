@@ -68,26 +68,8 @@ if __name__ == '__main__':
         'print_shape': 0            # Print the data shape.
     }
 
-    ranNumpyArrayListOfOneListFloat64 = np.random.randn(*[1, 1690])
-    ranNumpyArrayListOfOneListFloat32 = ranNumpyArrayListOfOneListFloat64.astype(np.float32)
-    torchTensorListOfOneListFloat32 = torch.from_numpy( ranNumpyArrayListOfOneListFloat32 )
-    inputs=[ torchTensorListOfOneListFloat32 ]
-    test_run_model( inputs )
-
-    listOfOneListFloat64 = [[0.0, 1.0, 2.0, 3.0, 4.0, 5.0123]]
-    numpyArrayListOfOneListFloat64 = np.array( [*listOfOneListFloat64] )
-    numpyArrayListOfOneListFloat32 = numpyArrayListOfOneListFloat64.astype(np.float32)
-    torchTensorListOfOneListFloat32 = torch.from_numpy( numpyArrayListOfOneListFloat32 )
-    inputs=[ torchTensorListOfOneListFloat32 ]
-    #test_run_model( inputs )
-
     from load_data_pytorch import load_data
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
-
-    #oneRowList = [*x_valid[0]]
-    #oneRowNumpyArray = np.array( [*oneRowList] )
-    #oneRowTensor = torch.from_numpy( [*oneRowNumpyArray] )
-
 
     listOfOneListFloat64 = [ x_valid[0] ]
     numpyArrayListOfOneListFloat64 = np.array( [*listOfOneListFloat64] )
