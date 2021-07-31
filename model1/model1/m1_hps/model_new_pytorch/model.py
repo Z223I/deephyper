@@ -72,7 +72,7 @@ if __name__ == '__main__':
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
 
     listOfOneListFloat64 = [ x_valid[0] ]
-    numpyArrayListOfOneListFloat64 = np.array( [*listOfOneListFloat64] )
+    numpyArrayListOfOneListFloat64 = np.array( [listOfOneListFloat64] )
     numpyArrayListOfOneListFloat32 = numpyArrayListOfOneListFloat64.astype(np.float32)
     torchTensorListOfOneListFloat32 = torch.from_numpy( numpyArrayListOfOneListFloat32 )
     inputs=[ torchTensorListOfOneListFloat32 ]
