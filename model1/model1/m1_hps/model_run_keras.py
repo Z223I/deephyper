@@ -66,9 +66,8 @@ def createModel(input_shape, samples, batchSamples, classCount):
     X = inputLayer
     X = BatchNormalization(trainable=True)(X)
 
-    if batchSamples >= 16:
-        X = Dense(units = samples * 16, activation='relu')(X)
-        X = Dropout(0.20)(X)
+    X = Dense(units = samples * 16, activation='relu')(X)
+    X = Dropout(0.20)(X)
 
     if batchSamples >= 12:
         X = Dense(units = samples * 12, activation='relu')(X)  # 12
@@ -178,6 +177,7 @@ def run(config):
     # Retrieve config information.
     #
     BATCH_SIZE = config['batch_size']
+    LOSS       = config['loss']
     ACTIVATION = config['activation']
     EPOCHS = config['epochs']
     #DROPOUT = config['dropout']
@@ -212,23 +212,23 @@ def run(config):
     numInputs = samples * batchSamples
     classCount = getClassCount()
 
-    doCreateModel = False
+    doCreateModel = True
     if doCreateModel:
-        model = createModel((numInputs,), samples, batchSamples, classCount)
+        model = createModel((numInputs,), samples, batchSamples, classCount, config)
     else:
         # Use model that NAS built.
         model = tensorflow.keras.models.load_model('model')
         #model = keras.models.load_model("../../../nas_problems/nas_problems/model1/model.h5")
 
     #model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['acc'])
+    model.compile(optimizer=OPTIMIZER, loss=LOSS, metrics=['acc'])
 
     #####timer.end('preprocessing')
 
     #####timer.start('model training')
 
     history = model.fit(x_train, y_train,
-        batch_size = BATCH_SIZE,
+        batch_size=BATCH_SIZE,
         epochs=EPOCHS,
         shuffle=True,
         validation_data=(x_valid, y_valid),
@@ -245,16 +245,18 @@ def run(config):
         validation_split=0.05)
     """
 
-    # "You have to run the model for atleast 1 epoch for the metric names to be available"
-    metrics = model.metrics_names
-    print(f"metrics: {metrics}")
+    MISC_STUFF = False
+    if MISC_STUFF:
+        # "You have to run the model for at least 1 epoch for the metric names to be available"
+        metrics = model.metrics_names
+        print(f"metrics: {metrics}")
 
-    #####timer.end('model training')
+        #####timer.end('model training')
 
-    model.summary()
-    model.save('model_keras')
+        model.summary()
+        model.save('model_keras')
 
-    HISTORY = history.history
+        HISTORY = history.history
 
     return history.history['acc'][-1]
 
@@ -286,4 +288,3 @@ if __name__ == '__main__':
     plt.grid()
     plt.show()
     """
-    
