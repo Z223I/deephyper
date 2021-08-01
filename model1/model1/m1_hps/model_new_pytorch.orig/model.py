@@ -10,7 +10,10 @@ import torch.nn.functional as F
 
 
 class Model(nn.Module):
+  """Model class."""
+
   def __init__(self):
+    """Initialize the model."""
     super(Model, self).__init__()
     self.__vars = nn.ParameterDict()
     for b in glob.glob(
@@ -22,6 +25,8 @@ class Model(nn.Module):
 
 
   def forward(self, *inputs):
+    # sourcery skip: inline-immediately-returned-variable
+    """Step forward in the model."""
     t_input_0, = inputs
     t_dense0 = torch.matmul(t_input_0, self.__vars["t_dense_kernel_0"])
     t_dense_20 = torch.matmul(t_input_0, self.__vars["t_dense_2_kernel_0"])
@@ -50,6 +55,7 @@ class Model(nn.Module):
 
 @torch.no_grad()
 def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
+  """Test the model."""
   model = Model()
   model.eval()
   print(model)
@@ -71,9 +77,9 @@ if __name__ == '__main__':
     from load_data_pytorch import load_data
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
 
-    listOfOneListFloat64 = [ x_valid[0] ]
-    numpyArrayListOfOneListFloat64 = np.array( [listOfOneListFloat64] )
-    numpyArrayListOfOneListFloat32 = numpyArrayListOfOneListFloat64.astype(np.float32)
-    torchTensorListOfOneListFloat32 = torch.from_numpy( numpyArrayListOfOneListFloat32 )
-    inputs=[ torchTensorListOfOneListFloat32 ]
+    listOfArrayOfLists = [ x_valid[0:100] ]
+    numpyArrayListOfListsFloat64 = np.array( [listOfArrayOfLists] )
+    numpyArrayListOfListsFloat32 = numpyArrayListOfListsFloat64.astype(np.float32)
+    torchTensorListOfListsFloat32 = torch.from_numpy( numpyArrayListOfListsFloat32 )
+    inputs=[ torchTensorListOfListsFloat32 ]
     test_run_model( inputs )
