@@ -77,9 +77,9 @@ if __name__ == '__main__':
     from load_data_pytorch import load_data
     (x_train, y_train), (x_valid, y_valid) = load_data(config)
 
-    listOfArrayOfLists = [ x_valid[0:100] ]
-    numpyArrayListOfListsFloat64 = np.array( [listOfArrayOfLists] )
-    numpyArrayListOfListsFloat32 = numpyArrayListOfListsFloat64.astype(np.float32)
-    torchTensorListOfListsFloat32 = torch.from_numpy( numpyArrayListOfListsFloat32 )
-    inputs=[ torchTensorListOfListsFloat32 ]
+    arrayOf2dList = x_valid[0:50]
+    numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
+    numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
+    torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
+    inputs = [ torchTensorOf2dListFloat32 ]
     test_run_model( inputs )
