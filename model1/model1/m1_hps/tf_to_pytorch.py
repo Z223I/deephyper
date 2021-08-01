@@ -9,6 +9,15 @@ tf.compat.v1.disable_eager_execution()
 
 model = keras.models.load_model('model_keras')
 
+#
+# Valid activation functions.
+# https://github.com/onnx/onnx/blob/master/docs/Operators.md#rnn
+# Tanh should work.
+#
+# Current!! onnx-pytorch 0.1.3. pip install onnx-pytorch. Copy PIP instructions. Latest version.
+# Released: May 13, 2021. Convert onnx to pytorch code.
+#
+
 """
 I met the same issue (TF 2.4.0, python 3.7.10, keras2onnx 1.7.0 ), my colleague solved the problem in this way:
 
@@ -58,4 +67,4 @@ AssertionError: model_new_pytorch is not empty and overwrite is not True.
 (venvonnx) bwilson@bwilson-Inspiron-3593:~/DL/deephyper/model1/model1/m1_hp
 """
 from onnx_pytorch import code_gen
-code_gen.gen("model_onnx/model.onnx", "model_new_pytorch", overwrite=True, continue_on_error=False)
+code_gen.gen("model_onnx/model.onnx", "model_new_pytorch", overwrite=True)

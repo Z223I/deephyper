@@ -19,7 +19,7 @@ class Model(nn.Module):
       requires_grad = v.dtype.is_floating_point or v.dtype.is_complex
       self.__vars[os.path.basename(b)[:-4]] = nn.Parameter(
           torch.from_numpy(np.load(b)), requires_grad=requires_grad)
-
+    
 
   def forward(self, *inputs):
     t_input_0, = inputs
@@ -40,7 +40,7 @@ class Model(nn.Module):
     t_activation_2_Relu_0 = F.relu(t_add_add_1_0)
     t_dense_40 = torch.matmul(t_activation_2_Relu_0, self.__vars["t_dense_4_kernel_0"])
     t_biased_tensor_name2 = t_dense_40 + self.__vars["t_dense_4_bias_0"]
-    t_activation_3_Tanh_0 = F.relu(t_biased_tensor_name2)
+    t_activation_3_Tanh_0 = F.tanh(t_biased_tensor_name2)
     t_add_1_add_0 = t_activation_3_Tanh_0 + t_biased_tensor_name1
     t_activation_4_Relu_0 = F.relu(t_add_1_add_0)
     t_dense_60 = torch.matmul(t_activation_4_Relu_0, self.__vars["t_dense_6_kernel_0"])
@@ -56,24 +56,3 @@ def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(n
   rs = model(*inputs)
   print(rs)
   return rs
-
-
-
-if __name__ == '__main__':
-    config = {
-        'proportion': .80,          # A value between [0., 1.] indicating how to split data between
-                                    # training set and validation set. `prop` corresponds to the
-                                    # ratio of data in training set. `1.-prop` corresponds to the
-                                    # amount of data in validation set.
-        'print_shape': 0            # Print the data shape.
-    }
-
-    from load_data_pytorch import load_data
-    (x_train, y_train), (x_valid, y_valid) = load_data(config)
-
-    listOfOneListFloat64 = [ x_valid[0] ]
-    numpyArrayListOfOneListFloat64 = np.array( [listOfOneListFloat64] )
-    numpyArrayListOfOneListFloat32 = numpyArrayListOfOneListFloat64.astype(np.float32)
-    torchTensorListOfOneListFloat32 = torch.from_numpy( numpyArrayListOfOneListFloat32 )
-    inputs=[ torchTensorListOfOneListFloat32 ]
-    test_run_model( inputs )
