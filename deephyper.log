@@ -8442,3 +8442,36 @@ Loading Deephyper
 2021-07-23 03:35:46|795879|INFO|deephyper.evaluator.evaluate:296] New eval finished: 96c7b610-78e0-4693-a9ba-b06290765931 --> -7.8392438888549805
 2021-07-23 03:35:46|795879|INFO|deephyper.evaluator.evaluate:307] Requested eval x: {'create_search_space': {'func': 'nas_problems.nas_problems.model1.search_space.create_search_space', 'kwargs': {'num_layers': 3}}, 'hyperparameters': {'verbose': 0, 'batch_size': 32, 'learning_rate': 0.01, 'optimizer': 'adam', 'num_epochs': 20, 'callbacks': {'ModelCheckpoint': {'monitor': 'val_loss', 'mode': 'min', 'save_best_only': True, 'verbose': 0, 'filepath': 'model.h5', 'save_weights_only': False}, 'EarlyStopping': {'monitor': 'val_loss', 'mode': 'min', 'verbose': 0, 'patience': 5}}}, 'load_data': {'func': 'nas_problems.nas_problems.model1.load_data.load_data', 'kwargs': {}}, 'log_dir': '/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper', 'loss': 'binary_crossentropy', 'metrics': ['acc'], 'objective': '-val_loss', 'preprocessing': {'func': 'deephyper.nas.preprocessing.preprocessing.minmaxstdscaler'}, 'seed': 1187887965, 'arch_seq': [0.0071550479109646625, 0.08535675238038987, 0.24799892752361397, 0.24007121539365495, 0.9668816977861663, 0.5669101397256666, 0.7641845243768026, 0.5677943443454154, 0.15460343041707492], 'id': 'ac9f3fbc-eb66-11eb-b77b-e5b65ebc440b'} y: -7.8392438888549805
 2021-07-23 03:35:46|795879|INFO|deephyper.evaluator.evaluate:191] Submitted new eval of OrderedDict([('create_search_space', {'func': <function create_search_space at 0x7f664c0483a0>, 'kwargs': {'num_layers': 3}}), ('hyperparameters', {'verbose': 0, 'batch_size': 32, 'learning_rate': 0.01, 'optimizer': 'adam', 'num_epochs': 20, 'callbacks': {'ModelCheckpoint': {'monitor': 'val_loss', 'mode': 'min', 'save_best_only': True, 'verbose': 0, 'filepath': 'model.h5', 'save_weights_only': False}, 'EarlyStopping': {'monitor': 'val_loss', 'mode': 'min', 'verbose': 0, 'patience': 5}}}), ('load_data', {'func': <function load_data at 0x7f664ce0ee50>, 'kwargs': {}}), ('log_dir', '/lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper'), ('loss', 'binary_crossentropy'), ('metrics', ['acc']), ('objective', '-val_loss'), ('preprocessing', {'func': <function minmaxstdscaler at 0x7f664c063310>}), ('seed', 3037391540), ('arch_seq', [0.5123981190607566, 0.7666930547284129, 0.7677619092107525, 0.7729078477575473, 0.5456842567712967, 0.2979659139580567, 0.31717291909683765, 0.016037039375903728, 0.23924099093802786]), ('id', UUID('111fdb04-eb67-11eb-b77b-e5b65ebc440b'))])
+2021-07-27 16:28:24|88823|INFO|deephyper:69] 
+
+Loading Deephyper
+--------------
+2021-07-27 16:28:26|88823|INFO|deephyper.search.search:64] Maximizing the return value of function: deephyper.nas.run.alpha.run
+2021-07-27 16:28:26|88823|INFO|deephyper.evaluator._ray_evaluator:90] RAY Evaluator init: redis-address=auto
+2021-07-27 16:28:26|88823|ERROR|deephyper:72] Uncaught exception:
+Traceback (most recent call last):
+  File "/lambda_stor/homes/wilsonb/venvs/dhvenv4/bin/deephyper", line 33, in <module>
+    sys.exit(load_entry_point('deephyper', 'console_scripts', 'deephyper')())
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/core/cli/cli.py", line 51, in main
+    func(**kwargs)
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/core/cli/nas.py", line 39, in main
+    search_obj = search_cls(**kwargs)
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/search/nas/random.py", line 22, in __init__
+    super().__init__(problem=problem, run=run, evaluator=evaluator, **kwargs)
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/search/nas/__init__.py", line 12, in __init__
+    super().__init__(problem, run=run, evaluator=evaluator, **kwargs)
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/search/search.py", line 72, in __init__
+    **kwargs,
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/evaluator/evaluate.py", line 139, in create
+    **kwargs,
+  File "/lambda_stor/homes/wilsonb/deephyper/deephyper/evaluator/_ray_evaluator.py", line 98, in __init__
+    proc_info = ray.init(address=ray_address, _redis_password=ray_password)
+  File "/lambda_stor/homes/wilsonb/venvs/dhvenv4/lib/python3.7/site-packages/ray/_private/client_mode_hook.py", line 82, in wrapper
+    return func(*args, **kwargs)
+  File "/lambda_stor/homes/wilsonb/venvs/dhvenv4/lib/python3.7/site-packages/ray/worker.py", line 792, in init
+    redis_address, _, _ = services.validate_redis_address(address)
+  File "/lambda_stor/homes/wilsonb/venvs/dhvenv4/lib/python3.7/site-packages/ray/_private/services.py", line 319, in validate_redis_address
+    address = find_redis_address_or_die()
+  File "/lambda_stor/homes/wilsonb/venvs/dhvenv4/lib/python3.7/site-packages/ray/_private/services.py", line 233, in find_redis_address_or_die
+    "Could not find any running Ray instance. "
+ConnectionError: Could not find any running Ray instance. Please specify the one to connect to by setting `address`.
