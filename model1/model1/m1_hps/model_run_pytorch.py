@@ -160,7 +160,7 @@ class Model1(nn.Module):
 
 
 
-    def forward(self, x):
+    def forward(self, x, targets):
         # sourcery skip: inline-immediately-returned-variable
         """
         Do forward pass.
