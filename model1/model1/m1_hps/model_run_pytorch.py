@@ -150,6 +150,16 @@ class Model1(nn.Module):
         #"output_layers": [["dense_7", 0, 0]]}
 
 
+
+
+
+    #def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    # Does this need to use targets to calculate loss?
+
+
+
+
+
     def forward(self, x):
         # sourcery skip: inline-immediately-returned-variable
         """
@@ -563,7 +573,7 @@ def run(config, argv):
                 samba.session.compile(model,
                                     inputs,
                                     optimizer,
-                                    name='ffn_mnist_torch',
+                                    name='model_1_torch',
                                     app_dir=utils.get_file_dir(__file__),
                                     config_dict=vars(args),
                                     pef_metadata=get_pefmeta(args, model))
