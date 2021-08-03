@@ -69,22 +69,19 @@ def createModel(input_shape, samples, batchSamples, classCount):
     X = Dense(units = samples * 16, activation='relu')(X)
     X = Dropout(0.20)(X)
 
-    if batchSamples >= 12:
-        X = Dense(units = samples * 12, activation='relu')(X)  # 12
-        X = Dropout(0.10)(X)
-        #X = Dense(units = samples * 11, activation='relu')(X)  # 11
-        #X = Dropout(0.10)(X)
+    X = Dense(units = samples * 12, activation='relu')(X)  # 12
+    X = Dropout(0.10)(X)
+    #X = Dense(units = samples * 11, activation='relu')(X)  # 11
+    #X = Dropout(0.10)(X)
 
-    if batchSamples >= 10:
-        X = Dense(units = samples * 10, activation='relu')(X)  # 10
-        X = Dropout(0.05)(X)
-        #X = Dense(units = samples * 9, activation='relu')(X)  # 9
-        #X = Dense(units = samples * 8, activation='relu')(X)  # 8
-        X = Dense(units = samples * 7, activation='relu')(X)  # 7
+    X = Dense(units = samples * 10, activation='relu')(X)  # 10
+    X = Dropout(0.05)(X)
+    #X = Dense(units = samples * 9, activation='relu')(X)  # 9
+    #X = Dense(units = samples * 8, activation='relu')(X)  # 8
+    X = Dense(units = samples * 7, activation='relu')(X)  # 7
 
-    if batchSamples >= 5:
-        X = Dense(units = samples * 5, activation='relu')(X)  # 5
-        X = Dropout(0.05)(X)
+    X = Dense(units = samples * 5, activation='relu')(X)  # 5
+    X = Dropout(0.05)(X)
 
     X = Dense(units = samples * 2, activation='relu')(X)  # 2
     X = Dropout(0.05)(X)

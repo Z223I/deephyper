@@ -33,10 +33,17 @@ from Data_Loader import dataset
 #####timer.end("module loading")
 
 
-SAMBANOVA = False
+SAMBANOVA = True
 DEEPHYPER = True
 DEVICE    = None
 DTYPE     = None
+
+if SAMBANOVA:
+    from sambaflow import samba
+    import sambaflow.samba.utils as utils
+    from sambaflow.samba.utils.argparser import parse_app_args
+    from sambaflow.samba.utils.pef_utils import get_pefmeta
+    from model1.model1.m1_hps.model_args_pytorch import *
 
 class Model1(nn.Module):
     """Model 1 object."""
@@ -470,6 +477,21 @@ def train(  args,
 HISTORY = None
 
 
+def run_samba(config):
+    """
+    Run model.
+
+    Args:
+        config (dict): Configuration dictionary.
+
+    Returns:
+
+
+        ???
+        accuracy (float): The accuracy of the run.
+    """
+
+
 def run(config):
     """
     Run model.
@@ -495,6 +517,13 @@ def run(config):
 
         #####timer.start('preprocessing')
 
+        if SAMBANOVA:
+            argv = config
+            """Run main code."""
+            utils.set_seed(256)
+            args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
+
+
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"*** device: {device} ***")
 
@@ -508,9 +537,11 @@ def run(config):
 
         model = Model1(config).to(device, dtype=dtype)
 
-        # SambaNova conversions.
-        #model.bfloat16().float()
-        #samba.from_torch_(model)
+        if SAMBANOVA:
+            # SambaNova conversions.
+            model.bfloat16().float()
+            samba.from_torch_(model)
+            inputs = (x_train, y_train)
 
 
 
@@ -522,14 +553,44 @@ def run(config):
         #optimizer = optim.AdamW(model.parameters(), lr=config.lr, betas=(config.beta1, 0.999))
         optimizer = config['optimizer'].lower()
 
-        if optimizer == 'adamw':
-            optimizer = optim.AdamW(model.parameters())
-        elif optimizer == 'adam':
-            optimizer = optim.Adam(model.parameters())
+        if SAMBANOVA:
+            args = config
+
+            # Instantiate an optimizer.
+            if args.inference:
+                optimizer = None
+            else:
+                optimizer = samba.optim.SGD(model.parameters(),
+                                            lr=args.lr,
+                                            momentum=args.momentum,
+                                            weight_decay=args.weight_decay)
+
+            if args.command == "compile":
+                # Run model analysis and compile, this step will produce a PEF.
+                samba.session.compile(model,
+                                    inputs,
+                                    optimizer,
+                                    name='ffn_mnist_torch',
+                                    app_dir=utils.get_file_dir(__file__),
+                                    config_dict=vars(args),
+                                    pef_metadata=get_pefmeta(args, model))
+            elif args.command == "test":
+                utils.trace_graph(model, inputs, optimizer, pef=args.pef, mapping=args.mapping)
+                outputs = model.output_tensors
+                test(args, model, inputs, outputs)
+            elif args.command == "run":
+                utils.trace_graph(model, inputs, optimizer, pef=args.pef, mapping=args.mapping)
+                train(args, model, optimizer)
+
         else:
-            print("ERROR:")
-            print("Choose either AdamW or Adam as an optimizer.")
-            return 0.0
+            if optimizer == 'adamw':
+                optimizer = optim.AdamW(model.parameters())
+            elif optimizer == 'adam':
+                optimizer = optim.Adam(model.parameters())
+            else:
+                print("ERROR:")
+                print("Choose either AdamW or Adam as an optimizer.")
+                return 0.0
 
 
         # patient early stopping

@@ -1,28 +1,4 @@
-# Quickstart NAS Model 1
-
-```text
-I know how to do it but I don’t have the code ready for you, it needs to be developed in python basically you can use the __code__  attribute to retrieve the code
-
-and so instead of creating the tensors the same recursive function can be called to construct the code
-```
-
-```text
-https://github.com/deephyper/deephyper/blob/develop/deephyper/nas/space/keras_search_space.py#L119
-def create_model(self):
-
-an[d] call the recursive function create_tensor_aux
-
-Romain  2 minutes ago
-https://github.com/deephyper/deephyper/blob/74dcc25245cc1c6eda4a547e3a24f1704945f9ae/deephyper/nas/space/nx_search_space.py#L180
-deephyper/nas/space/nx_search_space.py:180
-    def create_tensor_aux(self, g, n, train=None):
-<https://github.com/deephyper/deephyper|deephyper/deephyper>deephyper/deephyper | Added by GitHub (Legacy)
-
-
-and this recursive function calls n.create_tensor
-
-what you want is the __code__ of n.create_tensor
-```
+# Quickstart HPS Model 1
 
 ## ssh to homes
 
@@ -70,6 +46,20 @@ cd ~/deephyper
 pip install -e .
 ```
 
+## Try Compiling model.py
+
+```text
+model1/model1/m1_hps/model_run_pytorch.py
+```
+
+```bash
+#!/bin/sh
+python model_run_pytorch.py compile -b=1 --pef-name="model_run_pytorch" --output-folder="pef"
+python model_run_pytorch.py test --pef="pef/model_run_pytorch/model_run_pytorch.pef"
+python model_run_pytorch.py run --pef="pef/model_run_pytorch/model_run_pytorch.pef"
+python model_run_pytorch.py measure-performance --pef="pef/model_run_pytorch/model_run_pytorch.pef"
+```
+
 ## Start Ray
 
 Your venv should already be active.  If not,
@@ -95,40 +85,6 @@ Run all instructions necessary to get to your correct directory and activate you
 ```bash
 export XLA_FLAGS=--xla_hlo_profile
 deephyper nas random --evaluator ray --ray-address 192.168.200.130:6379 --problem nas_problems.nas_problems.model1.problem.Problem
-```
-
-```text
-(dhvenv3) wilsonb@sm-01:~/deephyper/model1$ deephyper nas random --evaluator ray --ray-address 192.168.200.130:6379 --problem nas_problems.nas_problems.model1.problem.Problem
-2021-08-03 08:39:54.355491: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-2021-08-03 08:39:54.355534: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
- ************************************************************************
-   Maximizing the return value of function: deephyper.nas.run.alpha.run
- ************************************************************************
-2021-08-03 08:39:57,982	INFO worker.py:727 -- Connecting to existing Ray cluster at address: 192.168.200.130:6379
-This search doesn't have an exiting procedure...
-(pid=129946) 2021-08-03 08:42:00.312804: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
-(pid=129946) 2021-08-03 08:42:00.312862: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-
-(pid=129946) 2021-08-03 08:42:03.682756: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
-(pid=129946) 2021-08-03 08:42:03.682806: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
-
-
-(pid=129946) 2021-08-03 08:42:03.682841: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (sm-01): /proc/driver/nvidia/version does not exist
-
-(pid=129946) 2021-08-03 08:44:02.738595: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-
-(pid=129946) To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-(pid=129946) 2021-08-03 08:44:04.081314: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
-
-(pid=129946) 2021-08-03 08:44:04.105904: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2250100000 Hz
-
-(pid=129946) 2021-08-03 08:44:04.166916: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1653] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
-
-
-
-HERE
-(pid=129946) /homes/wilsonb/venvs/dhvenv3/lib/python3.7/site-packages/tensorflow/python/keras/utils/generic_utils.py:497: CustomMaskWarning: Custom mask layers require a config and must override get_config. When loading, the custom mask layer must be passed to the custom_objects argument.
-(pid=129946)   category=CustomMaskWarning)
 ```
 
 
