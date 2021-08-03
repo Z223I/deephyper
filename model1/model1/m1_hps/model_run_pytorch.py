@@ -102,10 +102,6 @@ class Model1(nn.Module):
         self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
 
-        # Add
-        out_features = 1
-        self.add = torch.sum().to(device, dtype=dtype)
-
         out_features = 1
         self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
 
@@ -122,9 +118,6 @@ class Model1(nn.Module):
         out_features = 96
         self.dense_3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
-
-        out_features = 1
-        self.add_1 = torch.sum().to(device, dtype=dtype)
 
         out_features = 1
         self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
@@ -146,9 +139,6 @@ class Model1(nn.Module):
         out_features = 80
         self.dense_6 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        out_features = 1
-        self.add_2 = torch.sum().to(device, dtype=dtype)
 
         out_features = 1
         self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
@@ -182,7 +172,7 @@ class Model1(nn.Module):
 
         dense_1 = self.dense_1(input_0)
         dense_1 = self.dropout_2(dense_1)
-        add = self.add(activation, dense_1)
+        add = torch.sum(activation, dense_1)
 
         # Can use ReLU(inplace=False)
         activation_1 = self.activation_1(add)
@@ -193,7 +183,7 @@ class Model1(nn.Module):
 
         dense_3 = self.dense_3(activation_1)
         dense_3 = self.dropout_4(dense_3)
-        add_1 = self.add_1(activation_2, dense_3)
+        add_1 = torch.sum(activation_2, dense_3)
         # Can use ReLU(inplace=False)
         activation_3 = self.activation_3(add_1)
 
@@ -206,7 +196,7 @@ class Model1(nn.Module):
 
         dense_6 = self.dense_6(activation_3)
         dense_6 = self.dropout_7(dense_6)
-        add_2 = self.add_2(activation_4, dense_5, activation_1, dense_6)
+        add_2 = torch.sum(activation_4, dense_5, activation_1, dense_6)
         # Can use ReLU(inplace=False)
         activation_5 = self.activation_5(add_2)
 
