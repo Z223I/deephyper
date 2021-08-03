@@ -93,8 +93,7 @@ Run all instructions necessary to get to your correct directory and activate you
 ## Run
 
 ```bash
-XXXdeephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
-Trying HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem
+deephyper nas random --evaluator ray --ray-address 192.168.200.130:6379 --problem nas_problems.nas_problems.model1.problem.Problem
 ```
 
 
