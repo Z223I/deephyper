@@ -547,7 +547,7 @@ def run(config, argv):
         optimizer = config['optimizer'].lower()
 
         if SAMBANOVA:
-            args = argv
+            args = args
 
             # Instantiate an optimizer.
             if args.inference:
