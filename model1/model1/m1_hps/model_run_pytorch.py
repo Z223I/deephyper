@@ -104,7 +104,7 @@ class Model1(nn.Module):
 
         # Add
         out_features = 1
-        self.add = torch.nn.Sum().to(device, dtype=dtype)
+        self.add = torch.sum().to(device, dtype=dtype)
 
         out_features = 1
         self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
@@ -124,7 +124,7 @@ class Model1(nn.Module):
         self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
         out_features = 1
-        self.add_1 = torch.nn.Sum().to(device, dtype=dtype)
+        self.add_1 = torch.sum().to(device, dtype=dtype)
 
         out_features = 1
         self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
@@ -148,7 +148,7 @@ class Model1(nn.Module):
         self.dropout_7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
         out_features = 1
-        self.add_2 = torch.nn.Sum().to(device, dtype=dtype)
+        self.add_2 = torch.sum().to(device, dtype=dtype)
 
         out_features = 1
         self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
