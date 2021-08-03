@@ -43,7 +43,11 @@ if SAMBANOVA:
     import sambaflow.samba.utils as utils
     from sambaflow.samba.utils.argparser import parse_app_args
     from sambaflow.samba.utils.pef_utils import get_pefmeta
-    from model1.model1.m1_hps.model_args_pytorch import *
+
+    if DEEPHYPER:
+        from model1.model1.m1_hps.model_args_pytorch import *
+    else:
+        from model_args_pytorch import *
 
 class Model1(nn.Module):
     """Model 1 object."""
