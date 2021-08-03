@@ -24,61 +24,76 @@ and this recursive function calls n.create_tensor
 what you want is the __code__ of n.create_tensor
 ```
 
-## ssh to Login Node
+## ssh to homes
 
 ```bash
-theta
+$ homes
+or
+$ ssh <username>@homes.anl.gov
+```
+
+## Create Venv
+
+```bash
+virtualenv --system-site-packages -p python3.7 ./venv
+source ./venv/bin/activate
+pip install --find-links=https://download.pytorch.org/whl/torch_stable.html -r /opt/sambaflow/apps/requirements.txt
 ```
 
 ## Git as Necessary
 
 ```bash
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
+git clone https://github.com/deephyper/deephyper.git
+or
+cd ~/deephyper
 git pull
 ```
 
-## ssh to thetagpusn1
+## Install
+
+### Regular Install
 
 ```bash
-ssh thetagpusn1
+cd ~/deephyper
+pip install .
 ```
 
-## Request Time for a ThetaGPU Node
+### Developer Install
 
-```bash
-export PROJECT_NAME=datascience
-qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
-```
-
-## ThetaGPU
-
-### Start Ray Cluster
-
-```bash
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
-./SingleNodeRayCluster.sh
-```
-
-### Start Conda Env
-
-```bash
-source ./SetUpEnv.sh
-```
-
-### Run DeepHyper
-
-```bash
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper
-```
-
-If you have your own fork of DeepHyper, do a developer install only the first time.
-
-```bash
-pip3 install -e .
+```note
+There currently are 'tensorflow-cpu 2.4.1 requires ...' errors.
+We are checking if that breaks the install.
 ```
 
 ```bash
-HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
+cd ~/deephyper
+pip install -e .
+```
+
+## Start Ray
+
+Your venv should already be active.  If not,
+
+```bash
+source ./venv/bin/activate
+```
+
+```bash
+(venv) wilsonb@sm-01:~/venvs$ source dhvenv4/bin/activate
+(dhvenv4) wilsonb@sm-01:~/venvs$ ray start --head --node-ip-address=192.168.200.130 --port=6379 --num-cpus 1 --block
+
+```
+
+Leave ray running in this terminal window.
+
+## Open Terminal Window
+
+Run all instructions necessary to get to your correct directory and activate your venv.
+
+## Run
+
+```bash
+XXXdeephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
 Trying HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem
 ```
 
