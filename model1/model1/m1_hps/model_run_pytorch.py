@@ -34,7 +34,7 @@ from Data_Loader import dataset
 
 
 SAMBANOVA = True
-DEEPHYPER = True
+DEEPHYPER = False
 DEVICE    = None
 DTYPE     = None
 
