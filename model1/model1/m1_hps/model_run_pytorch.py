@@ -496,7 +496,7 @@ def run_samba(config):
     """
 
 
-def run(config):
+def run(config, argv):
     """
     Run model.
 
@@ -522,7 +522,6 @@ def run(config):
         #####timer.start('preprocessing')
 
         if SAMBANOVA:
-            argv = config
             """Run main code."""
             utils.set_seed(256)
             args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
@@ -666,7 +665,8 @@ Name: 1331, dtype: object
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"***** device: {device} *****")
 
-    accuracy = run(config)
+    import sys
+    accuracy = run(config, sys.argv[1:])
     print('accuracy: ', accuracy)
 
     """
