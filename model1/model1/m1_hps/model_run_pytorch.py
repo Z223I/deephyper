@@ -184,7 +184,8 @@ accuracy:  0.0
 
 
 
-    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    #def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+    def forward(self, inputs: torch.Tensor) -> torch.Tensor:
         # sourcery skip: inline-immediately-returned-variable
         """
         Do forward pass.
