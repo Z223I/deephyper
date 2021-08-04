@@ -567,13 +567,9 @@ def run(config, argv):
 
             from torchsummary import summary
 
-            shape = (3, 28, 28)
-            model_stats = summary(model, shape)
-            summary_str = str(model_stats)
-            print(f"summary_str = {summary_str}")
-            # or
-            input_data = x_train
-            model_stats = summary(model, input_data)
+            input_data  = x_train
+            targets     = y_train
+            model_stats = summary(model, input_data, targets)
             summary_str = str(model_stats)
             print(f"summary_str = {summary_str}")
             # summary_str contains the string representation of the summary. See below for examples.
