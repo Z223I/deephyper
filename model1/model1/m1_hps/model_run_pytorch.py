@@ -200,7 +200,7 @@ accuracy:  0.0
 
 
 
-        input_0 = x
+        input_0 = inputs
         input_0 = self.layer_norm(input_0)
         dense = self.dense(input_0)
         dense = self.dropout_1(dense)
