@@ -195,14 +195,15 @@ class Model1(nn.Module):
         activation_3 = self.activation_3(add_1)
         print(f"activation_3.shape: {activation_3.shape}")
 
-        dense_4 = self.dense_4(activation_3)
+        activation_3_t = torch.transpose(activation_3, 0, 1)
+        dense_4 = self.dense_4(activation_3_t)
         dense_4 = self.dropout_5(dense_4)
         activation_4 = self.activation_4(dense_4)
 
         dense_5 = self.dense_5(input_0)
         dense_5 = self.dropout_6(dense_5)
 
-        dense_6 = self.dense_6(activation_3)
+        dense_6 = self.dense_6(activation_3_t)
         dense_6 = self.dropout_7(dense_6)
         add_2 = activation_4 + dense_5 + activation_1 + dense_6
         # Can use ReLU(inplace=False)
