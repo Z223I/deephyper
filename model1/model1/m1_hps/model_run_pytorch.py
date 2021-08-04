@@ -509,11 +509,13 @@ HISTORY = None
 
 
 def to_torch_tensor(x_train):
+    # sourcery skip: inline-immediately-returned-variable
     """Convert np.array to torch tensor."""
     arrayOf2dList = x_train
     numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
     numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
-    return torch.from_numpy( numpyArrayOf2dListFloat32 )
+    torch_tensor = torch.from_numpy( numpyArrayOf2dListFloat32 )
+    return torch_tensor
 
 def run(config, argv):
     """
@@ -562,6 +564,20 @@ def run(config, argv):
         if SAMBANOVA:
             x_train = to_torch_tensor(x_train)
             y_train = to_torch_tensor(y_train)
+
+            from torchsummary import summary
+
+            shape = (3, 28, 28)
+            model_stats = summary(model, shape, verbose=0)
+            print(f"summary_str = {summary_str}")
+            # or
+            input_data = x_train
+            model_stats = summary(model, input_data, verbose=0)
+            summary_str = str(model_stats)
+            print(f"summary_str = {summary_str}")
+            # summary_str contains the string representation of the summary. See below for examples.
+            #https://pypi.org/project/torch-summary/
+
             # SambaNova conversions.
             model.bfloat16().float()
             samba.from_torch_(model)
