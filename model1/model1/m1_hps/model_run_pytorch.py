@@ -569,7 +569,9 @@ def run(config, argv):
 
             input_data  = x_train
             targets     = y_train
-            model_stats = summary(model, input_data, targets)
+            input_size  = x_train.shape
+            model_stats = summary(model, input_size)
+            #model_stats = summary(model, input_data, targets)
             summary_str = str(model_stats)
             print(f"summary_str = {summary_str}")
             # summary_str contains the string representation of the summary. See below for examples.
