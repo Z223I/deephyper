@@ -182,7 +182,8 @@ class Model1(nn.Module):
         activation_1 = self.activation_1(add)
         print(f"activation_1.shape: {activation_1.shape}")
 
-        dense_2 = self.dense_2( activation_1 )  # It is an input * weight problem.  No.
+        activation_1_t = torch.transpose(activation_1, 0, 1)
+        dense_2 = self.dense_2( activation_1_t )  # It is an input * weight problem.  No.
         dense_2 = self.dropout_3(dense_2)
         activation_2 = self.activation_2(dense_2)
         print(f"activation_2.shape: {activation_2.shape}")
