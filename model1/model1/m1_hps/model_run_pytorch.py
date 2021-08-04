@@ -62,8 +62,8 @@ class Model1(nn.Module):
         batchSamples = 26
 
         numInputs = samples * batchSamples
-        input_shape = (numInputs,)
-        classCount = self.getClassCount()
+        input_shape = (5278, numInputs)
+        #classCount = self.getClassCount()
 
         self.batchSamples = batchSamples
 
@@ -102,7 +102,7 @@ class Model1(nn.Module):
         self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
 
-        out_features = 1
+        out_features = 5278
         self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
 
         #if batchSamples >= 10:
@@ -111,7 +111,7 @@ class Model1(nn.Module):
         self.dense_2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
-        out_features = 1
+        out_features = 5278
         self.activation_2 = torch.nn.Tanh().to(device, dtype=dtype)
 
         in_features = out_features
@@ -119,7 +119,7 @@ class Model1(nn.Module):
         self.dense_3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
-        out_features = 1
+        out_features = 5278
         self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
 
         in_features = out_features
@@ -182,7 +182,7 @@ class Model1(nn.Module):
         activation_1 = self.activation_1(add)
         print(f"activation_1.shape: {activation_1.shape}")
 
-        dense_2 = self.dense_2( activation_1 )  # It is an input * weight problem.
+        dense_2 = self.dense_2( activation_1 )  # It is an input * weight problem.  No.
         dense_2 = self.dropout_3(dense_2)
         activation_2 = self.activation_2(dense_2)
         print(f"activation_2.shape: {activation_2.shape}")
@@ -521,7 +521,7 @@ def run(config, argv):
 
     try:
         #####timer.start('loading data')
-        (x_train, y_train), (x_valid, y_valid) = load_data(config)
+        #(x_train, y_train), (x_valid, y_valid) = load_data(config)
         #####timer.end('loading data')
 
 
@@ -550,15 +550,15 @@ def run(config, argv):
         model = Model1(config).to(device, dtype=dtype)
 
         if SAMBANOVA:
-            x_train = to_torch_tensor(x_train)
-            y_train = to_torch_tensor(y_train)
+            #x_train = to_torch_tensor(x_train)
+            #y_train = to_torch_tensor(y_train)
 
             from torchsummary import summary
 
             #input_data  = x_train
             #targets     = y_train
-            input_shape  = (1, x_train.shape[1])
-            print(f"input_shape: {input_shape}")
+            #input_shape  = (1, x_train.shape[1])
+            #print(f"input_shape: {input_shape}")
 
             """
             model_stats = summary(model, input_shape)
