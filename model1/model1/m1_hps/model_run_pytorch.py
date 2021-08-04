@@ -107,7 +107,7 @@ class Model1(nn.Module):
 
         #if batchSamples >= 10:
         in_features = out_features
-        out_features = 96
+        out_features = 80
         self.dense_2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
@@ -115,7 +115,7 @@ class Model1(nn.Module):
         self.activation_2 = torch.nn.Tanh().to(device, dtype=dtype)
 
         in_features = out_features
-        out_features = 96
+        out_features = 80
         self.dense_3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
