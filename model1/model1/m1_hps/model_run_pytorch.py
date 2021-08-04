@@ -127,7 +127,7 @@ class Model1(nn.Module):
         self.dense_4 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_5 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
-        out_features = 1
+        out_features = 5278
         self.activation_4 = torch.nn.Sigmoid().to(device, dtype=dtype)
 
         in_features = out_features
@@ -140,7 +140,7 @@ class Model1(nn.Module):
         self.dense_6 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
-        out_features = 1
+        out_features = 5278
         self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
 
 
