@@ -539,14 +539,17 @@ def run(config, argv):
 
             #input_data  = x_train
             #targets     = y_train
-            input_shape  = x_train.shape
+            input_shape  = (1, x_train.shape[1])
             print(f"input_shape: {input_shape}")
+
+            """
             model_stats = summary(model, input_shape)
             #model_stats = summary(model, input_data, targets)
             summary_str = str(model_stats)
             print(f"summary_str = {summary_str}")
             # summary_str contains the string representation of the summary. See below for examples.
             #https://pypi.org/project/torch-summary/
+            """
 
             # SambaNova conversions.
             model.bfloat16().float()
