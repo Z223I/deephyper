@@ -571,7 +571,7 @@ def run(config, argv):
             input_data  = x_train
             targets     = y_train
             input_size  = x_train.shape
-            model_stats = summary(model, input_size, targets)
+            model_stats = summary(model, input_size)
             #model_stats = summary(model, input_data, targets)
             summary_str = str(model_stats)
             print(f"summary_str = {summary_str}")
