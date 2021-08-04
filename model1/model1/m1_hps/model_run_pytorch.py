@@ -153,14 +153,38 @@ class Model1(nn.Module):
 
 
 
-    #def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-    # Does this need to use targets to calculate loss?
+    """
+*** device: cpu ***
+received exception:  layer_norm(): argument 'input' (position 1) must be Tensor, not numpy.ndarray
+Traceback (most recent call last):
+  File "model_run_pytorch.py", line 579, in run
+    pef_metadata=get_pefmeta(args, model))
+  File "sambaflow/samba/session.py", line 1049, in sambaflow.samba.session.SambaSession.compile
+  File "sambaflow/samba/_trace_utils.py", line 23, in sambaflow.samba._trace_utils._get_output_tensors
+  File "sambaflow/samba/_trace_utils.py", line 28, in sambaflow.samba._trace_utils._get_output_tensors
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "model_run_pytorch.py", line 177, in forward
+    input_0 = self.layer_norm(input_0)
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/normalization.py", line 171, in forward
+    input, self.normalized_shape, self.weight, self.bias, self.eps)
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/functional.py", line 2205, in layer_norm
+    return torch.layer_norm(input, normalized_shape, weight, bias, eps, torch.backends.cudnn.enabled)
+TypeError: layer_norm(): argument 'input' (position 1) must be Tensor, not numpy.ndarray
+None
+accuracy:  0.0
+    """
 
 
 
 
 
-    def forward(self, x, targets):
+
+
+
+    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         # sourcery skip: inline-immediately-returned-variable
         """
         Do forward pass.
@@ -168,6 +192,9 @@ class Model1(nn.Module):
         Args:
             x: represents one sample of the data.
         """
+        # Does this need to use targets to calculate loss?
+
+
         device = DEVICE
         dtype  = DTYPE
 
@@ -481,20 +508,12 @@ def train(  args,
 HISTORY = None
 
 
-def run_samba(config):
-    """
-    Run model.
-
-    Args:
-        config (dict): Configuration dictionary.
-
-    Returns:
-
-
-        ???
-        accuracy (float): The accuracy of the run.
-    """
-
+def to_torch_tensor(x_train):
+    """Convert np.array to torch tensor."""
+    arrayOf2dList = x_train
+    numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
+    numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
+    return torch.from_numpy( numpyArrayOf2dListFloat32 )
 
 def run(config, argv):
     """
@@ -541,6 +560,8 @@ def run(config, argv):
         model = Model1(config).to(device, dtype=dtype)
 
         if SAMBANOVA:
+            x_train = to_torch_tensor(x_train)
+            y_train = to_torch_tensor(y_train)
             # SambaNova conversions.
             model.bfloat16().float()
             samba.from_torch_(model)
