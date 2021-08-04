@@ -119,7 +119,7 @@ class Model1(nn.Module):
         self.dense_3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
-        out_features = 5278
+        out_features = 80
         self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
 
         in_features = out_features
