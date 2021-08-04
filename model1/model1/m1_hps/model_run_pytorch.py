@@ -210,7 +210,7 @@ accuracy:  0.0
 
         dense_1 = self.dense_1(input_0)
         dense_1 = self.dropout_2(dense_1)
-        add = torch.sum(activation, dense_1)
+        add = activation + dense_1
 
         # Can use ReLU(inplace=False)
         activation_1 = self.activation_1(add)
@@ -221,7 +221,7 @@ accuracy:  0.0
 
         dense_3 = self.dense_3(activation_1)
         dense_3 = self.dropout_4(dense_3)
-        add_1 = torch.sum(activation_2, dense_3)
+        add_1 = activation_2 + dense_3
         # Can use ReLU(inplace=False)
         activation_3 = self.activation_3(add_1)
 
@@ -234,7 +234,7 @@ accuracy:  0.0
 
         dense_6 = self.dense_6(activation_3)
         dense_6 = self.dropout_7(dense_6)
-        add_2 = torch.sum(activation_4, dense_5, activation_1, dense_6)
+        add_2 = activation_4 + dense_5 + activation_1 + dense_6
         # Can use ReLU(inplace=False)
         activation_5 = self.activation_5(add_2)
 
