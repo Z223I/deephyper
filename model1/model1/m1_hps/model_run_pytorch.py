@@ -570,9 +570,9 @@ def run(config, argv):
 
             #input_data  = x_train
             #targets     = y_train
-            input_size  = x_train.shape
-            print(f"input_size: {input_size}")
-            model_stats = summary(model, input_size)
+            input_shape  = (x_train.shape[0], x_train.shape[1])
+            print(f"input_shape: {input_shape}")
+            model_stats = summary(model, input_shape)
             #model_stats = summary(model, input_data, targets)
             summary_str = str(model_stats)
             print(f"summary_str = {summary_str}")
