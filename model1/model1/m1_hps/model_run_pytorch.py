@@ -206,7 +206,10 @@ class Model1(nn.Module):
 
         dense_6 = self.dense_6(activation_3_t)
         dense_6 = self.dropout_7(dense_6)
-        add_2 = activation_4 + dense_5 + activation_1 + dense_6
+
+        dense_5_t = torch.transpose(dense_5, 0, 1)
+        dense_6_t = torch.transpose(dense_5, 0, 1)
+        add_2 = activation_4 + dense_5_t + activation_1 + dense_6_t
         # Can use ReLU(inplace=False)
         activation_5 = self.activation_5(add_2)
 
