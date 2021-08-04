@@ -200,7 +200,8 @@ class Model1(nn.Module):
         dense_4 = self.dropout_5(dense_4)
         activation_4 = self.activation_4(dense_4)
 
-        dense_5 = self.dense_5(input_0)
+        input_0_t = torch.transpose(input_0, 0, 1)
+        dense_5 = self.dense_5(input_0_t)
         dense_5 = self.dropout_6(dense_5)
 
         dense_6 = self.dense_6(activation_3_t)
@@ -209,12 +210,8 @@ class Model1(nn.Module):
         # Can use ReLU(inplace=False)
         activation_5 = self.activation_5(add_2)
 
-        dense_7 = self.dense_7(activation_5)
-
-
-
-
-
+        activation_5_t = torch.transpose(activation_5, 0, 1)
+        dense_7 = self.dense_7(activation_5_t)
 
         # Apply log_softmax to x
         output = F.softmax(dense_7, dim=1)
