@@ -165,7 +165,7 @@ class Model1(nn.Module):
         device = DEVICE
         dtype  = DTYPE
 
-        print(f"inputs.shape = {inputs.shape}") # torch.Size([2, 1, 1690])
+        print(f"inputs.shape = {inputs.shape}") # torch.Size([5278, 1690])
         input_0 = inputs
         input_0 = self.layer_norm(input_0)  # (1, 1690)
         dense = self.dense(input_0)
@@ -217,6 +217,21 @@ class Model1(nn.Module):
         # Apply log_softmax to x
         output = F.softmax(dense_7, dim=1)
         return output
+
+    @staticmethod
+    def get_fake_inputs(args):
+        """
+        Get fake inputs.
+
+        The size of the inputs are required for the SambaNova compiler.
+
+        Args:
+            args: CLI arguments.
+        """
+        ipt = samba.randn(args.batch_size, args.num_features, name='image', batch_dim=0).bfloat16().float()
+        tgt = samba.randint(args.num_classes, (args.batch_size, ), name='label', batch_dim=0)
+
+        return ipt, tgt
 
     def getClassCount(self):
         """
@@ -529,6 +544,9 @@ def run(config, argv):
         DEVICE = device
         DTYPE  = dtype
 
+        if SAMBANOVA:
+            ipt, tgt = Model1.get_fake_inputs(args)
+
         model = Model1(config).to(device, dtype=dtype)
 
         if SAMBANOVA:
@@ -554,7 +572,7 @@ def run(config, argv):
             # SambaNova conversions.
             model.bfloat16().float()
             samba.from_torch_(model)
-            inputs = (x_train, y_train)
+            inputs = (ipt, tgt)
 
 
 
