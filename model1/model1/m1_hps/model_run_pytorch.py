@@ -568,9 +568,10 @@ def run(config, argv):
 
             from torchsummary import summary
 
-            input_data  = x_train
-            targets     = y_train
+            #input_data  = x_train
+            #targets     = y_train
             input_size  = x_train.shape
+            print(f"input_size: {input_size}")
             model_stats = summary(model, input_size)
             #model_stats = summary(model, input_data, targets)
             summary_str = str(model_stats)
