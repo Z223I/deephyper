@@ -150,40 +150,6 @@ class Model1(nn.Module):
         #"output_layers": [["dense_7", 0, 0]]}
 
 
-
-
-
-    """
-*** device: cpu ***
-received exception:  layer_norm(): argument 'input' (position 1) must be Tensor, not numpy.ndarray
-Traceback (most recent call last):
-  File "model_run_pytorch.py", line 579, in run
-    pef_metadata=get_pefmeta(args, model))
-  File "sambaflow/samba/session.py", line 1049, in sambaflow.samba.session.SambaSession.compile
-  File "sambaflow/samba/_trace_utils.py", line 23, in sambaflow.samba._trace_utils._get_output_tensors
-  File "sambaflow/samba/_trace_utils.py", line 28, in sambaflow.samba._trace_utils._get_output_tensors
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
-    result = self.forward(*input, **kwargs)
-  File "model_run_pytorch.py", line 177, in forward
-    input_0 = self.layer_norm(input_0)
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
-    result = self.forward(*input, **kwargs)
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/normalization.py", line 171, in forward
-    input, self.normalized_shape, self.weight, self.bias, self.eps)
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/functional.py", line 2205, in layer_norm
-    return torch.layer_norm(input, normalized_shape, weight, bias, eps, torch.backends.cudnn.enabled)
-TypeError: layer_norm(): argument 'input' (position 1) must be Tensor, not numpy.ndarray
-None
-accuracy:  0.0
-    """
-
-
-
-
-
-
-
-
     #def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
     def forward(self, inputs: torch.Tensor) -> torch.Tensor:
         # sourcery skip: inline-immediately-returned-variable
@@ -232,11 +198,12 @@ accuracy:  0.0
         """
 
         input_0 = inputs
-        input_0 = self.layer_norm(input_0)
+        input_0 = self.layer_norm(input_0)  # (1, 1690)
         dense = self.dense(input_0)
         dense = self.dropout_1(dense)
         activation = self.activation(dense)
-        input_0 = activation
+        input_0 = activation                # (1, 80)
+        print(f"input_0.shape = {input_0.shape}")
 
         dense_1 = self.dense_1(input_0)
         dense_1 = self.dropout_2(dense_1)
@@ -244,16 +211,19 @@ accuracy:  0.0
 
         # Can use ReLU(inplace=False)
         activation_1 = self.activation_1(add)
+        print(f"activation_1.shape: {activation_1.shape}")
 
         dense_2 = self.dense_2( activation_1 )  # It is an input * weight problem.
         dense_2 = self.dropout_3(dense_2)
         activation_2 = self.activation_2(dense_2)
+        print(f"activation_2.shape: {activation_2.shape}")
 
         dense_3 = self.dense_3(activation_1)
         dense_3 = self.dropout_4(dense_3)
         add_1 = activation_2 + dense_3
         # Can use ReLU(inplace=False)
         activation_3 = self.activation_3(add_1)
+        print(f"activation_3.shape: {activation_3.shape}")
 
         dense_4 = self.dense_4(activation_3)
         dense_4 = self.dropout_5(dense_4)
