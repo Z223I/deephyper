@@ -197,13 +197,14 @@ accuracy:  0.0
 
         """
 
+        print(f"inputs.shape = {inputs.shape}")
         input_0 = inputs
         input_0 = self.layer_norm(input_0)  # (1, 1690)
         dense = self.dense(input_0)
         dense = self.dropout_1(dense)
         activation = self.activation(dense)
         input_0 = activation                # (1, 80)
-        print(f"input_0.shape = {input_0.shape}")
+        print(f"activation.shape = {activation.shape}")
 
         dense_1 = self.dense_1(input_0)
         dense_1 = self.dropout_2(dense_1)
