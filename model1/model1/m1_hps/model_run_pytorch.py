@@ -215,7 +215,8 @@ accuracy:  0.0
         # Can use ReLU(inplace=False)
         activation_1 = self.activation_1(add)
 
-        dense_2 = self.dense_2( torch.transpose(activation_1, 0, 1) )
+        activation_1_t = torch.transpose(activation_1, 0, 1)
+        dense_2 = self.dense_2( activation_1_t )
         dense_2 = self.dropout_3(dense_2)
         activation_2 = self.activation_2(dense_2)
 
