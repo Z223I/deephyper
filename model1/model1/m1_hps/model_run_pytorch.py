@@ -199,7 +199,37 @@ accuracy:  0.0
         device = DEVICE
         dtype  = DTYPE
 
+        """
+(venv) wilsonb@sm-01:~/deephyper/model1/model1/m1_hps$ python model_run_pytorch.py compile -b=1 --pef-name="model_run_pytorch" --output-folder="pef"
+***** device: cpu *****
+[Info][SAMBA][Default] # Placing log files in pef/model_run_pytorch/model_run_pytorch.samba.log
+[Info][MAC][Default] # Placing log files in pef/model_run_pytorch/model_run_pytorch.mac.log
+*** device: cpu ***
+input_shape: (5278, 1690)
+received exception:  mat1 and mat2 shapes cannot be multiplied (10556x80 and 1x80)
+Traceback (most recent call last):
+  File "model_run_pytorch.py", line 576, in run
+    model_stats = summary(model, input_shape)
+  File "/homes/wilsonb/.local/lib/python3.7/site-packages/torchsummary/torchsummary.py", line 72, in summary
+    model(*x)
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "model_run_pytorch.py", line 219, in forward
+    dense_2 = self.dense_2( activation_1_t )
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/linear.py", line 94, in forward
+    return F.linear(input, self.weight, self.bias)
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/functional.py", line 1753, in linear
+    return torch._C._nn.linear(input, weight, bias)
 
+
+Why is 10556 / 5278 = 2 ??????
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (10556x80 and 1x80)
+None
+accuracy:  0.0
+
+        """
 
         input_0 = inputs
         input_0 = self.layer_norm(input_0)
@@ -215,8 +245,7 @@ accuracy:  0.0
         # Can use ReLU(inplace=False)
         activation_1 = self.activation_1(add)
 
-        activation_1_t = torch.transpose(activation_1, 0, 1)
-        dense_2 = self.dense_2( activation_1_t )
+        dense_2 = self.dense_2( activation_1 )  # It is an input * weight problem.
         dense_2 = self.dropout_3(dense_2)
         activation_2 = self.activation_2(dense_2)
 
@@ -571,7 +600,7 @@ def run(config, argv):
 
             #input_data  = x_train
             #targets     = y_train
-            input_shape  = (x_train.shape[0], x_train.shape[1])
+            input_shape  = (1, x_train.shape[1])
             print(f"input_shape: {input_shape}")
             model_stats = summary(model, input_shape)
             #model_stats = summary(model, input_data, targets)
