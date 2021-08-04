@@ -188,7 +188,7 @@ class Model1(nn.Module):
         activation_2 = self.activation_2(dense_2)
         print(f"activation_2.shape: {activation_2.shape}")
 
-        dense_3 = self.dense_3(activation_1)
+        dense_3 = self.dense_3(activation_1_t)
         dense_3 = self.dropout_4(dense_3)
         add_1 = activation_2 + dense_3
         # Can use ReLU(inplace=False)
