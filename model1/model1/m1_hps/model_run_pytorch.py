@@ -218,7 +218,8 @@ class Model1(nn.Module):
         activation_5 = self.activation_5(add_2)
 
         activation_5_t = torch.transpose(activation_5, 0, 1)
-        dense_7 = self.dense_7(activation_5_t)
+        #dense_7 = self.dense_7(activation_5_t)
+        dense_7 = self.dense_7(activation_1)
 
         # Apply log_softmax to x
         output = F.softmax(dense_7, dim=1)
