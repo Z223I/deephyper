@@ -52,19 +52,5 @@ file.write(onnx_model.SerializeToString())
 file.close()
 """
 
-"""
-2021-07-30 07:57:04.209531: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 1497600000 Hz
-tf executing eager_mode: False
-tf.keras model eager_mode: False
-The ONNX operator number change on the optimization: 33 -> 22
-The maximum opset needed by this model is only 8.
-Traceback (most recent call last):
-  File "tf_to_pytorch.py", line 47, in <module>
-    code_gen.gen("model_onnx/model.onnx", "model_new_pytorch", overwrite=True, continue_on_error=True)
-  File "/home/bwilson/venvonnx/lib/python3.8/site-packages/onnx_pytorch/code_gen.py", line 253, in gen
-    assert os.path.exists(
-AssertionError: model_new_pytorch is not empty and overwrite is not True.
-(venvonnx) bwilson@bwilson-Inspiron-3593:~/DL/deephyper/model1/model1/m1_hp
-"""
 from onnx_pytorch import code_gen
 code_gen.gen("model_onnx/model.onnx", "model_new_pytorch", overwrite=True)

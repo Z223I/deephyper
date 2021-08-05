@@ -209,6 +209,11 @@ class Model1(nn.Module):
 
         dense_5_t = torch.transpose(dense_5, 0, 1)
         dense_6_t = torch.transpose(dense_5, 0, 1)
+
+        print(f"activation_4.shape: {activation_4.shape}")
+        print(f"dense_5_t.shape: {dense_5_t.shape}")
+        print(f"activation_1.shape: {activation_1.shape}")
+        print(f"dense_6_t.shape: {dense_6_t.shape}")
         add_2 = activation_4 + dense_5_t + activation_1 + dense_6_t
         # Can use ReLU(inplace=False)
         activation_5 = self.activation_5(add_2)
