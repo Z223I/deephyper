@@ -440,9 +440,6 @@ class TrainerTrainValid:
             dict: a dictionnary corresponding to the training.
         """
         if self.save_model_only:
-        if self.save_model_only:
-        if self.save_model_only:
-        if self.save_model_only:
             import string
             import random # define the random module
             S = 10  # number of characters in the string.
