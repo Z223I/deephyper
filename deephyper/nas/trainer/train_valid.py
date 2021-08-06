@@ -19,6 +19,9 @@ class TrainerTrainValid:
     def __init__(self, config, model):
         self.cname = self.__class__.__name__
 
+        # No training.  Just save the models.
+        self.save_model_only = True
+
         self.config = config
 
         self.model = model
@@ -436,6 +439,19 @@ class TrainerTrainValid:
         Returns:
             dict: a dictionnary corresponding to the training.
         """
+        if self.save_model_only:
+        if self.save_model_only:
+        if self.save_model_only:
+        if self.save_model_only:
+            import string
+            import random # define the random module
+            S = 10  # number of characters in the string.
+            # call random.choices() string module to find the string in Uppercase + numeric data.
+            ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
+            #print("The randomly generated string is : " + str(ran)) # print the random data
+            self.model.save(f'model_{str(ran)}')
+            return
+
         num_epochs = self.num_epochs if num_epochs is None else num_epochs
 
         self.init_history()

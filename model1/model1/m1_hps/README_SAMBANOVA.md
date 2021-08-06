@@ -280,6 +280,17 @@ exit
 ```bash
 git pull
 ```
+
+## Run Model
+
+```bash
+#!/bin/sh
+python model.py compile -b=5278 --pef-name="model" --output-folder="pef"
+python model.py test --pef="pef/model/model.pef"
+python model.py run -b=5278 --pef="pef/model/model.pef"
+python model.py measure-performance --pef="pef/model/model.pef"
+```
+
 ## Note
 
 Sam Foreman  7 hours ago

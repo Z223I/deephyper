@@ -32,7 +32,25 @@ or
 $ ssh <username>@homes.anl.gov
 ```
 
-## Create Venv
+## ssh to sm-01
+
+You must use sm-01 or change the IP address below.
+
+```bash
+sm1
+```
+
+## SM-01
+
+```bash
+snp
+```
+
+## Activate or Create Venv
+
+```bash
+source ~/venvs/dhvenv4/bin/activate
+```
 
 ```bash
 virtualenv --system-site-packages -p python3.7 ./venv
@@ -79,7 +97,7 @@ source ./venv/bin/activate
 ```
 
 ```bash
-(venv) wilsonb@sm-01:~/venvs$ source dhvenv4/bin/activate
+(venv) wilsonb@sm-01:~/venvs$ source ~/venvs/dhvenv4/bin/activate
 (dhvenv4) wilsonb@sm-01:~/venvs$ ray start --head --node-ip-address=192.168.200.130 --port=6379 --num-cpus 1 --block
 
 ```
@@ -87,6 +105,8 @@ source ./venv/bin/activate
 Leave ray running in this terminal window.
 
 ## Open Terminal Window
+
+You must use sm-01.
 
 Run all instructions necessary to get to your correct directory and activate your venv.
 

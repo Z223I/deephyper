@@ -1,5 +1,7 @@
 # TODO
 
+ [ ] May need to have DH just write out the models (See /home/bwilson/DL/deephyper/deephyper/nas/trainer/train_valid.py).  Then hook them into some SN code.
+ [ ] Getting the 'custom mask' error.  But that may not matter if DH only saves the model.
  [ ] Need to do analytics
  [ ] Create my new github account and add metrics also add tensorflow.metrics
  [ ] Get permission from SN to release Anatomy of ...
