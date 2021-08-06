@@ -2,6 +2,8 @@
 
 ## ssh to Login Node
 
+Use code from MobilePass+ application.
+
 ```bash
 theta
 ```
