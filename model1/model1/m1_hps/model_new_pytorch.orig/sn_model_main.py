@@ -16,9 +16,9 @@ from sambaflow.samba.utils.argparser import parse_app_args
 from sambaflow.samba.utils.pef_utils import get_pefmeta
 from sambaflow.samba.utils.dataset.mnist import dataset_transform
 
-from sn_boilerplate_args import *
-from sn_boilerplate_model import *
-from sn_boilerplate_other import *
+from sn_model_args import *
+from sn_model_model import *
+from sn_model_other import *
 
 def main(argv):
     """Run main code."""
