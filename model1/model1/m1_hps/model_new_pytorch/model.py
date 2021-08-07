@@ -21,7 +21,7 @@ class Model(nn.Module):
       v = torch.from_numpy(np.load(b))
       requires_grad = v.dtype.is_floating_point or v.dtype.is_complex
       self._vars[os.path.basename(b)[:-4]] = nn.Parameter(v, requires_grad=requires_grad)
-    
+
 
   def forward(self, *inputs):
     input_0, = inputs
@@ -47,9 +47,12 @@ class Model(nn.Module):
     activation_4_Relu_0 = F.relu(add_1_add_0)
     dense_60 = torch.matmul(activation_4_Relu_0, self._vars["dense_6_kernel_0"])
     dense_6 = torch.add(dense_60, self._vars["dense_6_bias_0"])
+    print(f"activation_4_Relu_0.size(): {activation_4_Relu_0.size()}")
+    print(f"dense_60.size(): {dense_60.size()}")
+    print(f"dense_6.size(): {dense_6.size()}")
     return dense_6
 
-  
+
 @torch.no_grad()
 def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
   model = Model()
