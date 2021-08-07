@@ -1,19 +1,75 @@
-"""autoCDINN model definition."""
-#import argparse
-#import sys
-#from typing import Tuple
-
-
-import torch
-import torch.nn as nn
-#import torchvision
+"""Model 1 model definition."""
 
 from sambaflow import samba
 
-#import sambaflow.samba.utils as utils
-#from sambaflow.samba.utils.argparser import parse_app_args
-#from sambaflow.samba.utils.pef_utils import get_pefmeta
-#from sambaflow.samba.utils.dataset.mnist import dataset_transform
+import glob
+import os
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+class Model(nn.Module):
+    """Model class."""
+
+    def __init__(self):
+        """Initialize the model."""
+        super(Model, self).__init__()
+        self.__vars = nn.ParameterDict()
+        for b in glob.glob(os.path.join(os.path.dirname(__file__), "variables", "*.npy")):
+            v = torch.from_numpy(np.load(b))
+            requires_grad = v.dtype.is_floating_point or v.dtype.is_complex
+            self.__vars[os.path.basename(b)[:-4]] = nn.Parameter(
+                torch.from_numpy(np.load(b)), requires_grad=requires_grad)
+
+
+    def forward(self, *inputs):
+        # sourcery skip: inline-immediately-returned-variable
+        """Step forward in the model."""
+        t_input_0, = inputs
+        t_dense0 = torch.matmul(t_input_0, self.__vars["t_dense_kernel_0"])
+        t_dense_20 = torch.matmul(t_input_0, self.__vars["t_dense_2_kernel_0"])
+        t_biased_tensor_name3 = t_dense0 + self.__vars["t_dense_bias_0"]
+        t_biased_tensor_name5 = t_dense_20 + self.__vars["t_dense_2_bias_0"]
+        t_activation_Relu_0 = F.relu(t_biased_tensor_name3)
+        t_dense_50 = torch.matmul(t_activation_Relu_0, self.__vars["t_dense_5_kernel_0"])
+        t_dense_30 = torch.matmul(t_activation_Relu_0, self.__vars["t_dense_3_kernel_0"])
+        t_dense_10 = torch.matmul(t_activation_Relu_0, self.__vars["t_dense_1_kernel_0"])
+        t_biased_tensor_name1 = t_dense_50 + self.__vars["t_dense_5_bias_0"]
+        t_biased_tensor_name4 = t_dense_30 + self.__vars["t_dense_3_bias_0"]
+        t_biased_tensor_name6 = t_dense_10 + self.__vars["t_dense_1_bias_0"]
+        t_activation_1_Relu_0 = F.relu(t_biased_tensor_name6)
+        t_intermediate_tensor = t_activation_1_Relu_0 + t_biased_tensor_name5
+        t_add_add_1_0 = t_intermediate_tensor + t_biased_tensor_name4
+        t_activation_2_Relu_0 = F.relu(t_add_add_1_0)
+        t_dense_40 = torch.matmul(t_activation_2_Relu_0, self.__vars["t_dense_4_kernel_0"])
+        t_biased_tensor_name2 = t_dense_40 + self.__vars["t_dense_4_bias_0"]
+        t_activation_3_Tanh_0 = torch.tanh(t_biased_tensor_name2)
+        t_add_1_add_0 = t_activation_3_Tanh_0 + t_biased_tensor_name1
+        t_activation_4_Relu_0 = F.relu(t_add_1_add_0)
+        t_dense_60 = torch.matmul(t_activation_4_Relu_0, self.__vars["t_dense_6_kernel_0"])
+        t_dense_6 = t_dense_60 + self.__vars["t_dense_6_bias_0"]
+        #print(f"t_activation_4_Relu_0.size(): {t_activation_4_Relu_0.size()}")
+        #print(f"t_dense_60.size(): {t_dense_60.size()}")
+        #print(f"t_dense_6.size(): {t_dense_6.size()}")
+        return t_dense_6
+
+    @staticmethod
+    def get_fake_inputs(args):
+        """
+        Get fake inputs.
+
+        The size of the inputs are required for the SambaNova compiler.
+
+        Args:
+            args: CLI arguments.
+        """
+        ipt = samba.randn(args.batch_size, args.num_features, name='data', batch_dim=0).bfloat16().float()
+        tgt = samba.randint(args.num_classes, (args.batch_size, ), name='label', batch_dim=0)
+
+        return ipt, tgt
 
 
 class FFN(nn.Module):

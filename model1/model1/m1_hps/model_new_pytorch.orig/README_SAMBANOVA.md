@@ -79,8 +79,8 @@ See the folling link for a list of arguments.
 ## Commands
 
 ```bash
-python sn_model_main.py compile -b=1 --pef-name="sn_model_main" --output-folder="pef"
+python sn_model_main.py compile -b=5278 --pef-name="sn_model_main" --output-folder="pef"
 python sn_model_main.py test --pef="pef/sn_model_main/sn_model_main.pef"
-python sn_model_main.py run --pef="pef/sn_model_main/sn_model_main.pef"
+python sn_model_main.py run -b=5278 --pef="pef/sn_model_main/sn_model_main.pef"
 python sn_model_main.py measure-performance --pef="pef/sn_model_main/sn_model_main.pef"
 ```

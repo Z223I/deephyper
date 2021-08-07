@@ -25,14 +25,14 @@ def main(argv):
     utils.set_seed(256)
     args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
 
-    ipt, tgt = FFNLogReg.get_fake_inputs(args)
-    model = FFNLogReg(args.num_features, args.ffn_dim_1, args.ffn_dim_2, args.num_classes)
+    ipt, tgt = Model.get_fake_inputs(args)
+    model = Model()
 
     samba.from_torch_(model)
 
     inputs = (ipt, tgt)
 
-    # Instantiate a optimizer.
+    # Instantiate an optimizer.
     if args.inference:
         optimizer = None
     else:
@@ -46,7 +46,7 @@ def main(argv):
         samba.session.compile(model,
                               inputs,
                               optimizer,
-                              name='ffn_mnist_torch',
+                              name='model_1',
                               app_dir=utils.get_file_dir(__file__),
                               config_dict=vars(args),
                               pef_metadata=get_pefmeta(args, model))
