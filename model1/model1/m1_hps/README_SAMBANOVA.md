@@ -291,6 +291,14 @@ python model.py run -b=5278 --pef="pef/model/model.pef"
 python model.py measure-performance --pef="pef/model/model.pef"
 ```
 
+```bash
+#!/bin/sh
+python sn_model.py compile -b=1 --pef-name="sn_model" --output-folder="pef"
+python sn_model.py test --pef="pef/sn_model/sn_model.pef"
+python sn_model.py run -b=1 --pef="pef/sn_model/sn_model.pef"
+python sn_model.py measure-performance --pef="pef/sn_model/sn_model.pef"
+```
+
 ## Note
 
 Sam Foreman  7 hours ago
