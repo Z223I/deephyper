@@ -50,9 +50,9 @@ class Model(nn.Module):
     t_activation_4_Relu_0 = F.relu(t_add_1_add_0)
     t_dense_60 = torch.matmul(t_activation_4_Relu_0, self.__vars["t_dense_6_kernel_0"])
     t_dense_6 = t_dense_60 + self.__vars["t_dense_6_bias_0"]
-    print(f"t_activation_4_Relu_0.size(): {t_activation_4_Relu_0.size()}")
-    print(f"t_dense_60.size(): {t_dense_60.size()}")
-    print(f"t_dense_6.size(): {t_dense_6.size()}")
+    #print(f"t_activation_4_Relu_0.size(): {t_activation_4_Relu_0.size()}")
+    #print(f"t_dense_60.size(): {t_dense_60.size()}")
+    #print(f"t_dense_6.size(): {t_dense_6.size()}")
     return t_dense_6
 
 
