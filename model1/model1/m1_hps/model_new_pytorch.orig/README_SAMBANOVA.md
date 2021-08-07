@@ -79,8 +79,8 @@ See the folling link for a list of arguments.
 ## Commands
 
 ```bash
-python dcrnn.py compile --config_filename="./data/model/dcrnn_test_config.yaml" -b=1 --pef-name="dcrnn" --output-folder="pef"
-python dcrnn.py test --pef="pef/dcrnn/dcrnn.pef"
-python dcrnn.py run --config_filename="./data/model/dcrnn_test_config.yaml" --pef="pef/dcrnn/dcrnn.pef"
-python dcrnn.py measure-performance --pef="pef/dcrnn/dcrnn.pef"
+python sn_model_main.py compile -b=1 --pef-name="sn_model_main" --output-folder="pef"
+python sn_model_main.py test --pef="pef/sn_model_main/sn_model_main.pef"
+python sn_model_main.py run --pef="pef/sn_model_main/sn_model_main.pef"
+python sn_model_main.py measure-performance --pef="pef/sn_model_main/sn_model_main.pef"
 ```
