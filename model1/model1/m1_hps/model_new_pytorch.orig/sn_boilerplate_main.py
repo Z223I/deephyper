@@ -26,6 +26,7 @@ def main(argv):
     args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
 
     ipt, tgt = FFNLogReg.get_fake_inputs(args)
+    print(f"ipt: {ipt}")
     model = FFNLogReg(args.num_features, args.ffn_dim_1, args.ffn_dim_2, args.num_classes)
 
     samba.from_torch_(model)

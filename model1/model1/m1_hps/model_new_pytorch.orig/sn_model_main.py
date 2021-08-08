@@ -26,6 +26,7 @@ def main(argv):
     args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
 
     ipt, tgt = Model.get_fake_inputs(args)
+    print(f"ipt: {ipt}")
     model = Model()
 
     samba.from_torch_(model)
