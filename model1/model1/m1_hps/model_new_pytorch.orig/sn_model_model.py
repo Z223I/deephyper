@@ -90,6 +90,15 @@ class Model(nn.Module):
 
         #inputs = Model.convert_data(inputs)
 
+        from load_data_pytorch import load_data
+        (x_train, y_train), (x_valid, y_valid) = load_data(config)
+
+        arrayOf2dList = x_valid[0:10]
+        numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
+        numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
+        torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
+        inputs = [ torchTensorOf2dListFloat32 ]
+
         return inputs, lablels
 
 
