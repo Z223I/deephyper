@@ -86,7 +86,7 @@ class Model(nn.Module):
         batch_size = args.batch_size
         batch_size = 1
         inputs = samba.randn(batch_size, args.num_features, name='data', batch_dim=0).bfloat16().float()
-        lablels = samba.randint(args.num_classes, (batch_size, ), name='label', batch_dim=0)
+        labels = samba.randint(args.num_classes, (batch_size, ), name='label', batch_dim=0)
 
         #inputs = Model.convert_data(inputs)
 
@@ -99,7 +99,7 @@ class Model(nn.Module):
         torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
         inputs = [ torchTensorOf2dListFloat32 ]
 
-        return inputs, lablels
+        return inputs, labels
 
 
 class FFN(nn.Module):
