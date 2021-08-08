@@ -9,6 +9,13 @@ def add_args(parser: argparse.ArgumentParser):
 
     parser.add_argument('--num-features', type=int, default=1690)   # Model 1.
     parser.add_argument('--num-classes', type=int, default=2)       # Model 1.
+    parser.add_argument('--proportion', type=float, default=.80)    # Model 1.
+                                    # A value between [0., 1.] indicating how to split data between
+                                    # training set and validation set. `prop` corresponds to the
+                                    # ratio of data in training set. `1.-prop` corresponds to the
+                                    # amount of data in validation set.
+    parser.add_argument('--print-shape', type=int, default=0)       # Model 1.
+                                    # Print the data shape.
 
     parser.add_argument('--acc-test', action='store_true', help='Option for accuracy guard test in CH regression.')
 
