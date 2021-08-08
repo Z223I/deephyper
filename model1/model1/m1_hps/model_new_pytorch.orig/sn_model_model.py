@@ -110,7 +110,6 @@ class Model(nn.Module):
         torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
         inputs = [ torchTensorOf2dListFloat32 ]
         """
-
         return inputs, labels
 
 
