@@ -57,6 +57,23 @@ class Model(nn.Module):
         return t_dense_6
 
     @staticmethod
+    def convert_data(inputs):
+        """
+        Convert data to correct format.
+
+        Args:
+            inputs: Input data.
+            labels: Labels for inputs.
+        """
+        arrayOf2dList = inputs[0:10]
+        numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
+        numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
+        torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
+        inputs = [ torchTensorOf2dListFloat32 ]
+
+        return inputs
+
+    @staticmethod
     def get_fake_inputs(args):
         """
         Get fake inputs.
@@ -66,10 +83,12 @@ class Model(nn.Module):
         Args:
             args: CLI arguments.
         """
-        ipt = samba.randn(args.batch_size, args.num_features, name='data', batch_dim=0).bfloat16().float()
-        tgt = samba.randint(args.num_classes, (args.batch_size, ), name='label', batch_dim=0)
+        inputs = samba.randn(args.batch_size, args.num_features, name='data', batch_dim=0).bfloat16().float()
+        lablels = samba.randint(args.num_classes, (args.batch_size, ), name='label', batch_dim=0)
 
-        return ipt, tgt
+        inputs = Model.convert_data(inputs)
+
+        return inputs, lablels
 
 
 class FFN(nn.Module):
