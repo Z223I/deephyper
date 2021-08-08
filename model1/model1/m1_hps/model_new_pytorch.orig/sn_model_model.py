@@ -88,7 +88,7 @@ class Model(nn.Module):
         inputs = samba.randn(batch_size, args.num_features, name='data', batch_dim=0).bfloat16().float()
         lablels = samba.randint(args.num_classes, (batch_size, ), name='label', batch_dim=0)
 
-        inputs = Model.convert_data(inputs)
+        #inputs = Model.convert_data(inputs)
 
         return inputs, lablels
 
