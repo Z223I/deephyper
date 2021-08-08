@@ -26,9 +26,11 @@ def main(argv):
     args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
 
     ipt, tgt = Model.get_fake_inputs(args)
+    """
     print(f"args.batch_size: {args.batch_size}")
     print(f"args.num_features: {args.num_features}")
     print(f"args.num_classes: {args.num_classes}")
+    """
     model = Model()
 
     samba.from_torch_(model)

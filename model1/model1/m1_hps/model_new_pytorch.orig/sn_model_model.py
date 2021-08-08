@@ -88,6 +88,7 @@ class Model(nn.Module):
         inputs = samba.randn(batch_size, args.num_features, name='data', batch_dim=0).bfloat16().float()
         labels = samba.randint(args.num_classes, (batch_size, ), name='label', batch_dim=0)
 
+        """
         #inputs = Model.convert_data(inputs)
 
         # TODO: Create config from args.
@@ -108,6 +109,7 @@ class Model(nn.Module):
         numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
         torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
         inputs = [ torchTensorOf2dListFloat32 ]
+        """
 
         return inputs, labels
 
