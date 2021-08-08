@@ -90,7 +90,16 @@ class Model(nn.Module):
 
         #inputs = Model.convert_data(inputs)
 
-        config = args
+        # TODO: Create config from args.
+        config = {
+            'proportion': .80,          # A value between [0., 1.] indicating how to split data between
+                                        # training set and validation set. `prop` corresponds to the
+                                        # ratio of data in training set. `1.-prop` corresponds to the
+                                        # amount of data in validation set.
+            'print_shape': 0            # Print the data shape.
+        }
+
+
         from load_data_pytorch import load_data
         (x_train, y_train), (x_valid, y_valid) = load_data(config)
 
