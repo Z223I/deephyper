@@ -25,7 +25,7 @@ class Model(nn.Module):
                 torch.from_numpy(np.load(b)), requires_grad=requires_grad)
 
 
-    def forward(self, *inputs):
+    def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         # sourcery skip: inline-immediately-returned-variable
         """Step forward in the model."""
         t_input_0, = inputs
