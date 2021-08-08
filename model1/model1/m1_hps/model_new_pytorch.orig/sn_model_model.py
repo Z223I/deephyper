@@ -90,6 +90,7 @@ class Model(nn.Module):
 
         #inputs = Model.convert_data(inputs)
 
+        config = args
         from load_data_pytorch import load_data
         (x_train, y_train), (x_valid, y_valid) = load_data(config)
 
