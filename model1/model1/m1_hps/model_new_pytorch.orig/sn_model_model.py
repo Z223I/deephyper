@@ -24,7 +24,28 @@ class Model(nn.Module):
             self.__vars[os.path.basename(b)[:-4]] = nn.Parameter(
                 torch.from_numpy(np.load(b)), requires_grad=requires_grad)
 
-
+        """
+(venv) wilsonb@sm-01:~/deephyper/model1/model1/m1_hps/model_new_pytorch.orig$ python sn_model_main.py compile -b=1 --pef-name="sn_model_main" --output-folder="pef"
+[Info][SAMBA][Default] # Placing log files in pef/sn_model_main/sn_model_main.samba.log
+[Info][MAC][Default] # Placing log files in pef/sn_model_main/sn_model_main.mac.log
+/usr/local/lib/python3.7/site-packages/torch/nn/modules/container.py:569: UserWarning: Setting attributes on ParameterDict is not supported.
+  warnings.warn("Setting attributes on ParameterDict is not supported.")
+Traceback (most recent call last):
+  File "sn_model_main.py", line 68, in <module>
+    main(sys.argv[1:])
+  File "sn_model_main.py", line 57, in main
+    pef_metadata=get_pefmeta(args, model))
+  File "sambaflow/samba/session.py", line 1049, in sambaflow.samba.session.SambaSession.compile
+  File "sambaflow/samba/_trace_utils.py", line 23, in sambaflow.samba._trace_utils._get_output_tensors
+  File "sambaflow/samba/_trace_utils.py", line 28, in sambaflow.samba._trace_utils._get_output_tensors
+  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/lambda_stor/homes/wilsonb/deephyper/model1/model1/m1_hps/model_new_pytorch.orig/sn_model_model.py", line 31, in forward
+    t_input_0, = inputs
+  File "sambaflow/samba/sambatensor.py", line 656, in sambaflow.samba.sambatensor.SambaTensor.__getitem__
+  File "sambaflow/samba/sambatensor.py", line 564, in sambaflow.samba.sambatensor.SambaTensor._single_slice
+AssertionError: Currently do not support slicing along batch dim for tracing
+        """
     def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         # sourcery skip: inline-immediately-returned-variable
         """Step forward in the model."""
