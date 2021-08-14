@@ -229,16 +229,20 @@ AssertionError: last dim of Linear input must equal last dim of the weight, inpu
         print(f"activation_3.shape: {activation_3.shape}")
 
         activation_3_t = torch.transpose(activation_3, 0, 1)
-        dense_4 = self.dense_4(activation_3_t)
+        dense_4 = self.dense_4(activation_3)
         dense_4 = self.dropout_5(dense_4)
         activation_4 = self.activation_4(dense_4)
+        print(f"dense_4.shape: {dense_4.shape}")
+        print(f"activation_4.shape: {activation_4.shape}")
 
         input_0_t = torch.transpose(input_0, 0, 1)
-        dense_5 = self.dense_5(input_0_t)
+        dense_5 = self.dense_5(input_0)
         dense_5 = self.dropout_6(dense_5)
+        print(f"dense_5.shape: {dense_5.shape}")
 
-        dense_6 = self.dense_6(activation_3_t)
+        dense_6 = self.dense_6(activation_3)
         dense_6 = self.dropout_7(dense_6)
+        print(f"dense_6.shape: {dense_6.shape}")
 
         dense_5_t = torch.transpose(dense_5, 0, 1)
         dense_6_t = torch.transpose(dense_5, 0, 1)
@@ -253,7 +257,8 @@ AssertionError: last dim of Linear input must equal last dim of the weight, inpu
 
         activation_5_t = torch.transpose(activation_5, 0, 1)
         #dense_7 = self.dense_7(activation_5_t)
-        dense_7 = self.dense_7(activation_1_t)
+        dense_7 = self.dense_7(activation_1)
+        print(f"dense_7.shape: {dense_7.shape}")
 
         # Apply log_softmax to x
         output = F.softmax(dense_7, dim=1)
