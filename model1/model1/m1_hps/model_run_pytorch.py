@@ -61,8 +61,10 @@ class Model1(nn.Module):
         samples = 65
         batchSamples = 26
 
+        mBatchSize = 5278
+
         numInputs = samples * batchSamples
-        input_shape = (5278, numInputs)
+        input_shape = (mBatchSize, numInputs)
         #classCount = self.getClassCount()
 
         self.batchSamples = batchSamples
@@ -156,11 +158,16 @@ class Model1(nn.Module):
         #device = DEVICE
         #dtype  = DTYPE
 
-        print(f"inputs.shape = {inputs.shape}") # torch.Size([5278, 1690])
+        print(f"inputs.shape = {inputs.shape}") # torch.Size([batch_size, 1690])
         input_0 = inputs
-        input_0 = self.layer_norm(input_0)  # (1, 1690)
+        input_0 = self.layer_norm(input_0)  # [batch_size, 1690]
+        print(f"input_0.shape: {input_0.shape}")  # [batch_size, 1690]???
+
+
         dense = self.dense(input_0)
         dense = self.dropout_1(dense)
+        print(f"dense.shape: {dense.shape}")
+
         activation = self.activation(dense)
         input_0 = activation                # (1, 80)
         print(f"activation.shape = {activation.shape}")
@@ -174,17 +181,18 @@ class Model1(nn.Module):
 inputs.shape = torch.Size([5278, 1690])
 activation.shape = torch.Size([5278, 80])
 activation_1.shape: torch.Size([5278, 80])
+activation_2.shape: torch.Size([5278, 80])
 received exception:  last dim of Linear input must equal last dim of the weight, input shape: torch.Size([80, 5278]), weight shape: torch.Size([80, 80])
 Traceback (most recent call last):
-  File "model_run_pytorch.py", line 611, in run
+  File "model_run_pytorch.py", line 645, in run
     pef_metadata=get_pefmeta(args, model))
   File "sambaflow/samba/session.py", line 1049, in sambaflow.samba.session.SambaSession.compile
   File "sambaflow/samba/_trace_utils.py", line 23, in sambaflow.samba._trace_utils._get_output_tensors
   File "sambaflow/samba/_trace_utils.py", line 28, in sambaflow.samba._trace_utils._get_output_tensors
   File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
     result = self.forward(*input, **kwargs)
-  File "model_run_pytorch.py", line 177, in forward
-    dense_2 = self.dense_2( activation_1_t )  # It is an input * weight problem.  No.
+  File "model_run_pytorch.py", line 216, in forward
+    dense_3 = self.dense_3(activation_1_t)
   File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
     result = self.forward(*input, **kwargs)
   File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/linear.py", line 94, in forward
@@ -213,7 +221,7 @@ AssertionError: last dim of Linear input must equal last dim of the weight, inpu
         activation_2 = self.activation_2(dense_2)
         print(f"activation_2.shape: {activation_2.shape}")
 
-        dense_3 = self.dense_3(activation_1_t)
+        dense_3 = self.dense_3(activation_1)
         dense_3 = self.dropout_4(dense_3)
         add_1 = activation_2 + dense_3
         # Can use ReLU(inplace=False)
