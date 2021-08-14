@@ -86,49 +86,34 @@ class Model1(nn.Module):
         #"input_layers": [["input_0", 0, 0]],
         self.layer_norm = nn.LayerNorm(input_shape).to(device, dtype=dtype)
 
-        #if batchSamples >= 16:
         in_features = numInputs
         out_features = 80
         self.dense = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_1 = nn.Dropout2d(dropout1).to(device, dtype=dtype)
 
-        self.activation = torch.nn.Sigmoid().to(device, dtype=dtype)
+        self.activation = torch.nn.ReLU().to(device, dtype=dtype)
 
 
-        #if batchSamples >= 12:
         in_features = out_features
         out_features = 80
         self.dense_1 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_2 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
 
 
-        out_features = 5278
-        self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
-
-        #if batchSamples >= 10:
         in_features = out_features
         out_features = 80
         self.dense_2 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_3 = nn.Dropout2d(dropout2).to(device, dtype=dtype)
-
-        out_features = 5278
-        self.activation_2 = torch.nn.Tanh().to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 80
         self.dense_3 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_4 = nn.Dropout2d(dropout3).to(device, dtype=dtype)
 
-        out_features = 80
-        self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
-
         in_features = out_features
         out_features = 80
         self.dense_4 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_5 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
-
-        out_features = 5278
-        self.activation_4 = torch.nn.Sigmoid().to(device, dtype=dtype)
 
         in_features = out_features
         out_features = 80
@@ -140,14 +125,13 @@ class Model1(nn.Module):
         self.dense_6 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         self.dropout_7 = nn.Dropout2d(dropout4).to(device, dtype=dtype)
 
-        out_features = 5278
-        self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
-
 
         in_features = out_features
         out_features = 2 # This is 2 instead of 1 due to the PyTorch softmax.
         self.dense_7 = nn.Linear(in_features, out_features).to(device, dtype=dtype)
         #"output_layers": [["dense_7", 0, 0]]}
+
+        # TODO: May need softmax.
 
 
     def forward(self, inputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
@@ -162,8 +146,8 @@ class Model1(nn.Module):
         # Does this need to use targets to calculate loss?
 
 
-        device = DEVICE
-        dtype  = DTYPE
+        #device = DEVICE
+        #dtype  = DTYPE
 
         print(f"inputs.shape = {inputs.shape}") # torch.Size([5278, 1690])
         input_0 = inputs
