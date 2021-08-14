@@ -92,6 +92,13 @@ class Model1(nn.Module):
         self.dropout_1 = nn.Dropout2d(dropout1).to(device, dtype=dtype)
 
         self.activation = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_1 = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_2 = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_3 = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_4 = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_5 = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_6 = torch.nn.ReLU().to(device, dtype=dtype)
+        self.activation_7 = torch.nn.ReLU().to(device, dtype=dtype)
 
 
         in_features = out_features
