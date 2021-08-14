@@ -604,7 +604,7 @@ def run(config, argv):
             if args.inference:
                 optimizer = None
             else:
-                optimizer = samba.optim.AdamW(model.parameters(),
+                optimizer = samba.optim.SGD(model.parameters(),
                                             lr=args.lr,
                                             momentum=args.momentum,
                                             weight_decay=args.weight_decay)

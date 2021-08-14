@@ -293,6 +293,14 @@ python model.py measure-performance --pef="pef/model/model.pef"
 
 ```bash
 #!/bin/sh
+python model_run_pytorch.py compile -b=5278 --pef-name="model" --output-folder="pef"
+python model_run_pytorch.py test --pef="pef/model/model.pef"
+python model_run_pytorch.py run -b=5278 --pef="pef/model/model.pef"
+python model_run_pytorch.py measure-performance --pef="pef/model/model.pef"
+```
+
+```bash
+#!/bin/sh
 python sn_model.py compile -b=1 --pef-name="sn_model" --output-folder="pef"
 python sn_model.py test --pef="pef/sn_model/sn_model.pef"
 python sn_model.py run -b=1 --pef="pef/sn_model/sn_model.pef"
