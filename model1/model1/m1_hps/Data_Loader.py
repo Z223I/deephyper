@@ -27,7 +27,7 @@ class dataset(Dataset):
 
 if __name__ == '__main__':
     config = {
-        'proportion': 1.00,         # A value between [0., 1.] indicating how to split data between
+        'proportion': 0.90,         # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.

@@ -496,6 +496,10 @@ def train(  args,
     return history
 
 
+def test(args, model, inputs, outputs):
+    """Test the accuracy of the model."""
+    pass
+
 
 # Track model history.
 HISTORY = None
@@ -516,6 +520,7 @@ def run(config, argv):
 
     Args:
         config (dict): Configuration dictionary.
+        argv (Namespace): Command line arguments.
 
     Returns:
         accuracy (float): The accuracy of the run.
@@ -599,7 +604,7 @@ def run(config, argv):
             if args.inference:
                 optimizer = None
             else:
-                optimizer = samba.optim.SGD(model.parameters(),
+                optimizer = samba.optim.AdamW(model.parameters(),
                                             lr=args.lr,
                                             momentum=args.momentum,
                                             weight_decay=args.weight_decay)
