@@ -10,10 +10,7 @@ import torch.nn.functional as F
 
 
 class Model(nn.Module):
-  """Model class."""
-
   def __init__(self):
-    """Initialize the model."""
     super(Model, self).__init__()
     self.__vars = nn.ParameterDict()
     for b in glob.glob(
@@ -22,11 +19,9 @@ class Model(nn.Module):
       requires_grad = v.dtype.is_floating_point or v.dtype.is_complex
       self.__vars[os.path.basename(b)[:-4]] = nn.Parameter(
           torch.from_numpy(np.load(b)), requires_grad=requires_grad)
-
+    
 
   def forward(self, *inputs):
-    # sourcery skip: inline-immediately-returned-variable
-    """Step forward in the model."""
     t_input_0, = inputs
     t_dense0 = torch.matmul(t_input_0, self.__vars["t_dense_kernel_0"])
     t_dense_20 = torch.matmul(t_input_0, self.__vars["t_dense_2_kernel_0"])
@@ -50,39 +45,14 @@ class Model(nn.Module):
     t_activation_4_Relu_0 = F.relu(t_add_1_add_0)
     t_dense_60 = torch.matmul(t_activation_4_Relu_0, self.__vars["t_dense_6_kernel_0"])
     t_dense_6 = t_dense_60 + self.__vars["t_dense_6_bias_0"]
-    #print(f"t_activation_4_Relu_0.size(): {t_activation_4_Relu_0.size()}")
-    #print(f"t_dense_60.size(): {t_dense_60.size()}")
-    #print(f"t_dense_6.size(): {t_dense_6.size()}")
     return t_dense_6
 
 
 @torch.no_grad()
 def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
-  """Test the model."""
   model = Model()
   model.eval()
   print(model)
   rs = model(*inputs)
   print(rs)
   return rs
-
-
-
-if __name__ == '__main__':
-    config = {
-        'proportion': .80,          # A value between [0., 1.] indicating how to split data between
-                                    # training set and validation set. `prop` corresponds to the
-                                    # ratio of data in training set. `1.-prop` corresponds to the
-                                    # amount of data in validation set.
-        'print_shape': 0            # Print the data shape.
-    }
-
-    from load_data_pytorch import load_data
-    (x_train, y_train), (x_valid, y_valid) = load_data(config)
-
-    arrayOf2dList = x_valid[0:10]
-    numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
-    numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
-    torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
-    inputs = [ torchTensorOf2dListFloat32 ]
-    test_run_model( inputs )

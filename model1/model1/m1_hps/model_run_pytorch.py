@@ -172,41 +172,7 @@ class Model1(nn.Module):
         input_0 = activation                # (1, 80)
         print(f"activation.shape = {activation.shape}")
 
-        """
-(venv) wilsonb@sm-01:~/deephyper/model1/model1/m1_hps$ python model_run_pytorch.py compile -b=5278 --pef-name="model" --output-folder="pef"
-***** device: cpu *****
-[Info][SAMBA][Default] # Placing log files in pef/model/model.samba.log
-[Info][MAC][Default] # Placing log files in pef/model/model.mac.log
-*** device: cpu ***
-inputs.shape = torch.Size([5278, 1690])
-activation.shape = torch.Size([5278, 80])
-activation_1.shape: torch.Size([5278, 80])
-activation_2.shape: torch.Size([5278, 80])
-received exception:  last dim of Linear input must equal last dim of the weight, input shape: torch.Size([80, 5278]), weight shape: torch.Size([80, 80])
-Traceback (most recent call last):
-  File "model_run_pytorch.py", line 645, in run
-    pef_metadata=get_pefmeta(args, model))
-  File "sambaflow/samba/session.py", line 1049, in sambaflow.samba.session.SambaSession.compile
-  File "sambaflow/samba/_trace_utils.py", line 23, in sambaflow.samba._trace_utils._get_output_tensors
-  File "sambaflow/samba/_trace_utils.py", line 28, in sambaflow.samba._trace_utils._get_output_tensors
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
-    result = self.forward(*input, **kwargs)
-  File "model_run_pytorch.py", line 216, in forward
-    dense_3 = self.dense_3(activation_1_t)
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
-    result = self.forward(*input, **kwargs)
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/linear.py", line 94, in forward
-    return F.linear(input, self.weight, self.bias)
-  File "/usr/local/lib/python3.7/site-packages/torch/nn/functional.py", line 1752, in linear
-    return handle_torch_function(linear, (input, weight), input, weight, bias=bias)
-  File "/usr/local/lib/python3.7/site-packages/torch/overrides.py", line 1202, in handle_torch_function
-    result = overloaded_arg.__torch_function__(public_api, types, args, kwargs)
-  File "sambaflow/samba/nn/parameter.py", line 42, in sambaflow.samba.nn.parameter.SambaParameter.__torch_function__
-  File "sambaflow/samba/functional.py", line 1280, in sambaflow.samba.functional.linear
-  File "sambaflow/samba/functional.py", line 25, in sambaflow.samba.functional._get_static_operation_outputs
-  File "sambaflow/samba/ops/linear.py", line 28, in sambaflow.samba.ops.linear.Linear.__call__
-AssertionError: last dim of Linear input must equal last dim of the weight, input shape: torch.Size([80, 5278]), weight shape: torch.Size([80, 80])
-        """
+
         dense_1 = self.dense_1(input_0)
         dense_1 = self.dropout_2(dense_1)
         add = activation + dense_1
@@ -648,6 +614,20 @@ def run(config, argv):
                                             weight_decay=args.weight_decay)
 
             if args.command == "compile":
+                """
+[Warning][MAC][MemoryOpTransformPass] # Backward graph is trimmed according to requires_grad to save computation.
+[Warning][MAC][WeightShareNodeMergePass] # Backward graph is trimmed according to requires_grad to save computation.
+[Warning][MAC][ReduceCatFaninPass] # Backward graph is trimmed according to requires_grad to save computation.
+[Warning][MAC][GraphLoweringPass] # model1__dropout_1__dropout2d skip set_loop_to_air
+[Warning][MAC][GraphLoweringPass] # model1__dropout_2__dropout2d skip set_loop_to_air
+[Warning][MAC][GraphLoweringPass] # model1__softmax skip set_loop_to_air
+[Warning][MAC][GraphLoweringPass] # model1__softmax skip set_loop_to_air
+[Warning][MAC][GraphLoweringPass] # model1__dropout_2__dropout2d skip set_loop_to_air
+[Warning][MAC][GraphLoweringPass] # model1__dropout_1__dropout2d skip set_loop_to_air
+[error] [AIR][Internal Error: Tentative Limitation] When lowering to LayerNorm to TLIR, input gamma must be of shape [Ax1] where A can be any Int, but got: %45 = "air.LayerNorm"(%44#1, %32, %33) {kAxis = 1 : i32, kEpsilon = 9.99999974E-6 : f32, kMacID = "model1__layer_norm__layernorm", kName = "model1__layer_norm__layernorm", kUniqueId = 260 : i64} : (tensor<1690x2xbf16>, tensor<5278x1690xbf16>, tensor<5278x1690xbf16>) -> tensor<1690x2xbf16>
+terminate called without an active exception
+Aborted
+                """
                 # Run model analysis and compile, this step will produce a PEF.
                 samba.session.compile(model,
                                     inputs,
