@@ -56,9 +56,25 @@ class Model(nn.Module):
                 torch.from_numpy(np.load(b)), requires_grad=requires_grad)
 
 
-    def forward(self, *inputs):
+    def forward(self, inputs):
         # sourcery skip: inline-immediately-returned-variable
         """Step forward in the model."""
+        """
+        Traceback (most recent call last):
+        File "model_run_pytorch_new.py", line 166, in <module>
+            main_normal(sys.argv[1:])
+        File "model_run_pytorch_new.py", line 131, in main_normal
+            test_run_model( inputs )
+        File "/usr/local/lib/python3.7/site-packages/torch/autograd/grad_mode.py", line 27, in decorate_context
+            return func(*args, **kwargs)
+        File "model_run_pytorch_new.py", line 109, in test_run_model
+            rs = model(*inputs)
+        File "/usr/local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 889, in _call_impl
+            result = self.forward(*input, **kwargs)
+        File "model_run_pytorch_new.py", line 63, in forward
+            t_dense0 = torch.matmul(t_input_0, self.__vars["t_dense_kernel_0"])
+        TypeError: matmul(): argument 'input' (position 1) must be Tensor, not tuple
+        """
         t_input_0 = inputs
         t_dense0 = torch.matmul(t_input_0, self.__vars["t_dense_kernel_0"])
         t_dense_20 = torch.matmul(t_input_0, self.__vars["t_dense_2_kernel_0"])
@@ -127,7 +143,7 @@ def main_normal(argv):
     numpyArrayOf2dListFloat64 = np.array( arrayOf2dList )
     numpyArrayOf2dListFloat32 = numpyArrayOf2dListFloat64.astype(np.float32)
     torchTensorOf2dListFloat32 = torch.from_numpy( numpyArrayOf2dListFloat32 )
-    inputs = [ torchTensorOf2dListFloat32 ]
+    inputs = torchTensorOf2dListFloat32
     test_run_model( inputs )
 
 def main_sn(argv):
