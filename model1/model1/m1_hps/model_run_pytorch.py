@@ -4,6 +4,10 @@
 #####timer = Timer()
 #####timer.start("module loading")
 
+import glob
+import os
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -57,6 +61,13 @@ class Model1(nn.Module):
     def __init__(self, config):
         """Initialize the model object."""
         super(Model1, self).__init__()
+    self.__vars = nn.ParameterDict()
+    for b in glob.glob(
+        os.path.join(os.path.dirname(__file__), "variables", "*.npy")):
+      v = torch.from_numpy(np.load(b))
+      requires_grad = v.dtype.is_floating_point or v.dtype.is_complex
+      self.__vars[os.path.basename(b)[:-4]] = nn.Parameter(
+          torch.from_numpy(np.load(b)), requires_grad=requires_grad)
 
         samples = 65
         batchSamples = 26
