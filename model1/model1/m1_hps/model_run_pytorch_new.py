@@ -122,7 +122,7 @@ def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(n
     model = Model()
     model.eval()
     print(model)
-    rs = model(*inputs)
+    rs = model(inputs)
     print(rs[:10])
     return rs
 
