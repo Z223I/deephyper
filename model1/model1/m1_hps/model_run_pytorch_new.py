@@ -85,7 +85,7 @@ def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(n
     model.eval()
     print(model)
     rs = model(*inputs)
-    print(rs)
+    print(rs[:10])
     return rs
 
 def main_normal(argv):
