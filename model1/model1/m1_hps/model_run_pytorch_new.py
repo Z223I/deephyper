@@ -124,9 +124,9 @@ def main_sn(argv):
     """
 
 
-    """
     samba.from_torch_(model)
 
+    """
     inputs = (ipt, tgt)
     """
 
