@@ -25,6 +25,28 @@ class Model(nn.Module):
     def __init__(self):
         """Initialize the model."""
         super(Model, self).__init__()
+
+        """
+        Model(
+        (_Model__vars): ParameterDict(
+            (t_dense_1_bias_0): Parameter containing: [torch.FloatTensor of size 64]
+            (t_dense_1_kernel_0): Parameter containing: [torch.FloatTensor of size 32x64]
+            (t_dense_2_bias_0): Parameter containing: [torch.FloatTensor of size 64]
+            (t_dense_2_kernel_0): Parameter containing: [torch.FloatTensor of size 1690x64]
+            (t_dense_3_bias_0): Parameter containing: [torch.FloatTensor of size 64]
+            (t_dense_3_kernel_0): Parameter containing: [torch.FloatTensor of size 32x64]
+            (t_dense_4_bias_0): Parameter containing: [torch.FloatTensor of size 64]
+            (t_dense_4_kernel_0): Parameter containing: [torch.FloatTensor of size 64x64]
+            (t_dense_5_bias_0): Parameter containing: [torch.FloatTensor of size 64]
+            (t_dense_5_kernel_0): Parameter containing: [torch.FloatTensor of size 32x64]
+            (t_dense_6_bias_0): Parameter containing: [torch.FloatTensor of size 1]
+            (t_dense_6_kernel_0): Parameter containing: [torch.FloatTensor of size 64x1]
+            (t_dense_bias_0): Parameter containing: [torch.FloatTensor of size 32]
+            (t_dense_kernel_0): Parameter containing: [torch.FloatTensor of size 1690x32]
+        )
+        )
+        """
+
         self.__vars = nn.ParameterDict()
         for b in glob.glob(
             os.path.join(os.path.dirname(__file__), "variables", "*.npy")):
