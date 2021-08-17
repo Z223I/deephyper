@@ -135,4 +135,4 @@ if __name__ == '__main__':
         import sys
         main_sn(sys.argv[1:])
     else:
-        main_normal()
+        main_normal(sys.argv[1:])
