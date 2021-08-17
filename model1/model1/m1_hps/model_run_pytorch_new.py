@@ -8,6 +8,17 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+SAMBANOVA = True
+DEVICE    = None
+DTYPE     = None
+
+if SAMBANOVA:
+    from sambaflow import samba
+    import sambaflow.samba.utils as utils
+    from sambaflow.samba.utils.argparser import parse_app_args
+    from sambaflow.samba.utils.pef_utils import get_pefmeta
+    from model_args_pytorch import *
+
 class Model(nn.Module):
     """Model class."""
 
@@ -51,6 +62,21 @@ class Model(nn.Module):
         t_dense_6 = t_dense_60 + self.__vars["t_dense_6_bias_0"]
         return t_dense_6
 
+    @staticmethod
+    def get_fake_inputs(args):
+        """
+        Get fake inputs.
+
+        The size of the inputs are required for the SambaNova compiler.
+
+        Args:
+            args: CLI arguments.
+        """
+        ipt = samba.randn(args.batch_size, args.num_features, name='image', batch_dim=0).bfloat16().float()
+        tgt = samba.randint(args.num_classes, (args.batch_size, ), name='label', batch_dim=0)
+
+        return ipt, tgt
+
 
 @torch.no_grad()
 def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
@@ -61,7 +87,6 @@ def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(n
   rs = model(*inputs)
   print(rs)
   return rs
-
 
 
 if __name__ == '__main__':
