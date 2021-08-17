@@ -113,11 +113,8 @@ def main_sn(argv):
     utils.set_seed(256)
     args = parse_app_args(argv=argv, common_parser_fn=add_args, run_parser_fn=add_run_args)
 
-    """
     ipt, tgt = Model.get_fake_inputs(args)
-    #model = FFNLogReg(args.num_features, args.ffn_dim_1, args.ffn_dim_2, args.num_classes)
     model = Model()
-    """
 
     """
     model.eval()
