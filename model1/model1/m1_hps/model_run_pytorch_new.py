@@ -131,8 +131,9 @@ def main_sn(argv):
     """
 
 if __name__ == '__main__':
+    import sys
+    
     if SAMBANOVA:
-        import sys
         main_sn(sys.argv[1:])
     else:
         main_normal(sys.argv[1:])
