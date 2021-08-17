@@ -117,7 +117,7 @@ class Model(nn.Module):
 
 
 @torch.no_grad()
-def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
+def test_run_model(inputs=torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))):
     """Test the model."""
     model = Model()
     model.eval()
