@@ -59,7 +59,7 @@ class Model(nn.Module):
     def forward(self, *inputs):
         # sourcery skip: inline-immediately-returned-variable
         """Step forward in the model."""
-        t_input_0, = inputs
+        t_input_0 = inputs
         t_dense0 = torch.matmul(t_input_0, self.__vars["t_dense_kernel_0"])
         t_dense_20 = torch.matmul(t_input_0, self.__vars["t_dense_2_kernel_0"])
         t_biased_tensor_name3 = t_dense0 + self.__vars["t_dense_bias_0"]
