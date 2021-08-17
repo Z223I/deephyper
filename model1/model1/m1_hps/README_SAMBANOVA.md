@@ -49,15 +49,15 @@ pip install -e .
 ## Try Compiling model.py
 
 ```text
-model1/model1/m1_hps/model_run_pytorch.py
+model1/model1/m1_hps/model_run_pytorch_new.py
 ```
 
 ```bash
 #!/bin/sh
-python model_run_pytorch.py compile -b=5278 --pef-name="model_run_pytorch" --output-folder="pef"
-python model_run_pytorch.py test --pef="pef/model_run_pytorch/model_run_pytorch.pef"
-python model_run_pytorch.py run --pef="pef/model_run_pytorch/model_run_pytorch.pef"
-python model_run_pytorch.py measure-performance --pef="pef/model_run_pytorch/model_run_pytorch.pef"
+python model_run_pytorch_new.py compile -b=5278 --pef-name="model_run_pytorch" --output-folder="pef"
+python model_run_pytorch_new.py test --pef="pef/model_run_pytorch/model_run_pytorch.pef"
+python model_run_pytorch_new.py run --pef="pef/model_run_pytorch/model_run_pytorch.pef"
+python model_run_pytorch_new.py measure-performance --pef="pef/model_run_pytorch/model_run_pytorch.pef"
 ```
 
 ## Start Ray
