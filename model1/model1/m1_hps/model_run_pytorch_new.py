@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-SAMBANOVA = True
+SAMBANOVA = False
 DEVICE    = None
 DTYPE     = None
 
@@ -80,13 +80,14 @@ class Model(nn.Module):
 
 @torch.no_grad()
 def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
-  """Test the model."""
-  model = Model()
-  model.eval()
-  print(model)
-  rs = model(*inputs)
-  print(rs)
-  return rs
+    """Test the model."""
+    model = Model()
+    model.summary()
+    model.eval()
+    print(model)
+    rs = model(*inputs)
+    print(rs)
+    return rs
 
 def main_normal(argv):
     """Run main code."""
@@ -115,6 +116,7 @@ def main_sn(argv):
 
     ipt, tgt = Model.get_fake_inputs(args)
     model = Model()
+    model.summary()
 
     """
     model.eval()
@@ -123,6 +125,12 @@ def main_sn(argv):
     print(rs)
     """
 
+    """
+    [Info][SAMBA][Default] # Placing log files in pef/model_run_pytorch/model_run_pytorch.samba.log
+    [Info][MAC][Default] # Placing log files in pef/model_run_pytorch/model_run_pytorch.mac.log
+    /usr/local/lib/python3.7/site-packages/torch/nn/modules/container.py:569: UserWarning: Setting attributes on ParameterDict is not supported.
+    warnings.warn("Setting attributes on ParameterDict is not supported.")
+    """
     # This line probaly cannot take a compiled model.
     samba.from_torch_(model)
 
