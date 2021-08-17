@@ -153,7 +153,6 @@ def main_sn(argv):
 
     ipt, tgt = Model.get_fake_inputs(args)
     model = Model()
-    model.summary()
 
     """
     model.eval()
