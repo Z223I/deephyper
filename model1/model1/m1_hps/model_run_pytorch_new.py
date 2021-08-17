@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-SAMBANOVA = False
+SAMBANOVA = True
 DEVICE    = None
 DTYPE     = None
 
