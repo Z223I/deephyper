@@ -82,7 +82,6 @@ class Model(nn.Module):
 def test_run_model(inputs=[torch.from_numpy(np.random.randn(*[1, 1690]).astype(np.float32))]):
     """Test the model."""
     model = Model()
-    model.summary()
     model.eval()
     print(model)
     rs = model(*inputs)
