@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-SAMBANOVA = False
+SAMBANOVA = True
 DEVICE    = None
 DTYPE     = None
 
@@ -123,16 +123,14 @@ def main_sn(argv):
     print(rs)
     """
 
-
+    # This line probaly cannot take a compiled model.
     samba.from_torch_(model)
 
-    """
     inputs = (ipt, tgt)
-    """
 
 if __name__ == '__main__':
     import sys
-    
+
     if SAMBANOVA:
         main_sn(sys.argv[1:])
     else:
