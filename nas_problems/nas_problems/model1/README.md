@@ -57,6 +57,7 @@ pip3 install -e .
 
 ```bash
 HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
+TRY HERE -->  deephyper nas alpha --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
 ```
 
 

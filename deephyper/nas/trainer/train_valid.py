@@ -360,6 +360,12 @@ class TrainerTrainValid:
             S = 10  # number of characters in the string.
             # call random.choices() string module to find the string in Uppercase + numeric data.
             ran = ''.join(random.choices(string.ascii_uppercase + string.digits, k = S))
+
+            char_string = 'model_summary_' + ran
+            summary_str = self.model.summary()
+            with open(char_string, 'w') as fp:
+                fp.write(summary_str)
+
             #print("The randomly generated string is : " + str(ran)) # print the random data
             self.model.save(f'model_{str(ran)}')
             return
