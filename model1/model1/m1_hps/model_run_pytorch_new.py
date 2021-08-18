@@ -81,6 +81,8 @@ class Model(nn.Module):
         t_biased_tensor_name3 = t_dense0 + self.__vars["t_dense_bias_0"]
         t_biased_tensor_name5 = t_dense_20 + self.__vars["t_dense_2_bias_0"]
         t_activation_Relu_0 = F.relu(t_biased_tensor_name3)
+
+
         t_dense_50 = torch.matmul(t_activation_Relu_0, self.__vars["t_dense_5_kernel_0"])
         t_dense_30 = torch.matmul(t_activation_Relu_0, self.__vars["t_dense_3_kernel_0"])
         t_dense_10 = torch.matmul(t_activation_Relu_0, self.__vars["t_dense_1_kernel_0"])
@@ -154,16 +156,14 @@ def main_sn(argv):
     ipt, tgt = Model.get_fake_inputs(args)
     model = Model()
 
-    """
-    model.eval()
-    print(model)
-    rs = model(*inputs)
-    print(rs)
-    """
 
     """
     [Info][SAMBA][Default] # Placing log files in pef/model_run_pytorch/model_run_pytorch.samba.log
     [Info][MAC][Default] # Placing log files in pef/model_run_pytorch/model_run_pytorch.mac.log
+
+
+
+    TODO: Look at this code.
     /usr/local/lib/python3.7/site-packages/torch/nn/modules/container.py:569: UserWarning: Setting attributes on ParameterDict is not supported.
     warnings.warn("Setting attributes on ParameterDict is not supported.")
     """
