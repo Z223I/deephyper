@@ -37,6 +37,12 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_
 
 ### Start Conda Env
 
+Might need to upgrade to
+
+```bash
+module load conda/2021-09-22
+```
+
 ```bash
 source ./SetUpEnv.sh
 ```
