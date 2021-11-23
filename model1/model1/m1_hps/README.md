@@ -25,7 +25,7 @@ ssh thetagpusn1
 
 ```bash
 export PROJECT_NAME=datascience
-qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
+qsub -I -A $PROJECT_NAME -n 1 -t 30 -q full-node
 ```
 
 ## thetagpu
@@ -37,12 +37,20 @@ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_
 ./SingleNodeRayCluster.sh
 ```
 
+Wait until
+
+```text
+--block
+  This command will now block until terminated by a signal.
+  Running subprocesses are monitored and a message will be printed if any of them terminate unexpectedly.
+```
+
 ### Start Conda Env
 
 Might need to upgrade to
 
 ```bash
-module load conda/2021-09-22
+module load conda/2021-06-26
 ```
 
 ```bash
@@ -54,7 +62,7 @@ source ./SetUpEnv.sh
 This is a check to ensure your model is running correctly.
 
 ```bash
-python3 model_run_pytorch.py
+python3 model_run_keras.py
 ```
 
 ### Run DeepHyper

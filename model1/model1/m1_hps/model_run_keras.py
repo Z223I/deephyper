@@ -50,7 +50,7 @@ from load_data import load_data
 
 
 
-def createModel(input_shape, samples, batchSamples, classCount):
+def createModel(input_shape, samples, batchSamples, classCount, config):
     # sourcery skip: inline-immediately-returned-variable
     """Create the Deep Learning model's graph.
 
