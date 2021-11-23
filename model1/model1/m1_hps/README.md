@@ -47,13 +47,8 @@ Wait until
 
 ### Start Conda Env
 
-Might need to upgrade to
-
 ```bash
 module load conda/2021-06-26
-```
-
-```bash
 source ./SetUpEnv.sh
 ```
 
