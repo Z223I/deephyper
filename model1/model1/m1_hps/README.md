@@ -1,10 +1,12 @@
-# Quickstart HPS Model 1
+# Quickstart HPS Model 1.2
 
 ## ssh to Login Node
 
 ```bash
 theta
 ```
+
+Password: < Enter your eight digit code from the MobilPass+ app >
 
 ## Git as Necessary
 
