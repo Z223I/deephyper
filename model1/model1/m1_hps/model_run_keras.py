@@ -179,7 +179,7 @@ def run(config):
     BATCH_SIZE = config['batch_size']
     ACTIVATION = config['activation']
     EPOCHS = config['epochs']
-    DROPOUT = config['dropout']
+    DROPOUT1 = config['dropout1']
     OPTIMIZER = config['optimizer']
 
     #constants
@@ -277,3 +277,4 @@ if __name__ == '__main__':
     plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
+    

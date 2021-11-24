@@ -73,6 +73,11 @@ wilsonb@thetagpusn1:~$ cd /lus/theta-fs0/projects/datascience/wilsonb/theta/
 Start skip
 deephyper ray-submit nas agebo -w mnist_1gpu_2nodes_60 -n 2 -t 60 -A $PROJECT_NAME -q full-node --problem deephyper.benchmark.nas.mnist1D.problem.Problem --run deephyper.nas.run.alpha.run --max-evals 10000 --num-cpus-per-task 1 --num-gpus-per-task 1 -as $PATH_TO_SETUP --n-jobs 16
 
+
+
+
+
+
 python -m deephyper.search.hps.ambs --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 1
 
 
@@ -92,6 +97,15 @@ source /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1
 [2]+  Stopped                 ssh -tt $head_node_ip "source $ACTIVATE_PYTHON_ENV;     ray start --head --node-ip-address=$head_node_ip --port=$port     --num-cpus $CPUS_PER_NODE --num-gpus $GPUS_PER_NODE --block"
 
 End skip
+
+
+
+
+
+
+
+
+
 
 From thetagpusn1,2
 deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluator ray --problem model1.model1.m1_hps.problem.Problem --run model1.model1.m1_hps.model_run.run --n-jobs 2
@@ -147,3 +161,4 @@ Balsam is needed for Analytics.  Please see the documentation at https://balsam.
 ```bash
 deephyper-analytics notebook --type hps --output dh-analytics-hps.ipynb results.csv
 ```
+
