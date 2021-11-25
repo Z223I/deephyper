@@ -45,8 +45,8 @@ Ydev = to_categorical(Ydev)
     """
 
     with tarfile.open(path) as tar:
-        x  = np.loadtxt(tar.extractfile('dh_data/Xtrain.txt'), delimiter=",")
-        y  = np.loadtxt(tar.extractfile('dh_data/yTrain.txt'), delimiter=",", dtype=np.int32)
+        x  = np.loadtxt(tar.extractfile('XTrain.txt'), delimiter=",")
+        y  = np.loadtxt(tar.extractfile('YTrain.txt'), delimiter=",", dtype=np.int32)
         y  = to_categorical(y)
         #print(f'x shape: {x.shape}')
         #print(f'y shape: {y.shape}')

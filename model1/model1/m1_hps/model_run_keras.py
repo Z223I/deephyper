@@ -49,77 +49,73 @@ from load_data import load_data
 
 
 
-def createModel(input_shape, samples, batchSamples, classCount):
-    # sourcery skip: inline-immediately-returned-variable
-    """Create the Deep Learning model's graph.
-
+def createModel(input_shape, samples, samplesPerDay, days, classCount):
+    """
+    Function creating the DeepPlot model's graph.
+    
     Arguments:
     input_shape -- shape of the input, usually (max_len,)
 
     Returns:
     model -- a model instance in Keras
     """
+
     # Define the input of the graph.
+    # It should be of shape input_shape and dtype 'int32' (as it contains indices, which are integers).
     inputLayer = Input(shape=input_shape, dtype='float32')
 
-    X = inputLayer
-    X = BatchNormalization(trainable=True)(X)
 
-    if batchSamples >= 16:
-        X = Dense(units = samples * 16, activation='relu')(X)
+    #X = Dense(units = 180, activation='relu', kernel_regularizer=keras.regularizers.l2(1.00))(X)
+
+    X = inputLayer
+    #X = BatchNormalization(trainable=True)(X)
+
+    # Propagate X through Dense layers
+
+    if 20 <= days and False:
+        X = Dense(units = samples * samplesPerDay * 20, activation='relu')(X)
         X = Dropout(0.20)(X)
 
-    if batchSamples >= 12:
-        X = Dense(units = samples * 12, activation='relu')(X)  # 12
+    if 16 <= days:
+        X = Dense(units = samples * samplesPerDay * 16, activation='relu')(X)
+        X = Dropout(0.20)(X)
+
+    if 12 <= days:
+        X = Dense(units = samples * samplesPerDay * 12, activation='relu')(X)  # 12
         X = Dropout(0.10)(X)
-        #X = Dense(units = samples * 11, activation='relu')(X)  # 11
+        #X = Dense(units = samples * samplesPerDay * 11, activation='relu')(X)  # 11
         #X = Dropout(0.10)(X)
 
-    if batchSamples >= 10:
-        X = Dense(units = samples * 10, activation='relu')(X)  # 10
+    if 10 <= days:
+        X = Dense(units = samples * samplesPerDay * 10, activation='relu')(X)  # 10
         X = Dropout(0.05)(X)
-        #X = Dense(units = samples * 9, activation='relu')(X)  # 9
-        #X = Dense(units = samples * 8, activation='relu')(X)  # 8
-        X = Dense(units = samples * 7, activation='relu')(X)  # 7
+        #X = Dense(units = samples * samplesPerDay * 9, activation='relu')(X)  # 9
+        #X = Dense(units = samples * samplesPerDay * 8, activation='relu')(X)  # 8
+        X = Dense(units = samples * samplesPerDay * 7, activation='relu')(X)  # 7
 
-    if batchSamples >= 5:
-        X = Dense(units = samples * 5, activation='relu')(X)  # 5
-        X = Dropout(0.05)(X)
+    if 5 <= days:
+        X = Dense(units = samples * samplesPerDay * 5, activation='relu')(X)  # 5
+        #X = Dropout(0.05)(X)
 
-    X = Dense(units = samples * 2, activation='relu')(X)  # 2
-    X = Dropout(0.05)(X)
-    X = Dense(units = 90, activation='relu')(X)
-
+    X = Dense(units = samples * samplesPerDay * 2, activation='relu')(X)  # 2
     #X = Dropout(0.05)(X)
-
     X = Dense(units = 90, activation='relu')(X)
-
     #X = Dropout(0.05)(X)
-
+    X = Dense(units = 90, activation='relu')(X)
+    #X = Dropout(0.05)(X)
     #X = Dense(units = 48, activation='relu')(X)
     #X = Dropout(0.05)(X)
     X = Dense(units = 48, activation='relu')(X)
-
     #X = Dropout(0.05)(X)
-
     X = Dense(units = 24, activation='relu')(X)
-
     #X = Dropout(0.05)(X)
-
     #X = Dense(units = 24, activation='relu')(X)
     #X = Dropout(0.05)(X)
     X = Dense(units = 12, activation='relu')(X)
-
-    #X = Dropout(0.10)(X)
-
+    #X = Dropout(0.05)(X)
     X = Dense(units = 12, activation='relu')(X)
-
-    #X = Dropout(0.10)(X)
-
+    #X = Dropout(0.05)(X)
     X = Dense(units = 12, activation='relu')(X)
-
-
-
     #X = Dropout(0.05)(X)
     X = Dense(units = 5, activation='relu')(X)
     #X = Dropout(0.05)(X)
@@ -133,6 +129,8 @@ def createModel(input_shape, samples, batchSamples, classCount):
     #X = Dropout(0.05)(X)
     X = Dense(units = 5, activation='relu')(X)
     X = Dense(units = classCount, activation='softmax')(X)
+    
+    # Create Model instance which converts sentence_indices into X.
     model = Model(inputs=inputLayer, outputs=X)
 
     return model
@@ -205,13 +203,17 @@ def run(config):
     #     model = savedModel.model
     #     initial_epoch = savedModel.initial_epoch
 
-    samples = 65
-    batchSamples = 26
+    samples = 5
+    samplesPerDay = 13
+    days = 22
+    statSize = 4 * 5
+    numInputs = samples * samplesPerDay * days + statSize
+    input_shape = (numInputs,)
 
-    numInputs = samples * batchSamples
     classCount = getClassCount()
 
-    model = createModel((numInputs,), samples, batchSamples, classCount)
+    model = createModel(input_shape, samples, samplesPerDay, days, classCount)
+
     model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
@@ -260,7 +262,7 @@ if __name__ == '__main__':
         'loss':       'binary_crossentropy',
         'batch_size': 32,
         'epochs':     30,
-        'dropout':    0.05,
+        'dropout1':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
         'proportion': .80           # A value between [0., 1.] indicating how to split data between
@@ -277,4 +279,3 @@ if __name__ == '__main__':
     plt.ylabel('Accuracy')
     plt.grid()
     plt.show()
-    
