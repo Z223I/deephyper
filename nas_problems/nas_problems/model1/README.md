@@ -32,6 +32,7 @@ qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
 
 ```bash
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1
 ./SingleNodeRayCluster.sh
 ```
 
@@ -77,9 +78,11 @@ Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
 
 
 Actually, try replacing the *.json with '.'
-deephyper-analytics notebook --type nas --output dh-analytics-nas.ipynb data_2021-07-14_01.json
+deephyper-analytics notebook --type nas --output dh-analytics-nas .
 
 tx dh-analytics-nas.ipynb results.csv and init_info* to local machine.
+
+$ pip install jupyterlab
 
 $ jupyter notebook
 ```

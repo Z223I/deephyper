@@ -18,11 +18,7 @@ def load_data(config={'proportion': .90, 'print_shape': 0}):
     data_source = os.path.dirname(os.path.abspath(__file__))
     data_source = os.path.join(data_source, 'data')
 
-    #tarFilename    = "data.tar.gz"
-    #XTrainFilename = 'dh_data/Xtrain.txt'
-    #YTrainFilename = 'dh_data/yTrain.txt'
-
-    tarFilename    = "data485.tar.gz"
+    tarFilename    = "data.tar.gz"
     XTrainFilename = 'XTrain.txt'
     YTrainFilename = 'YTrain.txt'
 
