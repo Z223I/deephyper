@@ -68,7 +68,18 @@ HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_
 
 #### Prepare Jupyter Notebook
 
-replace data_2021-07-14_01.json
+```bash
+deephyper-analytics parse deephyper.log
+
+Xdeephyper-analytics single -p $MY_JSON_FILE
+Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
+
+
+Actually, try replacing the *.json with '.' Does not work.
+Works --> deephyper-analytics notebook --type nas --output dh-analytics-nas data_2021-11-25_16.json
+
+tx dh-analytics-nas.ipynb results.csv and init_info* to local machine.
+```
 
 Change
 
@@ -94,18 +105,10 @@ to
 init_infos_path = os.path.join(path_to_logdir, "init_infos.json")
 ```
 
+
+
+
 ```bash
-deephyper-analytics parse deephyper.log
-
-Xdeephyper-analytics single -p $MY_JSON_FILE
-Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
-
-
-Actually, try replacing the *.json with '.' Does not work.
-deephyper-analytics notebook --type nas --output dh-analytics-nas data_2021-11-25_16.json
-
-tx dh-analytics-nas.ipynb results.csv and init_info* to local machine.
-
 $ pip install jupyterlab
 
 $ jupyter notebook
