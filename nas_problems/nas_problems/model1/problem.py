@@ -120,10 +120,10 @@ self.model.fit(
 # Metrics: [metrics.mae, metrics.accuracy, metrics.binary_accuracy, metrics.categorical_accuracy, metrics.sparse_categorical_accuracy, metrics.confusion_matrix]
 
 Problem.hyperparameters(
-    batch_size=32,
+    batch_size=256,
     learning_rate=0.01,
-    optimizer='adam',
-    num_epochs=20,
+    optimizer='adamw',
+    num_epochs=50,
     callbacks=dict(
         ModelCheckpoint=dict(
                         monitor="val_loss",
@@ -157,9 +157,7 @@ Problem.objective('-val_loss') # 'val_r2__last', 'val_acc__last'
 
 # Get model.
 if __name__ == '__main__':
-    arch_seq = [0.25115011042544255, 0.008666602895180286, 0.574007524631404, 0.8273919005340072,
-    0.6361905672637143, 0.6318902366378124, 0.20937749329603517, 0.7575470589113212,
-    0.4126362184199489]
+    arch_seq = [12, 16, 18]
     model = Problem.get_keras_model(arch_seq)
 
     print('Saving model...')

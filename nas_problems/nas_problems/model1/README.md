@@ -23,7 +23,7 @@ ssh thetagpusn1
 
 ```bash
 export PROJECT_NAME=datascience
-qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
+qsub -I -A $PROJECT_NAME -n 1 -t 60 -q [single-gpu | full-node]
 ```
 
 ## ThetaGPU
@@ -55,7 +55,9 @@ pip3 install -e .
 ```
 
 ```bash
-HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/
+deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
+deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 8 --num-gpus-per-task 8
 ```
 
 
@@ -71,12 +73,7 @@ HERE -->  deephyper nas random --evaluator ray --ray-address auto --problem nas_
 ```bash
 deephyper-analytics parse deephyper.log
 
-Xdeephyper-analytics single -p $MY_JSON_FILE
-Xdeephyper notebook --type nas --output mynotebook.ipynb $MY_JSON_FILE
-
-
-Actually, try replacing the *.json with '.' Does not work.
-Works --> deephyper-analytics notebook --type nas --output dh-analytics-nas data_2021-11-25_16.json
+deephyper-analytics notebook --type nas --output dh-analytics-nas data_2021-11-25_16.json
 
 tx dh-analytics-nas.ipynb results.csv and init_info* to local machine.
 ```
@@ -102,16 +99,16 @@ init_infos_path = os.path.join(path_to_logdir, "init_infos.json")
 to
 
 ```python
-init_infos_path = os.path.join(path_to_logdir, "init_infos.json")
+init_infos_path = os.path.join(path_to_logdir, "dh-analytics-nas")
 ```
 
 
 
 
 ```bash
-$ pip install jupyterlab
+pip install jupyterlab
 
-$ jupyter notebook
+jupyter notebook
 ```
 
 Select dh-analytics-nas.ipynb and run all cells
