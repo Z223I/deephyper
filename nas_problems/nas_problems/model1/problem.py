@@ -157,7 +157,9 @@ Problem.objective('-val_loss') # 'val_r2__last', 'val_acc__last'
 
 # Get model.
 if __name__ == '__main__':
-    arch_seq = [12, 16, 18]
+    arch_seq = [0.25115011042544255, 0.008666602895180286, 0.574007524631404, 0.8273919005340072,
+    0.6361905672637143, 0.6318902366378124, 0.20937749329603517, 0.7575470589113212,
+    0.4126362184199489]
     model = Problem.get_keras_model(arch_seq)
 
     print('Saving model...')
