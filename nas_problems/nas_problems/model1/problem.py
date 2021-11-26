@@ -137,7 +137,7 @@ Problem.hyperparameters(
             monitor='val_loss', # 'val_loss', 'val_r2' or 'val_acc' ?
             mode='min',
             verbose=0,
-            patience=5
+            patience=12
         )
     )
 )
