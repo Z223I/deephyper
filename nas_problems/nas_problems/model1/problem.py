@@ -123,14 +123,14 @@ Problem.hyperparameters(
     batch_size=256,
     learning_rate=0.01,
     optimizer='adamw',
-    num_epochs=50,
+    num_epochs=75,
     callbacks=dict(
         ModelCheckpoint=dict(
                         monitor="val_loss",
                         mode="min",
                         save_best_only=True,
                         verbose=0,
-                        filepath="model.h5",
+                        filepath="model_nas_001",
                         save_weights_only=False,
                     ),
         EarlyStopping=dict(
@@ -162,8 +162,19 @@ if __name__ == '__main__':
     0.4126362184199489]
     model = Problem.get_keras_model(arch_seq)
 
+    model.summary()
+    optimizer = 'adam'
+    loss = 'binary_crossentropy'
+    model.compile(optimizer, loss, metrics=['accuracy'])
+
+    (XTrain, YTrain), (XValid, YValid) = load_data()
+    accuracy = model.evaluate(XTrain, YTrain, verbose=1)
+    print(f'Train accuracy: {accuracy}')
+    accuracy = model.evaluate(XValid, YValid, verbose=1)
+    print(f'Validation accuracy: {accuracy}')
+
     print('Saving model...')
-    model.save('model')
+    model.save('model_nas_001')
 
     ## This is needed for converting from Keras to PyTorch.
     model.save_weights('model.h5')
