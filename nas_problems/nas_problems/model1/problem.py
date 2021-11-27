@@ -19,7 +19,7 @@ Problem.search_space(create_search_space, num_layers=6)
 Problem.hyperparameters(
     batch_size=256,
     learning_rate=0.01,
-    optimizer='adamw',
+    optimizer='adam',
     num_epochs=75,
     callbacks=dict(
         ModelCheckpoint=dict(

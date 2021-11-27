@@ -31,7 +31,6 @@ qsub -I -A $PROJECT_NAME -n 1 -t 60 -q [single-gpu | full-node]
 ### Start Ray Cluster
 
 ```bash
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1
 ./SingleNodeRayCluster.sh
 ```
@@ -57,6 +56,7 @@ pip3 install -e .
 ```bash
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/
 deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 1 --num-gpus-per-task 1
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/nas_problems/nas_problems/model1/
 deephyper nas random --evaluator ray --ray-address auto --problem nas_problems.nas_problems.model1.problem.Problem --num-cpus-per-task 8 --num-gpus-per-task 8
 ```
 
