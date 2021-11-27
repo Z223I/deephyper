@@ -13,8 +13,8 @@ from deephyper.nas.space.op.op1d import Dense, Identity
 def add_dense_to_(node):
     node.add_op(Identity()) # we do not want to create a layer in this case
 
-    activations = [None, tf.nn.relu, tf.nn.tanh, tf.nn.sigmoid]
-    for units in range(16, 97, 16):
+    activations = [None, tf.nn.relu, tf.nn.gelu]
+    for units in range(48, 73, 16):
         for activation in activations:
             node.add_op(Dense(units=units, activation=activation))
 
