@@ -24,6 +24,8 @@ ssh thetagpusn1
 ```bash
 export PROJECT_NAME=datascience
 qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
+
+# Or
 qsub -I -A datascience -n 1 -t 60 -q full-node
 ```
 

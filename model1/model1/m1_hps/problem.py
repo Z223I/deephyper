@@ -13,7 +13,6 @@ Problem.add_hyperparameter([0.05, 0.10, 0.15], 'dropout2')
 Problem.add_hyperparameter([0.0, 0.05, 0.10], 'dropout3')
 Problem.add_hyperparameter([0.0, 0.05], 'dropout4')
 Problem.add_hyperparameter([20], 'patience')
-Problem.add_hyperparameter([21], 'embed_hidden_size')
 Problem.add_hyperparameter([0.90, 0.95], 'proportion')
 
 """

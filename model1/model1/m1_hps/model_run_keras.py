@@ -185,7 +185,6 @@ def run(config):
     LOSS        = config['loss']
 
     #constants
-    EMBED_HIDDEN_SIZE = config['embed_hidden_size']
     PATIENCE = config['patience']
 
     # patient early stopping
@@ -218,7 +217,7 @@ def run(config):
 
     model = createModel(input_shape, samples, samplesPerDay, days, classCount, config)
 
-    model.compile(optimizer=OPTIMIZER, loss=LOSS, metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    model.compile(optimizer=OPTIMIZER, loss=LOSS, metrics=[['acc', 'val_acc'], [f1_m], [precision_m], [recall_m]])
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
 
@@ -255,7 +254,7 @@ def run(config):
 
     #return acc[-1]
     #return -acc[1]
-    return history.history['acc'][-1]
+    return history.history['val_acc'][-1]
 
 
 if __name__ == '__main__':
@@ -270,7 +269,6 @@ if __name__ == '__main__':
         'dropout3':    0.05,
         'dropout4':    0.05,
         'patience':   12,
-        'embed_hidden_size': 21,    # May not get used.
         'proportion': .90           # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
