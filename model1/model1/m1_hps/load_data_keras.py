@@ -65,7 +65,7 @@ Ydev = to_categorical(Ydev)
     # print('y.shape = {}'.format(y.shape))
     # print('story_maxlen, query_maxlen = {}, {}'.format(story_maxlen, query_maxlen))
 
-    PROPORTION = 0.80
+    PROPORTION = config['proportion']
     size = x.shape[0]
 
     sep_index = int(PROPORTION * size)
@@ -83,7 +83,7 @@ Ydev = to_categorical(Ydev)
 
 if __name__ == '__main__':
     config = {
-        'proportion': .80           # A value between [0., 1.] indicating how to split data between
+        'proportion': .95           # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.

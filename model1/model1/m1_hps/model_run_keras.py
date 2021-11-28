@@ -49,7 +49,7 @@ from load_data import load_data
 
 
 
-def createModel(input_shape, samples, samplesPerDay, days, classCount):
+def createModel(input_shape, samples, samplesPerDay, days, classCount, config):
     """
     Function creating the DeepPlot model's graph.
     
@@ -73,61 +73,65 @@ def createModel(input_shape, samples, samplesPerDay, days, classCount):
     # Propagate X through Dense layers
 
     if 20 <= days and False:
-        X = Dense(units = samples * samplesPerDay * 20, activation='relu')(X)
-        X = Dropout(0.20)(X)
+        X = Dense(units = samples * samplesPerDay * 20, activation=config['activation'])(X)
+        X = Dropout(config['dropout1'])(X)
 
     if 16 <= days:
-        X = Dense(units = samples * samplesPerDay * 16, activation='relu')(X)
-        X = Dropout(0.20)(X)
+        X = Dense(units = samples * samplesPerDay * 16, activation=config['activation'])(X)
+        X = Dropout(config['dropout1'])(X)
 
     if 12 <= days:
-        X = Dense(units = samples * samplesPerDay * 12, activation='relu')(X)  # 12
-        X = Dropout(0.10)(X)
-        #X = Dense(units = samples * samplesPerDay * 11, activation='relu')(X)  # 11
+        X = Dense(units = samples * samplesPerDay * 12, activation=config['activation'])(X)  # 12
+        X = Dropout(config['dropout2'])(X)
+        #X = Dense(units = samples * samplesPerDay * 11, activation=config['activation'])(X)  # 11
         #X = Dropout(0.10)(X)
 
     if 10 <= days:
-        X = Dense(units = samples * samplesPerDay * 10, activation='relu')(X)  # 10
-        X = Dropout(0.05)(X)
-        #X = Dense(units = samples * samplesPerDay * 9, activation='relu')(X)  # 9
-        #X = Dense(units = samples * samplesPerDay * 8, activation='relu')(X)  # 8
-        X = Dense(units = samples * samplesPerDay * 7, activation='relu')(X)  # 7
+        X = Dense(units = samples * samplesPerDay * 10, activation=config['activation'])(X)  # 10
+        X = Dropout(config['dropout3'])(X)
+        #X = Dense(units = samples * samplesPerDay * 9, activation=config['activation'])(X)  # 9
+        #X = Dense(units = samples * samplesPerDay * 8, activation=config['activation'])(X)  # 8
+        X = Dense(units = samples * samplesPerDay * 7, activation=config['activation'])(X)  # 7
 
     if 5 <= days:
-        X = Dense(units = samples * samplesPerDay * 5, activation='relu')(X)  # 5
-        #X = Dropout(0.05)(X)
+        X = Dense(units = samples * samplesPerDay * 5, activation=config['activation'])(X)  # 5
+        X = Dropout(config['dropout4'])(X)
 
-    X = Dense(units = samples * samplesPerDay * 2, activation='relu')(X)  # 2
+    X = Dense(units = samples * samplesPerDay * 2, activation=config['activation'])(X)  # 2
+    X = Dropout(config['dropout4'])(X)
+
+    X = Dense(units = 90, activation=config['activation'])(X)
+    X = Dropout(config['dropout4'])(X)
+
+    X = Dense(units = 90, activation=config['activation'])(X)
+    X = Dropout(config['dropout4'])(X)
+
+    #X = Dense(units = 48, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 90, activation='relu')(X)
+    X = Dense(units = 48, activation=config['activation'])(X)
+    X = Dropout(config['dropout4'])(X)
+
+    X = Dense(units = 24, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 90, activation='relu')(X)
+    #X = Dense(units = 24, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    #X = Dense(units = 48, activation='relu')(X)
+    X = Dense(units = 12, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 48, activation='relu')(X)
+    X = Dense(units = 12, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 24, activation='relu')(X)
+    X = Dense(units = 12, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    #X = Dense(units = 24, activation='relu')(X)
+    X = Dense(units = 5, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 12, activation='relu')(X)
+    #X = Dense(units = 5, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 12, activation='relu')(X)
+    #X = Dense(units = 5, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 12, activation='relu')(X)
+    X = Dense(units = 5, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    X = Dense(units = 5, activation='relu')(X)
+    #X = Dense(units = 5, activation=config['activation'])(X)
     #X = Dropout(0.05)(X)
-    #X = Dense(units = 5, activation='relu')(X)
-    #X = Dropout(0.05)(X)
-    #X = Dense(units = 5, activation='relu')(X)
-    #X = Dropout(0.05)(X)
-    X = Dense(units = 5, activation='relu')(X)
-    #X = Dropout(0.05)(X)
-    #X = Dense(units = 5, activation='relu')(X)
-    #X = Dropout(0.05)(X)
-    X = Dense(units = 5, activation='relu')(X)
+    X = Dense(units = 5, activation=config['activation'])(X)
     X = Dense(units = classCount, activation='softmax')(X)
     
     # Create Model instance which converts sentence_indices into X.
@@ -174,11 +178,11 @@ def run(config):
     #
     # Retrieve config information.
     #
-    BATCH_SIZE = config['batch_size']
-    ACTIVATION = config['activation']
-    EPOCHS = config['epochs']
-    DROPOUT1 = config['dropout1']
-    OPTIMIZER = config['optimizer']
+    BATCH_SIZE  = config['batch_size']
+    EPOCHS      = config['epochs']
+    DROPOUT1    = config['dropout1']
+    OPTIMIZER   = config['optimizer']
+    LOSS        = config['loss']
 
     #constants
     EMBED_HIDDEN_SIZE = config['embed_hidden_size']
@@ -212,9 +216,9 @@ def run(config):
 
     classCount = getClassCount()
 
-    model = createModel(input_shape, samples, samplesPerDay, days, classCount)
+    model = createModel(input_shape, samples, samplesPerDay, days, classCount, config)
 
-    model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
+    model.compile(optimizer=OPTIMIZER, loss=LOSS, metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
 
@@ -265,7 +269,7 @@ if __name__ == '__main__':
         'dropout1':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
-        'proportion': .80           # A value between [0., 1.] indicating how to split data between
+        'proportion': .90           # A value between [0., 1.] indicating how to split data between
                                     # training set and validation set. `prop` corresponds to the
                                     # ratio of data in training set. `1.-prop` corresponds to the
                                     # amount of data in validation set.
