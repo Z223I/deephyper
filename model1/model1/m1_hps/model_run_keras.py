@@ -217,7 +217,7 @@ def run(config):
 
     model = createModel(input_shape, samples, samplesPerDay, days, classCount, config)
 
-    model.compile(optimizer=OPTIMIZER, loss=LOSS, metrics=[['acc', 'val_acc'], [f1_m], [precision_m], [recall_m]])
+    model.compile(optimizer=OPTIMIZER, loss=LOSS, metrics=[['acc'], [f1_m], [precision_m], [recall_m]])
     metrics = model.metrics_names
     print(f"metrics: {metrics}")
 
