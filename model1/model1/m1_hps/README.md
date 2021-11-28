@@ -2,41 +2,29 @@
 
 ## Model 1
 
+```bash
+ssh wilsonb@theta.alcf.anl.gov
+or
+theta
+```
+
 ### ThetaGPU
 
 ```bash
-conda env remove --name dhgpu
-conda remove --name dhgpu --all
-rm -rf dhgpu
+#For reference only!!!
+#conda env remove --name dhgpu
+#conda remove --name dhgpu --all
+#rm -rf dhgpu
 ```
 
 ```bash
-ssh wilsonb@theta.alcf.anl.gov
-ssh wilsonb@thetagpusn1 or 2
+ssh wilsonb@thetagpusn1
+or
+ssh wilsonb@thetagpusn2
 
-xqsub -I -A $PROJECT_NAME -n 1 -t 60  Takes you to thetagpudd where dd are two numbers.
-
-cd /lus/theta-fs0/projects/datascience/wilsonb/theta
-xmodule load conda/2021-06-28
-conda list --explicit > spec-file.txt
-conda create --name dhgpu --file spec-file.txt
-
-xconda create -p dhgpu --clone base
-xchmod +r dhgpu/lib/python3.8/site-packages/easy-install.pth
-conda activate dhgpu
-
-xconda install 'tensorflow==2.5.0'
-conda install tensorflow
-xpip install --ignore-installed --upgrade tensorflow==2.5.0
-conda install 'keras==2.4.3'
-
-pip install pip --upgrade
-
-I think this clashes with the deephyper in conda/2021-06-28
 git clone https://github.com/deephyper/deephyper.git
 cd deephyper/
 git checkout develop
-
 
 pip install -e .
 ```
@@ -112,16 +100,9 @@ deephyper ray-submit hps ambs -n 1 -t 15 -A $PROJECT_NAME -q full-node --evaluat
 
 ```
 
-### Another Try
+## Basic Execution
 
-Where to do the source?
-
-
-```bash
-source /lus/theta-fs0/software/thetagpu/conda/2021-06-26/mconda3/setup.sh
-```
-
-### Basic Execution
+Do this to make sure the model works.
 
 ```bash
 conda activate dl-hps
