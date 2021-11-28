@@ -24,6 +24,7 @@ ssh thetagpusn1
 ```bash
 export PROJECT_NAME=datascience
 qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
+qsub -I -A datascience -n 1 -t 60 -q full-node
 ```
 
 ## ThetaGPU
@@ -73,7 +74,10 @@ python3 model_run.py
 ### Run DeepHyper
 
 ```bash
+
 python -m deephyper.search.hps.ambs --evaluator ray --problem problem.Problem --run model_run_keras.run --num-cpus-per-task 1 --num-gpus-per-task 1 --n-jobs 1
+
+python -m deephyper.search.hps.ambs --evaluator ray --problem problem.Problem --run model_run_keras.run --num-cpus-per-task 8 --num-gpus-per-task 8 --n-jobs 1
 ```
 
 ### Note

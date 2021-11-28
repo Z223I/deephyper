@@ -261,7 +261,7 @@ def run(config):
 if __name__ == '__main__':
     config = {
         'activation': 'gelu',  # can be relu, gelu
-        'optimizer':  'AdamW',  # can be AdamW but it has to be installed.
+        'optimizer':  'Adam',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
         'batch_size': 32,
         'epochs':     30,

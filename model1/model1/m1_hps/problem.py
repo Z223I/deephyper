@@ -4,7 +4,7 @@ Problem = HpProblem()
 
 #Problem.add_hyperparameter(['relu', 'sigmoid', 'tanh'], 'activation')
 Problem.add_hyperparameter(['relu', 'gelu', 'tanh'], 'activation')
-Problem.add_hyperparameter(['Adam', 'AdamW'], 'optimizer')
+Problem.add_hyperparameter(['Adam'], 'optimizer')
 Problem.add_hyperparameter(['binary_crossentropy'], 'loss')
 Problem.add_hyperparameter([256, 512, 1024], 'batch_size')
 Problem.add_hyperparameter([100], 'epochs')
