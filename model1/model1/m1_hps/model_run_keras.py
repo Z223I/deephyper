@@ -260,12 +260,15 @@ def run(config):
 
 if __name__ == '__main__':
     config = {
-        'activation': 'gelu',  # can be gelu
+        'activation': 'gelu',  # can be relu, gelu
         'optimizer':  'AdamW',  # can be AdamW but it has to be installed.
         'loss':       'binary_crossentropy',
         'batch_size': 32,
         'epochs':     30,
         'dropout1':    0.05,
+        'dropout2':    0.05,
+        'dropout3':    0.05,
+        'dropout4':    0.05,
         'patience':   12,
         'embed_hidden_size': 21,    # May not get used.
         'proportion': .90           # A value between [0., 1.] indicating how to split data between

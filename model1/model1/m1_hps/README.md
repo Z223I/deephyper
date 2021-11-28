@@ -30,6 +30,27 @@ qsub -I -A $PROJECT_NAME -n 1 -t 60 -q full-node
 
 ### Start Ray Cluster
 
+Here is the next set of commands all in one place for easy access.
+
+```bash
+cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
+./SingleNodeRayCluster.sh
+# Wait
+# and
+source ./SetUpEnv.sh
+python3 model_run.py
+```
+
+
+
+
+
+
+
+
+
+
+
 ```bash
 cd /lus/theta-fs0/projects/datascience/wilsonb/theta/deephyper/model1/model1/m1_hps/
 ./SingleNodeRayCluster.sh
@@ -46,7 +67,7 @@ source ./SetUpEnv.sh
 This is a check to ensure your model is running correctly.
 
 ```bash
-python3 model_run_pytorch.py
+python3 model_run.py
 ```
 
 ### Run DeepHyper
