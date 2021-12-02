@@ -46,7 +46,7 @@ source ./SetUpEnv.sh
 This is a check to ensure your model is running correctly.
 
 ```bash
-python3 model_run_pytorch.py
+python3 model_run_keras.py
 ```
 
 ### Run DeepHyper
